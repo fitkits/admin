@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <title>Fitkits Admin Console</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+    <link rel="stylesheet" href="../assets/plugins/jqueryui/jquery-ui.min.css">
+    <link href="../assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <!-- This page CSS -->
+    <!-- chartist CSS -->
+    <link href="../assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+    <link href="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <!--c3 CSS -->
+    <link href="../assets/plugins/c3-master/c3.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- Dashboard 1 Page CSS -->
+    <link href="css/pages/dashboard2.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<script>
+    $(document).ready(function () {
+        console.log("sss", $("#topbar_wrapper"));
+        $("#topbar_wrapper").load("./topbar.html", function () {
+            console.log("loaded topbar");
+        });
+    });
+
+</script>
+
+
+<body class="fix-header fix-sidebar card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Loading...</p>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <div id="topbar_wrapper">
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-8 col-sm-6 col-lg-9 align-self-center">
+                        <h3 class="text-themecolor">Attendance</h3>
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-lg-3 float-lg-right">
+                        <button id="mark_attendance" class="btn btn-outline-success waves-effect waves-light" type="button" data-toggle="modal" data-target="#mark-attendance-modal">
+                            <span class="btn-label">
+                                <i class="fa fa-money"></i>
+                            </span>Mark Attendance
+                        </button>
+                    </div>
+
+                    <!-- <div class="col-md-7 align-self-center">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active">Users</li>
+                        </ol>
+                    </div> -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Stats box -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-6 col-lg-8 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-material mb-0">
+                                    <div class="col-12 col-md-8">
+                                        <h4 class="card-title">Recent Attendance</h4>
+                                    </div>
+
+                                </div>
+                                <div class="table-responsive m-t-40">
+                                    <table id="users-table" class="table footable table-bordered table-striped border-0" class="table footable table-bordered table-striped border-0"
+                                        data-paging="true" data-sorting="true" data-page-size="12" data-page-navigation=".pagination"
+                                        data-filter="#userFilter" data-filter-text-only="true">
+                                        <thead>
+                                            <tr>
+                                                <!-- <th data-toggle="tooltip" data-placement="top" title="Recent Membership">Membership Level</th>
+                                                <th data-toggle="tooltip" data-placement="top" title="In Years">Age</th> -->
+                                                <th>Name</th>
+                                                <th>Gender</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="attendance_table_body">
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="2" class="border-0">
+                                                </td>
+                                                <td colspan="7" class="border-0">
+                                                    <div class="text-right" id="paging-ui-container">
+                                                        <ul class="pagination"> </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-material mb-0">
+                                    <div class="col-12 col-md-12">
+                                        <h4 id="attendance_avg_h1" class="card-title">Average Attendance %</h4>
+                                        <div class="attendance-gauge">
+                                            <canvas style="width:100%" id="attendance-gauge"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mark attendance modal -->
+                <div id="mark-attendance-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="mark-attendance-modal"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Mark Attendance</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="mark-attendance-form" class="form-material" novalidate>
+                                    <div class="form-group">
+                                        <div class="controls">
+                                            <h5>User</h5>
+                                            <select id="users-select-raw" name="userId" class="select2 users form-control custom-select" style="width: 100%; height:36px;">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="controls">
+                                            <!-- <h5>Select Date</h5> -->
+                                            <!-- <div class="row">
+                                                <div class='col-sm-3'>
+                                                    <div class="form-group">
+
+                                                        <div class='input-group date' id='datetimepicker1'>
+                                                            <input type='text' class="form-control" />
+                                                            <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <h5>Attendance</h5>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="attendance" id="present_radio" value="present" checked>
+                                                <label class="form-check-label" for="present_radio">
+                                                    Present
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="attendance" id="absent_radio" value="absent">
+                                                <label class="form-check-label" for="absent_radio">
+                                                    Absent
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success waves-effect" form="mark-attendance-form">Mark</button>
+                                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer"> © 2017 Fitkits</footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer"> © 2017 Fitkits </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap popper Core JavaScript -->
+    <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert2@7.1.0/dist/sweetalert2.all.js"></script>
+
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.min.js"></script>
+    <!--c3 JavaScript -->
+
+    <script src="../assets/plugins/chartist-js/dist/chartist.min.js"></script>
+    <script src="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+    <!--c3 JavaScript -->
+    <script src="../assets/plugins/d3/d3.min.js"></script>
+    <script src="../assets/plugins/c3-master/c3.min.js"></script>
+    <script src="../assets/plugins/echarts/echarts.min.js"></script>
+    <script src="../assets/plugins/gauge/gauge.min.js"></script>
+    <!-- <script src="../assets/plugins/echarts/echarts-init.js"></script> -->
+
+
+    <!-- Chart JS -->
+
+    <script src="js/utils/helper.js"></script>
+    <script src="./js/utils/paginatedAjax.js"></script>
+    <script src="../assets/plugins/jqueryui/jquery-ui.min.js"></script>
+    <script src="js/attendance/attendance.js"></script>
+
+
+    <!-- ============================================================== -->
+    <!-- Style switcher -->
+    <!-- ============================================================== -->
+    <!-- <script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script> -->
+</body>
+
+</html>

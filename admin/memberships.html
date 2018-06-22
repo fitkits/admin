@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <title>Fitkits - Admin Console</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <link href="../assets/plugins/footable/css/footable.core.css" rel="stylesheet">
+    <link href="../assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../assets/plugins/dropify/dist/css/dropify.min.css">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- toast CSS -->
+    <link href="../assets/plugins/toast-master/css/jquery.toast.min.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="fix-header fix-sidebar card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Loading...</p>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">
+                        <!-- Logo icon -->
+                        <b>
+                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                            <!-- Dark Logo icon -->
+                            <img style="width:80px; height:80px" src="http://fitkits.in/wp-content/uploads/2018/04/fitkitsinterlaced.png" alt="homepage"
+                                class="dark-logo" />
+                            <!-- Light Logo icon -->
+                            <img style="width:80px; height:80px" src="http://fitkits.in/wp-content/uploads/2018/04/fitkitsinterlaced.png" alt="homepage"
+                                class="light-logo" />
+                        </b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span>
+                            <h3 style="display: inline">Fitkits</h3>
+                            <!-- dark Logo text
+                            <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" />-->
+                            <!-- Light Logo text 
+                            <img src="../assets/images/logo-light-text.png" class="light-logo" alt="homepage" /> -->
+                        </span>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto">
+                        <!-- This is  -->
+                        <li class="nav-item">
+                            <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)">
+                                <i class="ti-menu"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark" href="javascript:void(0)">
+                                <i class="ti-menu"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav my-lg-0">
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item hidden-xs-down search-box">
+                            <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)">
+                                <i class="ti-search"></i>
+                            </a>
+                            <form class="app-search">
+                                <input type="text" class="form-control" placeholder="Search & enter">
+                                <a class="srh-btn">
+                                    <i class="ti-close"></i>
+                                </a>
+                            </form>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- Profile -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../assets/images/users/1.jpg" alt="user" class="profile-pic" />
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right animated flipInY">
+                                <ul class="dropdown-user">
+                                    <li>
+                                        <div class="dw-user-box">
+                                            <div class="u-img">
+                                                <img src="../assets/images/users/1.jpg" alt="user">
+                                            </div>
+                                            <div class="u-text">
+                                                <h4>Steave Jobs</h4>
+                                                <p class="text-muted">varun@gmail.com</p>
+                                                <a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-user"></i> My Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-wallet"></i> My Balance</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-email"></i> Inbox</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-settings"></i> Account Setting</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-power-off"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="nav-small-cap log-user-name"></li>
+                        <li class="nav-devider"></li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="index.html" aria-expanded="false">
+                                <i class="mdi mdi-gauge"></i>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="users.html" aria-expanded="false">
+                                <i class="mdi mdi-bullseye"></i>
+                                <span class="hide-menu">Users</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="memberships.html" aria-expanded="false">
+                                <i class="mdi mdi-contact-mail"></i>
+                                <span class="hide-menu">Memberships</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="blogs.html" aria-expanded="false">
+                                <i class="mdi mdi-chart-bubble"></i>
+                                <span class="hide-menu">Blogs</span>
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a class="waves-effect waves-dark" href="goals.html" aria-expanded="false">
+                                <i class="mdi mdi-target"></i>
+                                <span class="hide-menu">Goals</span>
+                            </a>
+                        </li> -->
+                        <li>
+                            <a class="waves-effect waves-dark" href="attendance.html" aria-expanded="false">
+                                <i class="mdi mdi-file"></i>
+                                <span class="hide-menu">Attendance</span>
+                            </a>
+                        </li>
+                        <!-- <li>
+                            <a class="waves-effect waves-dark" href="dashboard.html" aria-expanded="false">
+                                <i class="mdi mdi-table"></i>
+                                <span class="hide-menu">Settings</span>
+                            </a>
+                        </li> -->
+
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">Memberships Management</h3>
+                    </div>
+                    <div class="col-md-7 align-self-center">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active">Memberships</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Stats box -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex no-block">
+                                    <div class="m-r-20 align-self-center">
+                                        <span class="lstick m-r-20"></span>
+                                        <img src="../assets/images/icon/income.png" alt="Income" />
+                                    </div>
+                                    <div class="align-self-center">
+                                        <h6 class="text-muted m-t-10 m-b-0">New Memberships this week</h6>
+                                        <div>
+                                            <span class="text-muted">ONLINE -&nbsp;</span>
+                                            <span class="h4" rel="newMembershipCountOnline"></span>
+                                        </div>
+                                        <div>
+                                            <span class="text-muted">OFFLINE -&nbsp;</span>
+                                            <span class="h4" rel="newMembershipCountOffline"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex no-block">
+                                    <div class="m-r-20 align-self-center">
+                                        <span class="lstick m-r-20"></span>
+                                        <img src="../assets/images/icon/expense.png" alt="Income" />
+                                    </div>
+                                    <div class="align-self-center">
+                                        <h6 class="text-muted m-t-10 m-b-0">Memberships Due Renewal This Week</h6>
+                                        <h2 class="m-t-0" rel="membershipsDueThisWeek"></h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex no-block">
+                                    <div class="m-r-20 align-self-center">
+                                        <span class="lstick m-r-20"></span>
+                                        <img src="../assets/images/icon/assets.png" alt="Income" />
+                                    </div>
+                                    <div class="align-self-center">
+                                        <h6 class="text-muted m-t-10 m-b-0">Memberships Due Renewal This Month</h6>
+                                        <h2 class="m-t-0" rel="membershipsDueThisMonth"></h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row right" style="padding-bottom: 2%">
+                    <!-- <div class="col-lg-2">
+                        <button type="text" class="btn btn-outline-secondary">Quick Actions</button>
+                    </div> -->
+                    <!-- <div class="col-lg-3">
+                        <button class="btn btn-outline-primary waves-effect waves-light" type="button" data-toggle="modal" data-target="#user-payment-razorpay-modal">
+                            <span class="btn-label">
+                                <i class="fa fa-rupee"></i>
+                            </span>Add via Razorpay
+                        </button>
+                    </div> -->
+                    <div class="col-lg-3">
+                        <button class="btn btn-outline-success waves-effect waves-light" type="button" data-toggle="modal" data-target="#user-payment-raw-modal">
+                            <span class="btn-label">
+                                <i class="fa fa-money"></i>
+                            </span>Add new Subscription
+                        </button>
+                    </div>
+                    <!-- <div class="col-lg-4">
+                        <button class="btn btn-outline-secondary waves-effect waves-light" type="button">
+                            <span class="btn-label">
+                                <i class="fa fa-check"></i>
+                            </span>Activate Users
+                        </button>
+                    </div> -->
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row form-material mb-0">
+                            <div class="col-12 col-md-8">
+                                <h4 class="card-title">Plans Available</h4>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group mb-0">
+                                    <div class="controls">
+                                        <input id="filter" class="form-control" placeholder="Search plans" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table id="membership-plan-table" class="table footable table-bordered table-striped border-0" data-paging="true" data-sorting="true"
+                            data-page-size="6" data-page-navigation=".pagination" data-filter="#filter" data-filter-text-only="true">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th data-toggle="tooltip" data-placement="top" title="In Paise">Cost</th>
+                                    <th>Expiry Days</th>
+                                    <!-- <th data-sort-ignore="true">Action</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" class="border-0">
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#add-membership-modal">Add New Membership</button>
+                                    </td>
+                                    <td colspan="7" class="border-0">
+                                        <div class="text-right">
+                                            <ul class="pagination"> </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <div class="row form-material mb-0">
+                                <div class="col-12 col-md-8">
+                                    <h4 class="card-title">Subscription History</h4>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group mb-0">
+                                        <div class="controls">
+                                            <input id="filter" class="form-control" placeholder="Search plans" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <table id="membership-history-table" class="table footable table-bordered table-striped border-0" data-paging="true" data-sorting="true"
+                            data-page-size="5" data-page-navigation=".pagination" data-filter="#filter" data-filter-text-only="true">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th data-toggle="tooltip" data-placement="top" title="">Membership</th>
+                                    <th>StartDate</th>
+                                    <!-- <th data-sort-ignore="true">Action</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <!-- <td colspan="2" class="border-0">
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#add-membership-modal">Add New Membership</button>
+                                    </td> -->
+                                    <td colspan="7" class="border-0">
+                                        <div class="text-right">
+                                            <ul class="pagination"> </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer"> © 2017 Fitkits</footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- Modals  -->
+    <!-- ============================================================== -->
+    <div id="add-membership-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="add-membership-modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New membership</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-membership-form" class="form-material" novalidate>
+                        <div class="form-group">
+                            <div class="controls">
+                                <input type="text" class="form-control" name="name" placeholder="Plan Name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="controls">
+                                <input type="number" class="form-control" name="cost" placeholder="Amount in Paise (ex. Rs. 25 => 2500)" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="controls">
+                                <input type="number" class="form-control" name="expiryTime" placeholder="Expiry Days" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            Membership Image
+                            <div class="controls">
+                                <input type="file" class="dropify" name="membershipImage" data-height="100" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info waves-effect" form="add-membership-form">Save</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div id="edit-membership-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="edit-membership-modal"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Membership</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-membership-form" class="form-material" novalidate>
+                        <input type="hidden" name="membership_id">
+                        <div class="form-group">
+                            <div class="controls">
+                                <input type="text" class="form-control" name="name" placeholder="Plan Name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="controls">
+                                <input type="number" class="form-control" name="cost" placeholder="Amount" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="controls">
+                                <input type="number" class="form-control" name="expiryTime" placeholder="Expiry Days" required>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-truncate">File Present :
+                                <span style="color:green;" id="edit_membership_image">
+                                </span>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <div class="controls">
+                                <input type="file" class="dropify" name="membershipImage" data-height="300" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info waves-effect" form="edit-membership-form">Update</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div id="user-payment-razorpay-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="user-payment-razorpay-modal"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Membership Payment</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="user-payment-razorpay-form" class="form-material" novalidate>
+                        <div class="form-group">
+                            <div class="controls">
+                                <h5>User</h5>
+                                <select id="users-select" name="userId" class="select2 users form-control custom-select" style="width: 100%; height:36px;">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="controls">
+                                <h5>Membership</h5>
+                                <select id="memberships-select" name="membershipId" class="select2 memberships form-control custom-select" style="width: 100%; height:36px;">
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success waves-effect" form="user-payment-razorpay-form">Pay</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div id="user-payment-raw-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="user-payment-raw-modal"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Membership Payment</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="user-payment-raw-form" class="form-material" novalidate>
+                        <div class="form-group">
+                            <div class="controls">
+                                <h5>User</h5>
+                                <select id="users-select-raw" name="userId" class="select2 users form-control custom-select" style="width: 100%; height:36px;">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="controls">
+                                <h5>Membership</h5>
+                                <select id="memberships-select-raw" name="membershipId" class="select2 memberships form-control custom-select" style="width: 100%; height:36px;">
+                                </select>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <div class="controls">
+                                <input type="number" class="form-control" name="amount" placeholder="Amount Paid in paise (ex. 199 INR => 19900)" required>
+                            </div>
+                        </div> -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success waves-effect" form="user-payment-raw-form">Pay</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap popper Core JavaScript -->
+    <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert2@7.1.0/dist/sweetalert2.all.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="../assets/plugins/toast-master/js/jquery.toast.min.js"></script>
+    <script src="../assets/plugins/footable/js/footable.all.min.js"></script>
+    <script src="../assets/plugins/wizard/jquery.validate.min.js"></script>
+    <script src="../assets/plugins/moment/min/moment.min.js"></script>
+    <script src="../assets/plugins/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
+    <script src="../assets/plugins/dropify/dist/js/dropify.min.js"></script>
+    <script src="js/utils/helper.js"></script>
+    <script src="js/utils/localStorageWrapper.js"></script>
+    <script src="./js/utils/paginatedAjax.js"></script>
+    <script src="js/memberships/memberships.js"></script>
+    <script src="js/memberships/payment.js"></script>
+    <script>
+        $(".memberships").select2({
+            language: {
+                noResults: function (params) {
+                    return "No membership found";
+                }
+            }
+        });
+        $(".users").select2({
+            language: {
+                noResults: function (params) {
+                    return "No Users found";
+                }
+            }
+        });
+
+        function deleteRow(row) {
+            var $rowToBeDeleted = $(row).parents('tr');
+            $.ajax({
+                method: 'DELETE',
+                url: `https://139.59.80.139/api/v1/cms/memberships/${$rowToBeDeleted.data('mid')}`,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(
+                        "Authorization",
+                        "Basic " + btoa(username + ":" + password)
+                    )
+                }
+            })
+                .done((response, textStatus, request) => {
+                    console.log(MEMBERSHIPS_LIST);
+                    MEMBERSHIPS_LIST.splice(MEMBERSHIPS_LIST.findIndex(membership => {
+                        return membership._id === $rowToBeDeleted.data('mid')
+                    }), 1);
+                    swal({
+                        position: 'top-right',
+                        type: 'success',
+                        title: 'Successfully deleted',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    $rowToBeDeleted.remove();
+                })
+                .fail(xhr => {
+                    swal({
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        type: 'error',
+                        confirmButtonColor: "#DD6B55",
+                    })
+                });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- Favicon icon -->
+	<link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+	<title>Fitkits - Admin Console</title>
+	<!-- Bootstrap Core CSS -->
+	<link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+	<link href="../assets/plugins/footable/css/footable.core.css" rel="stylesheet">
+	<link rel="stylesheet" href="../assets/plugins/dropify/dist/css/dropify.min.css">
+	<link href="css/style.css" rel="stylesheet">
+	<!-- toast CSS -->
+	<link href="../assets/plugins/toast-master/css/jquery.toast.min.css" rel="stylesheet">
+	<!-- You can change the theme colors from here -->
+	<link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="fix-header fix-sidebar card-no-border">
+	<!-- ============================================================== -->
+	<!-- Preloader - style you can find in spinners.css -->
+	<!-- ============================================================== -->
+	<div class="preloader">
+		<div class="loader">
+			<div class="loader__figure"></div>
+			<p class="loader__label">Loading...</p>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper">
+		<!-- ============================================================== -->
+		<!-- Topbar header - style you can find in pages.scss -->
+		<!-- ============================================================== -->
+		<header class="topbar">
+			<nav class="navbar top-navbar navbar-expand-md navbar-light">
+				<!-- ============================================================== -->
+				<!-- Logo -->
+				<!-- ============================================================== -->
+				<div class="navbar-header">
+					<a class="navbar-brand" href="index.html">
+						<!-- Logo icon -->
+						<b>
+							<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+							<!-- Dark Logo icon -->
+							<img src="../assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+							<!-- Light Logo icon -->
+							<img src="../assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+						</b>
+						<!--End Logo icon -->
+						<!-- Logo text -->
+						<span>
+							<!-- dark Logo text -->
+							<img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+							<!-- Light Logo text -->
+							<img src="../assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
+						</span>
+					</a>
+				</div>
+				<!-- ============================================================== -->
+				<!-- End Logo -->
+				<!-- ============================================================== -->
+				<div class="navbar-collapse">
+					<!-- ============================================================== -->
+					<!-- toggle and nav items -->
+					<!-- ============================================================== -->
+					<ul class="navbar-nav mr-auto">
+						<!-- This is  -->
+						<li class="nav-item">
+							<a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)">
+								<i class="ti-menu"></i>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark" href="javascript:void(0)">
+								<i class="ti-menu"></i>
+							</a>
+						</li>
+
+					</ul>
+					<!-- ============================================================== -->
+					<!-- User profile and search -->
+					<!-- ============================================================== -->
+					<ul class="navbar-nav my-lg-0">
+						<!-- ============================================================== -->
+						<!-- Search -->
+						<!-- ============================================================== -->
+						<li class="nav-item hidden-xs-down search-box">
+							<a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)">
+								<i class="ti-search"></i>
+							</a>
+							<form class="app-search">
+								<input type="text" class="form-control" placeholder="Search & enter">
+								<a class="srh-btn">
+									<i class="ti-close"></i>
+								</a>
+							</form>
+						</li>
+						<!-- ============================================================== -->
+						<!-- Profile -->
+						<!-- ============================================================== -->
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<img src="../assets/images/users/1.jpg" alt="user" class="profile-pic" />
+							</a>
+							<div class="dropdown-menu dropdown-menu-right animated flipInY">
+								<ul class="dropdown-user">
+									<li>
+										<div class="dw-user-box">
+											<div class="u-img">
+												<img src="../assets/images/users/1.jpg" alt="user">
+											</div>
+											<div class="u-text">
+												<h4>Steave Jobs</h4>
+												<p class="text-muted">varun@gmail.com</p>
+												<a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile
+												</a>
+											</div>
+										</div>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li>
+										<a href="#">
+											<i class="ti-user"></i> My Profile</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="ti-wallet"></i> My Balance</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="ti-email"></i> Inbox</a>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li>
+										<a href="#">
+											<i class="ti-settings"></i> Account Setting</a>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li>
+										<a href="#">
+											<i class="fa fa-power-off"></i> Logout</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<!-- ============================================================== -->
+		<!-- End Topbar header -->
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+		<!-- Left Sidebar - style you can find in sidebar.scss  -->
+		<!-- ============================================================== -->
+		<aside class="left-sidebar">
+			<!-- Sidebar scroll-->
+			<div class="scroll-sidebar">
+				<!-- Sidebar navigation-->
+				<nav class="sidebar-nav">
+					<ul id="sidebarnav">
+						<li class="nav-small-cap log-user-name"></li>
+						<li class="nav-devider"></li>
+						<li>
+							<a class="waves-effect waves-dark" href="dashboard.html" aria-expanded="false">
+								<i class="mdi mdi-gauge"></i>
+								<span class="hide-menu">Dashboard</span>
+							</a>
+						</li>
+						<li>
+							<a class="waves-effect waves-dark" href="dashboard.html" aria-expanded="false">
+								<i class="mdi mdi-bullseye"></i>
+								<span class="hide-menu">Users</span>
+							</a>
+						</li>
+						<li>
+							<a class="waves-effect waves-dark" href="memberships.html" aria-expanded="false">
+								<i class="mdi mdi-contact-mail"></i>
+								<span class="hide-menu">Memberships</span>
+							</a>
+						</li>
+						<li>
+							<a class="waves-effect waves-dark" href="blogs.html" aria-expanded="false">
+								<i class="mdi mdi-chart-bubble"></i>
+								<span class="hide-menu">Blogs</span>
+							</a>
+						</li>
+						<li>
+							<a class="waves-effect waves-dark" href="goals.html" aria-expanded="false">
+								<i class="mdi mdi-target"></i>
+								<span class="hide-menu">Goals</span>
+							</a>
+						</li>
+						<li>
+							<a class="waves-effect waves-dark" href="dashboard.html" aria-expanded="false">
+								<i class="mdi mdi-file"></i>
+								<span class="hide-menu">Attendance</span>
+							</a>
+						</li>
+						<li>
+							<a class="waves-effect waves-dark" href="dashboard.html" aria-expanded="false">
+								<i class="mdi mdi-table"></i>
+								<span class="hide-menu">Settings</span>
+							</a>
+						</li>
+
+					</ul>
+				</nav>
+				<!-- End Sidebar navigation -->
+			</div>
+			<!-- End Sidebar scroll-->
+		</aside>
+		<!-- ============================================================== -->
+		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+		<!-- ============================================================== -->
+		<!-- ============================================================== -->
+		<!-- Page wrapper  -->
+		<!-- ============================================================== -->
+		<div class="page-wrapper">
+			<!-- ============================================================== -->
+			<!-- Container fluid  -->
+			<!-- ============================================================== -->
+			<div class="container-fluid">
+				<!-- ============================================================== -->
+				<!-- Bread crumb and right sidebar toggle -->
+				<!-- ============================================================== -->
+				<div class="row page-titles">
+					<div class="col-md-5 align-self-center">
+						<h3 class="text-themecolor">Goals Management</h3>
+					</div>
+					<div class="col-md-7 align-self-center">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">
+								<a href="javascript:void(0)">Home</a>
+							</li>
+							<li class="breadcrumb-item active">Goals</li>
+						</ol>
+					</div>
+				</div>
+				<!-- ============================================================== -->
+				<!-- End Bread crumb and right sidebar toggle -->
+				<!-- ============================================================== -->
+				<div class="clearfix">
+					<div class="dropdown float-left">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+						 aria-expanded="false">
+							Filter Goals
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item filter" id="all" href="javascript:void(0)">All</a>
+							<a class="dropdown-item filter" id="true" href="javascript:void(0)">Enabled</a>
+							<a class="dropdown-item filter" id="false" href="javascript:void(0)">Disabled</a>
+						</div>
+					</div>
+					<button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#add-goal-modal">New Goal</button>
+				</div>
+				<div class="row" id="goalsWrapper">
+				</div>
+			</div>
+			<!-- ============================================================== -->
+			<!-- End Container fluid  -->
+			<!-- ============================================================== -->
+			<!-- ============================================================== -->
+			<!-- footer -->
+			<!-- ============================================================== -->
+			<footer class="footer"> © 2017 Fitkits</footer>
+			<!-- ============================================================== -->
+			<!-- End footer -->
+			<!-- ============================================================== -->
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Page wrapper  -->
+		<!-- ============================================================== -->
+	</div>
+	<!-- ============================================================== -->
+	<!-- Modals  -->
+	<!-- ============================================================== -->
+	<div id="add-goal-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="add-goal-modal" aria-hidden="true">
+		<div class="modal-dialog  modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Add Goal</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				</div>
+				<div class="modal-body">
+					<form id="add-goal-form" class="form-material" novalidate>
+						<div class="form-group row">
+							<label for="title" class="col-sm-2 col-form-label">Name</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="name" placeholder="Ex. Water" required>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="description" class="col-sm-2 col-form-label">Icon</label>
+							<div class="col-sm-10">
+								<input type="file" class="dropify" name="goalImage" data-height="100" />
+							</div>
+						</div>
+						<div>
+							<label for="description" class="col-form-label">Fields</label>
+							<table id="goal-field-table" class="table footable table-bordered table-striped border-0 " data-sorting="false" data-editing="true"
+							 data-editing-always-show="true">
+								<thead>
+									<tr>
+										<th data-sort-ignore="true">Field Name</th>
+										<th data-sort-ignore="true">Unit</th>
+										<th data-sort-ignore="true">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+								<tfoot>
+									<div class="clearfix">
+										<a href="javascript:void(0)" class="btn btn-primary float-right add-field">Add</a>
+									</div>
+								</tfoot>
+							</table>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary waves-effect " form="add-goal-form">Save</button>
+					<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<div id="add-field-modal" class="modal fade in" tabindex="-2" role="dialog" aria-labelledby="add-field-modal" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Add Field</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				</div>
+				<div class="modal-body">
+					<form id="add-field-form" class="form-material" novalidate>
+						<div class="form-group">
+							<div class="controls">
+								<h5>Name</h5>
+								<input type="text" class="form-control" name="fieldName" placeholder="Ex. Current weight" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="controls">
+								<h5>Unit</h5>
+								<input type="text" class="form-control" name="fieldUnit" placeholder="Ex. Kgs" required>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success waves-effect" form="add-field-form">Add</button>
+					<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Wrapper -->
+	<!-- ============================================================== -->
+	<!-- ============================================================== -->
+	<!-- All Jquery -->
+	<!-- ============================================================== -->
+	<script src="../assets/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap popper Core JavaScript -->
+	<script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
+	<script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<!-- slimscrollbar scrollbar JavaScript -->
+	<script src="js/perfect-scrollbar.jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert2@7.1.0/dist/sweetalert2.all.js"></script>
+	<!--Wave Effects -->
+	<script src="js/waves.js"></script>
+	<!--Menu sidebar -->
+	<script src="js/sidebarmenu.js"></script>
+	<!--Custom JavaScript -->
+	<script src="js/custom.min.js"></script>
+	<script src="../assets/plugins/toast-master/js/jquery.toast.min.js"></script>
+	<script src="../assets/plugins/wizard/jquery.validate.min.js"></script>
+	<script src="../assets/plugins/moment/min/moment.min.js"></script>
+	<script src="../assets/plugins/dropify/dist/js/dropify.min.js"></script>
+	<script src="../assets/plugins/footable/js/footable.all.min.js"></script>
+	<script src="js/utils/helper.js"></script>
+	<script src="./js/utils/paginatedAjax.js"></script>
+	<script src="js/goals/goals.js"></script>
+	<script>
+		function deleteGoal(e) {
+			e.stopPropagation();
+			const $GoalToBeDeleted = $(e.target);
+			swal({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.value) {
+					$.ajax({
+						method: 'PATCH',
+						url: `/cms/goals/${$GoalToBeDeleted.data('gid')}`,
+						headers: {
+							Authorization:
+								'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YTRiNmFhZDVlZTJiMjZjMjA4Y2UyZmEiLCJpYXQiOjE1MTQ4OTE5ODgsImV4cCI6MTUxNzQ4Mzk4OH0._mjNmw4lVfD1vaboBK3svB5BY5YOn29MiPtLPzFjohw'
+						},
+						data: {
+							_id: `${$GoalToBeDeleted.data('gid')}`,
+							enabled: $GoalToBeDeleted.data('enabled') === "true" ? "false" : "true"
+						}
+					})
+						.done((response, textStatus, request) => {
+							//todo: change the values of the corresponding divs
+							swal({
+								position: 'top-right',
+								type: 'success',
+								title: 'Successfully Updated',
+								showConfirmButton: false,
+								timer: 1500
+							})
+						})
+						.fail(xhr => {
+							swal({
+								title: 'Oops...',
+								text: 'Something went wrong!',
+								type: 'error',
+								confirmButtonColor: "#DD6B55",
+							})
+						});
+				}
+			})
+		}
+	</script>
+</body>
+
+</html>

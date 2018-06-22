@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- Favicon icon -->
+	<link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+	<title>Fitkis Admin Console DASBOARD</title>
+	<!-- Bootstrap Core CSS -->
+	<link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+	<!-- This page CSS -->
+	<!-- chartist CSS -->
+	<!-- <link href="../assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+	<link href="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet"> -->
+	<!--c3 CSS -->
+	<link href="../assets/plugins/c3-master/c3.min.css" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link href="css/style.css" rel="stylesheet">
+	<!-- Dashboard 1 Page CSS -->
+	<link href="css/pages/dashboard2.css" rel="stylesheet">
+	<!-- You can change the theme colors from here -->
+	<link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+
+<body class="fix-header fix-sidebar card-no-border">
+	<!-- ============================================================== -->
+	<!-- Preloader - style you can find in spinners.css -->
+	<!-- ============================================================== -->
+	<div class="preloader">
+		<div class="loader">
+			<div class="loader__figure"></div>
+			<p class="loader__label">Loading...</p>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper">
+		<!-- ============================================================== -->
+		<!-- Topbar header - style you can find in pages.scss -->
+		<!-- ============================================================== -->
+		<div id="topbar_wrapper">
+
+        </div><!-- ============================================================== -->
+		<!-- Page wrapper  -->
+		<!-- ============================================================== -->
+		<div class="page-wrapper">
+			<!-- ============================================================== -->
+			<!-- Container fluid  -->
+			<!-- ============================================================== -->
+			<div class="container-fluid">
+				<!-- ============================================================== -->
+				<!-- Bread crumb and right sidebar toggle -->
+				<!-- ============================================================== -->
+				<div class="row page-titles">
+					<div class="col-md-5 align-self-center">
+						<h3 class="text-themecolor">Dashboard</h3>
+					</div>
+					<div class="col-md-7 align-self-center">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">
+								<a href="javascript:void(0)">Home</a>
+							</li>
+							<li class="breadcrumb-item active">Dashboard</li>
+						</ol>
+					</div>
+				</div>
+				<!-- ============================================================== -->
+				<!-- End Bread crumb and right sidebar toggle -->
+				<!-- ============================================================== -->
+				<!-- ============================================================== -->
+				<!-- Stats box -->
+				<!-- ============================================================== -->
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex no-block">
+									<div class="m-r-20 align-self-center">
+										<span class="lstick m-r-20"></span>
+										<img src="../assets/images/icon/income.png" alt="Income" />
+									</div>
+									<div class="align-self-center">
+										<h6 class="text-muted m-t-10 m-b-0">Sales this week</h6>
+										<h2 class="m-t-0">53,000</h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex no-block">
+									<div class="m-r-20 align-self-center">
+										<span class="lstick m-r-20"></span>
+										<img src="../assets/images/icon/expense.png" alt="Income" />
+									</div>
+									<div class="align-self-center">
+										<h6 class="text-muted m-t-10 m-b-0">No. of Customers</h6>
+										<h2 class="m-t-0" rel="noOfCustomers"></h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex no-block">
+									<div class="m-r-20 align-self-center">
+										<span class="lstick m-r-20"></span>
+										<img src="../assets/images/icon/assets.png" alt="Income" />
+									</div>
+									<div class="align-self-center">
+										<h6 class="text-muted m-t-10 m-b-0">Subscriptions Due</h6>
+										<h2 class="m-t-0">9</h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex no-block">
+									<div class="m-r-20 align-self-center">
+										<span class="lstick m-r-20"></span>
+										<img src="../assets/images/icon/staff.png" alt="Income" />
+									</div>
+									<div class="align-self-center">
+										<h6 class="text-muted m-t-10 m-b-0">Attendance %</h6>
+										<h2 class="m-t-0">78</h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ============================================================== -->
+				<!-- Sales overview chart -->
+				<!-- ============================================================== -->
+				<!-- <div class="row">
+					<div class="col-lg-9 col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex">
+									<div>
+										<h3 class="card-title m-b-5">
+											<span class="lstick"></span>Sales Overview </h3>
+									</div>
+									<div class="ml-auto">
+										<select class="custom-select b-0">
+											<option selected="">November 2017</option>
+											<option value="1">December 2017</option>
+											<option value="2">January 2018</option>
+											<option value="3">February 2018</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="bg-theme stats-bar">
+								<div class="row">
+									<div class="col-lg-3 col-md-4">
+										<div class="p-20 active">
+											<h6 class="text-white">Total Sales</h6>
+											<h3 class="text-white m-b-0">Rs. 1,800,345</h3>
+										</div>
+									</div>
+									<div class="col-lg-3 col-md-4">
+										<div class="p-20">
+											<h6 class="text-white">This Month</h6>
+											<h3 class="text-white m-b-0">Rs. 353,589</h3>
+										</div>
+									</div>
+									<div class="col-lg-3 col-md-4">
+										<div class="p-20">
+											<h6 class="text-white">This Week</h6>
+											<h3 class="text-white m-b-0">Rs. 53,000</h3>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card-body">
+								<div id="sales-overview2" class="p-relative" style="height:360px;"></div>
+							</div>
+						</div>
+					</div> -->
+					<!-- ============================================================== -->
+					<!-- visit charts-->
+					<!-- ============================================================== -->
+					<!-- <div class="col-lg-3 col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">
+									<span class="lstick"></span>Subscription Analytics</h4>
+								<div id="visitor" style="height:290px; width:100%;"></div>
+								<table class="table vm font-14">
+									<tr>
+										<td class="b-0">Repeat User</td>
+										<td class="text-right font-medium b-0">38.5%</td>
+									</tr>
+									<tr>
+										<td>New User</td>
+										<td class="text-right font-medium">61.5%</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
+			<!-- ============================================================== -->
+			<!-- End Container fluid  -->
+			<!-- ============================================================== -->
+			<!-- ============================================================== -->
+			<!-- footer -->
+			<!-- ============================================================== -->
+			<footer class="footer"> © 2017 Fitkits </footer>
+			<!-- ============================================================== -->
+			<!-- End footer -->
+			<!-- ============================================================== -->
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Page wrapper  -->
+		<!-- ============================================================== -->
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Wrapper -->
+	<!-- ============================================================== -->
+	<!-- ============================================================== -->
+	<!-- All Jquery -->
+	<!-- ============================================================== -->
+	<script src="../assets/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap popper Core JavaScript -->
+	<script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
+	<script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<!-- slimscrollbar scrollbar JavaScript -->
+	<script src="js/perfect-scrollbar.jquery.min.js"></script>
+	<!--Wave Effects -->
+	<script src="js/waves.js"></script>
+	<!--Menu sidebar -->
+	<script src="js/sidebarmenu.js"></script>
+	<!--Custom JavaScript -->
+	<script src="js/custom.min.js"></script>
+	<!-- ============================================================== -->
+	<!-- This page plugins -->
+	<!-- ============================================================== -->
+
+	<!-- <script src="../assets/plugins/chartist-js/dist/chartist.min.js"></script>
+	<script src="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script> -->
+	<!--c3 JavaScript -->
+	<script src="../assets/plugins/d3/d3.min.js"></script>
+	<script src="../assets/plugins/c3-master/c3.min.js"></script>
+	<!-- Chart JS -->
+	<script src="js/dashboard2.js"></script>
+	<script src="js/utils/helper.js"></script>
+	<script src="js/dashboard/dashboard.js"></script>
+	<!-- ============================================================== -->
+	<!-- Style switcher -->
+	<!-- ============================================================== -->
+	<script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+	<script>
+		$(document).ready(function () {
+			console.log("sss", $("#topbar_wrapper"));
+			$("#topbar_wrapper").load("./topbar.html", function () {
+				console.log("loaded topbar");
+			});
+		});
+	
+	</script>
+</body>
+
+</html>

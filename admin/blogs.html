@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- Favicon icon -->
+	<link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+	<title>Fitkits - Admin Console</title>
+	<!-- Bootstrap Core CSS -->
+	<link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+	<link href="../assets/plugins/footable/css/footable.core.css" rel="stylesheet">
+	<link rel="stylesheet" href="../assets/plugins/dropify/dist/css/dropify.min.css">
+	<link href="../assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.min.css" rel="stylesheet">
+
+	<link href="css/shuffletmp.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<!-- toast CSS -->
+	<link href="../assets/plugins/toast-master/css/jquery.toast.min.css" rel="stylesheet">
+
+	<!-- You can change the theme colors from here -->
+	<link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<style>
+	</style>
+</head>
+
+<body class="fix-header fix-sidebar card-no-border">
+	<!-- ============================================================== -->
+	<!-- Preloader - style you can find in spinners.css -->
+	<!-- ============================================================== -->
+	<div class="preloader">
+		<div class="loader">
+			<div class="loader__figure"></div>
+			<p class="loader__label">Loading...</p>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper">
+		<div id="topbar_wrapper">
+
+        </div>
+		<!-- ============================================================== -->
+		<!-- Page wrapper  -->
+		<!-- ============================================================== -->
+		<div class="page-wrapper">
+			<!-- ============================================================== -->
+			<!-- Container fluid  -->
+			<!-- ============================================================== -->
+			<div class="container-fluid">
+				<!-- ============================================================== -->
+				<!-- Bread crumb and right sidebar toggle -->
+				<!-- ============================================================== -->
+				<div class="row page-titles">
+					<div class="col-md-5 align-self-center">
+						<h3 class="text-themecolor">Blogs</h3>
+					</div>
+					<div class="col-md-7 align-self-center">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">
+								<a href="javascript:void(0)">Home</a>
+							</li>
+							<li class="breadcrumb-item active">Blogs</li>
+						</ol>
+					</div>
+				</div>
+				<!-- ============================================================== -->
+				<!-- End Bread crumb and right sidebar toggle -->
+				<!-- ============================================================== -->
+				<!-- ============================================================== -->
+				<!-- Stats box -->
+				<!-- ============================================================== -->
+				<div class="row">
+					<div class="col-12">
+						<h4 class="d-inline">Management Console - Blogs & Updates</h4>
+						<p></p>
+						<div class="row" style="padding-bottom: 2%">
+							<div class="col-12 text-right">
+								<button type="button" data-toggle="modal" data-target="#add-blog-modal" class="btn btn-danger">
+									<i class="fa fa-plus"></i>New Blog</button>
+							</div>
+						</div>
+						<div class="row" id="blogsWrapper">
+							<div class="col-12@xs col-12@sm col-6@md col-4@lg shuffleSizerElement"></div>
+						</div>
+						<div class="row">
+							<div class="col-6@xs col-12@sm">
+								<div class="load-more-wrapper text-center">
+									<button class="btn" id="load-more-button"></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- ============================================================== -->
+			<!-- End Container fluid  -->
+			<!-- ============================================================== -->
+			<!-- ============================================================== -->
+			<!-- footer -->
+			<!-- ============================================================== -->
+			<footer class="footer"> © 2017 Fitkits</footer>
+			<!-- ============================================================== -->
+			<!-- End footer -->
+			<!-- ============================================================== -->
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Page wrapper  -->
+		<!-- ============================================================== -->
+
+	</div>
+	<!-- ============================================================== -->
+	<!-- Modals  -->
+	<!-- ============================================================== -->
+	<div id="add-blog-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="add-membership-modal" aria-hidden="true">
+		<div class="modal-dialog  modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">New Blog</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				</div>
+				<div class="modal-body">
+					<form id="add-blog-form" class="form-material" novalidate>
+						<div class="form-group row">
+							<label for="title" class="col-sm-2 col-form-label">Title</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="title" placeholder="Ex. How to Properly Use Supersets to Your Advantage" required>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="subTitle" class="col-sm-2 col-form-label">Sub Title</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="subTitle" placeholder="Ex .Supersets are a great way to maximize your time in the gym."
+								 required>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="description" class="col-sm-2 col-form-label">Description</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" rows="15" name="description" placeholder="Ex. Supersetting is rather simple: Perform two exercises, back-to-back, with little to no rest in between..."
+								 required></textarea>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="description" class="col-sm-2 col-form-label">Banner Image</label>
+							<div class="col-sm-10">
+								<input type="file" class="dropify" name="blogImage" data-height="100" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="description" class="col-sm-2 col-form-label">Author</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="author" placeholder="Ex. Chris Pine" required>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="postDate" class="col-sm-2 col-form-label">Post Date</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="postDate" placeholder="Ex. 21-01-2018" required>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="pageURL" class="col-sm-2 col-form-label">Url (Optional)</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="pageURL" placeholder="https://www.fitkits.com/blogs/awesome-blog" required>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary waves-effect " form="add-blog-form">Save</button>
+					<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<div id="edit-blog-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="add-membership-modal" aria-hidden="true">
+		<div class="modal-dialog  modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Edit Blog</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				</div>
+				<div class="modal-body">
+					<form id="edit-blog-form" class="form-material" novalidate>
+						<input type="hidden" name="blogId">
+						<div class="form-group row">
+							<label for="title" class="col-sm-2 col-form-label">Title</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="title" placeholder="Ex. How to Properly Use Supersets to Your Advantage" required>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="subTitle" class="col-sm-2 col-form-label">Sub Title</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="subTitle" placeholder="Ex .Supersets are a great way to maximize your time in the gym."
+								 required>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="description" class="col-sm-2 col-form-label">Description</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" rows="15" name="description" placeholder="Ex. Supersetting is rather simple: Perform two exercises, back-to-back, with little to no rest in between..."
+								 required></textarea>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="description" class="col-sm-2 col-form-label">Banner Image</label>
+							<div class="col-sm-10">
+								<span class="text-truncate" style="color:green;" id="editBlogImage">
+								</span>
+								<input type="file" class="dropify" name="blogImage" data-height="100" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="description" class="col-sm-2 col-form-label">Author</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="author" placeholder="Ex. Chris Pine" required>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="postDate" class="col-sm-2 col-form-label">Post Date</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="postDate" placeholder="Ex. 21-01-2018" required>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="pageURL" class="col-sm-2 col-form-label">Url (Optional)</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="pageURL" placeholder="https://www.fitkits.com/blogs/awesome-blog" required>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary waves-effect " form="edit-blog-form">Save</button>
+					<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Wrapper -->
+	<!-- ============================================================== -->
+	<!-- ============================================================== -->
+	<!-- All Jquery -->
+	<!-- ============================================================== -->
+	<script src="../assets/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap popper Core JavaScript -->
+	<script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
+	<script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../assets/plugins/moment/min/moment.min.js"></script>
+	<!-- slimscrollbar scrollbar JavaScript -->
+	<script src="js/perfect-scrollbar.jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert2@7.1.0/dist/sweetalert2.all.js"></script>
+	<!--Wave Effects -->
+	<script src="js/waves.js"></script>
+	<!--Menu sidebar -->
+	<script src="js/sidebarmenu.js"></script>
+	<!--Custom JavaScript -->
+	<script src="js/custom.min.js"></script>
+	<script src="../assets/plugins/toast-master/js/jquery.toast.min.js"></script>
+	<script src="../assets/plugins/footable/js/footable.all.min.js"></script>
+	<script src="../assets/plugins/wizard/jquery.validate.min.js"></script>
+	<script src="../assets/plugins/moment/min/moment.min.js"></script>
+	<script src="../assets/plugins/dropify/dist/js/dropify.min.js"></script>
+	<script src="../assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+	<script src="../assets/plugins/shuffle/shuffle.min.js"></script>
+	<script src="js/utils/helper.js"></script>
+	<script src="./js/utils/paginatedAjax.js"></script>
+	<script src="js/blogs/blogs.js"></script>
+	<script>
+		function deleteBlog(e) {
+			e.stopPropagation();
+			const $blogToBeDeleted = $(e.target);
+			swal({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.value) {
+					$.ajax({
+						method: 'DELETE',
+						url: `https://139.59.80.139/api/v1/cms/feeds/${$blogToBeDeleted.data('bid')}`,
+					
+	  beforeSend: function(xhr) {
+		xhr.setRequestHeader(
+		  "Authorization",
+		  "Basic " + btoa(username + ":" + password)
+		) }
+					})
+						.done((response, textStatus, request) => {
+							BLOGS_LIST.splice(BLOGS_LIST.findIndex(blog => {
+								return blog._id === $blogToBeDeleted.data('bid')
+							}), 1);
+							shuffleInstance.remove([document.querySelector(`[rel="${$blogToBeDeleted.data('bid')}"]`)]);
+							swal({
+								position: 'top-right',
+								type: 'success',
+								title: 'Successfully deleted',
+								showConfirmButton: false,
+								timer: 1500
+							})
+
+						})
+						.fail(xhr => {
+							swal({
+								title: 'Oops...',
+								text: 'Something went wrong!',
+								type: 'error',
+								confirmButtonColor: "#DD6B55",
+							})
+						});
+				}
+			});
+
+		}
+	</script>
+	<script>
+    $(document).ready(function () {
+        console.log("sss", $("#topbar_wrapper"));
+        $("#topbar_wrapper").load("./topbar.html", function () {
+            console.log("loaded topbar");
+        });
+    });
+
+</script>
+</body>
+
+</html>
