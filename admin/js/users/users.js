@@ -20,7 +20,7 @@ $(document).ready(() => {
    * Regardless of the shameless plug-in of my library, Im not using it here because, I'm too
    * lazy to find that code from my shitload of other codes and use it.
    * Its 1 am and I wanna finish this by morning. So Im gonna just go-ahead and
-   * shitcode for tomorrow's build. We'll fix it ASAP.(yeah! ASAP :smirks:)
+   * shitcode for tomorrow's build. We'll fix it ASAP.(yeah! ASAP :smirks: )
    */
 
   PaginatedAjax.get(
@@ -88,7 +88,7 @@ $(document).ready(() => {
             }
           });
           $table.append(
-            `<tr data-uid = "${user._id}"><td>${
+            `<tr onclick="redirectToUser(this)" data-uid = "${user._id}"><td>${
               user.name !== undefined ? user.name : "Unnamed User"
             }</td><td>${
               currentMembership && currentMembership.length !== 0

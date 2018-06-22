@@ -65,19 +65,21 @@
 						<b>
 							<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
 							<!-- Dark Logo icon -->
-							<img style= "width:80px; height:80px" src="http://fitkits.in/wp-content/uploads/2018/04/fitkitsinterlaced.png" alt="homepage" class="dark-logo" />
+							<img style="width:80px; height:80px" src="http://fitkits.in/wp-content/uploads/2018/04/fitkitsinterlaced.png" alt="homepage"
+							 class="dark-logo" />
 							<!-- Light Logo icon -->
-							<img style= "width:80px; height:80px" src="http://fitkits.in/wp-content/uploads/2018/04/fitkitsinterlaced.png"  alt="homepage" class="light-logo" />
+							<img style="width:80px; height:80px" src="http://fitkits.in/wp-content/uploads/2018/04/fitkitsinterlaced.png" alt="homepage"
+							 class="light-logo" />
 						</b>
 						<!--End Logo icon -->
 						<!-- Logo text -->
-                        <span>
-                            <h3 style="display: inline">Fitkits</h3>
-                            <!-- dark Logo text
+						<span>
+							<h3 style="display: inline">Fitkits</h3>
+							<!-- dark Logo text
                             <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" />-->
-                            <!-- Light Logo text 
+							<!-- Light Logo text 
                             <img src="../assets/images/logo-light-text.png" class="light-logo" alt="homepage" /> -->
-                        </span>
+						</span>
 					</a>
 				</div>
 				<!-- ============================================================== -->
@@ -366,6 +368,13 @@
 		$(function () {
 			$('[data-toggle="tooltip"]').tooltip()
 		})
+
+
+		const redirectToUser = function (target) {
+			console.log();
+			localStorage.setItem("currentUser",target.getAttribute('data-uid'))
+			window.location.replace("/admin/user.html");
+		}
 	</script>
 </body>
 
