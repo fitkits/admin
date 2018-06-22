@@ -92,7 +92,7 @@ $(document).ready(() => {
    * ============================================
    */
   PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms//answers/",
+    "https://139.59.80.139/api/v1/cms/answers/",
     username,
     password,
     1,
