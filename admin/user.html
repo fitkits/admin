@@ -252,7 +252,7 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 id = "pageheading"class="text-themecolor">User Profile</h3>
+                        <h3 id="pageheading" class="text-themecolor">User Profile</h3>
                     </div>
                     <div class="col-md-7 align-self-center">
                         <ol class="breadcrumb">
@@ -272,150 +272,283 @@
                 <!-- ============================================================== -->
                 <!-- Stats box -->
                 <!-- ============================================================== -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row form-material mb-0">
-                            <div class="col-12 col-md-8">
-                                <h4 class="card-title">User Profile</h4>
-                            </div>
-
-                            <div class="col-6 col-md-6">
-                                <label>
-                                    <strong>Name</strong>
-                                </label>
-                            </div>
-                            <div class="col-6 col-md-6">
-                                <span id="userName">Unnamed User</span>
-                            </div>
-
-
-
-                            <div class="col-6 col-md-6">
-                                <label>
-                                    <strong>Gender</strong>
-                                </label>
-                            </div>
-                            <div class="col-6 col-md-6">
-                                <span id="gender">NA</span>
-                            </div>
-
-
-
-                            <div class="col-6 col-md-6">
-                                <label>
-                                    <strong>Mobile Number</strong>
-                                </label>
-                            </div>
-                            <div class="col-6 col-md-6">
-                                <span id="mobileNumber">NA</span>
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row form-material mb-0">
-                            <div class="col-12 col-md-8">
-                                <h4 class="card-title">Attendance</h4>
-                            </div>
-
-                            <div class="col-6 col-md-6">
-                                <label>
-                                    <strong>Total Present</strong>
-                                </label>
-                            </div>
-                            <div class="col-6 col-md-6">
-                                <span id="totalPresent">0</span>
-                            </div>
-
-
-
-                            <div class="col-6 col-md-6">
-                                <label>
-                                    <strong>Total Absent</strong>
-                                </label>
-                            </div>
-                            <div class="col-6 col-md-6">
-                                <span id="totalAbsent">0</span>
-                            </div>
-
-
-
-                            <div class="col-6 col-md-6">
-                                <label>
-                                    <strong>present %</strong>
-                                </label>
-                            </div>
-                            <div class="col-6 col-md-6">
-                                <span id="percent_present">0</span>
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row form-material mb-0">
-                            <div class="col-12 col-md-8">
-                                <h4 class="card-title">User Metrics</h4>
-                            </div>
-                            <div class="col-12 col-md-4">
-                                <div class="form-group mb-0">
-                                    <div class="controls">
-                                        <input id="userFilter" class="form-control" placeholder="Search Metrics" type="text" />
+                <ul class="nav nav-tabs" id="userTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="true">General</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#assesment" role="tab" aria-controls="assesment" aria-selected="false">Assesment</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-material mb-0">
+                                    <div class="col-12 col-md-8">
+                                        <h4 class="card-title">User Profile</h4>
                                     </div>
+
+                                    <div class="col-6 col-md-6">
+                                        <label>
+                                            <strong>Name</strong>
+                                        </label>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <span id="userName">Unnamed User</span>
+                                    </div>
+
+
+
+                                    <div class="col-6 col-md-6">
+                                        <label>
+                                            <strong>Gender</strong>
+                                        </label>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <span id="gender">NA</span>
+                                    </div>
+
+
+
+                                    <div class="col-6 col-md-6">
+                                        <label>
+                                            <strong>Mobile Number</strong>
+                                        </label>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <span id="mobileNumber">NA</span>
+                                    </div>
+
+
+
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive m-t-40">
-                            <table id="user-metric-table" class="table footable table-bordered table-striped border-0" class="table footable table-bordered table-striped border-0"
-                                data-paging="true" data-sorting="true" data-page-size="12" data-page-navigation=".pagination"
-                                data-filter="#userFilter" data-filter-text-only="true">
-                                <thead>
-                                    <tr>
-                                        <th>Type</th>
-                                        <th>Value</th>
-                                        <th>Last Updated</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="2" class="border-0">
-                                        </td>
-                                        <td colspan="7" class="border-0">
-                                            <div class="text-right" id="paging-ui-container">
-                                                <ul class="pagination"> </ul>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-material mb-0">
+                                    <div class="col-12 col-md-8">
+                                        <h4 class="card-title">Attendance</h4>
+                                    </div>
+
+                                    <div class="col-6 col-md-6">
+                                        <label>
+                                            <strong>Total Present</strong>
+                                        </label>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <span id="totalPresent">0</span>
+                                    </div>
+
+
+
+                                    <div class="col-6 col-md-6">
+                                        <label>
+                                            <strong>Total Absent</strong>
+                                        </label>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <span id="totalAbsent">0</span>
+                                    </div>
+
+
+
+                                    <div class="col-6 col-md-6">
+                                        <label>
+                                            <strong>present %</strong>
+                                        </label>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <span id="percent_present">0</span>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-material mb-0">
+                                    <div class="col-12 col-md-8">
+                                        <h4 class="card-title">User Metrics</h4>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <div class="form-group mb-0">
+                                            <div class="controls">
+                                                <input id="userFilter" class="form-control" placeholder="Search Metrics" type="text" />
                                             </div>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive m-t-40">
+                                    <table id="user-metric-table" class="table footable table-bordered table-striped border-0" class="table footable table-bordered table-striped border-0"
+                                        data-paging="true" data-sorting="true" data-page-size="12" data-page-navigation=".pagination"
+                                        data-filter="#userFilter" data-filter-text-only="true">
+                                        <thead>
+                                            <tr>
+                                                <th>Type</th>
+                                                <th>Value</th>
+                                                <th>Last Updated</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="2" class="border-0">
+                                                </td>
+                                                <td colspan="7" class="border-0">
+                                                    <div class="text-right" id="paging-ui-container">
+                                                        <ul class="pagination"> </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="assesment" role="tabpanel" aria-labelledby="profile-tab">
+                        <!-- ============================================= -->
+                        <!-- ASSESMENT FORM -->
+                        <!-- ============================================= -->
+
+
+                        <!-- ============================================= -->
+                        <!-- BALANCE CARD -->
+                        <!-- ============================================= -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-material mb-0">
+                                    <div class="col-12 col-md-8">
+                                        <h4 class="card-title">Balance</h4>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <div class="form-group mb-0">
+                                            <div class="controls">
+                                                <input id="userFilter" class="form-control" placeholder="Search Metrics" type="text" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form id="add-assesment-form" class="form-material" novalidate>
+                                    <div class="form-group">
+                                        <div class="controls">
+                                            <div class="col-6 col-md-6">
+                                                <h5>Eyes Closed - left</h5>
+
+                                            </div>
+                                            <div class="col-6 col-md-6">
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" id="balance_eyes_closed_left_zero" value="0">
+                                                    <label class="form-check-label" for="balance_eyes_closed_left_zero">&lt; 30 sec></label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" id="balance_eyes_closed_left_half" value="0.5">
+                                                    <label class="form-check-label" for="balance_eyes_closed_left_half">&gt;/= 30 sec</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" id="balance_eyes_closed_left_one" value="1">
+                                                    <label class="form-check-label" for="balance_eyes_closed_left_one">=60 sec</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="controls">
+                                            <div class="col-6 col-md-6">
+                                                <h5>Eyes Closed - right</h5>
+                                            </div>
+                                            <div class="col-6 col-md-6">
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" id="balance_eyes_closed_right_zero" value="0">
+                                                    <label class="form-check-label" for="balance_eyes_closed_right_zero">&lt; 30 sec></label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" id="balance_eyes_closed_right_half" value="0.5">
+                                                    <label class="form-check-label" for="balance_eyes_closed_right_half">&gt;/= 30 sec</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" id="balance_eyes_closed_right_one" value="1">
+                                                    <label class="form-check-label" for="balance_eyes_closed_right_one">=60 sec</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-6">
+                                            <h5>Eyes Opened - left</h5>
+                                        </div>
+                                        <div class="col-6 col-md-6">
+                                            <div class="controls">
+
+
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" id="balance_eyes_opened_left_zero" value="0">
+                                                    <label class="form-check-label" for="balance_eyes_opened_left_zero">&lt; 30 sec</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" id="balance_eyes_opened_left_half" value="0.5">
+                                                    <label class="form-check-label" for="balance_eyes_opened_left_half">&gt;/= 30 sec</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" id="balance_eyes_opened_left_one" value="1">
+                                                    <label class="form-check-label" for="balance_eyes_opened_left_one">=60 sec</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="controls">
+                                            <div class="col-6 col-md-6">
+                                                <h5>Eyes Opened - right</h5>
+                                            </div>
+                                            <div class="col-6 col-md-6">
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" id="balance_eyes_opened_right_zero" value="0">
+                                                    <label class="form-check-label" for="balance_eyes_opened_right_zero">&lt; 30 sec></label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" id="balance_eyes_opened_right_half" value="0.5">
+                                                    <label class="form-check-label" for="balance_eyes_opened_right_half">&gt;/= 30 sec</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" id="balance_eyes_opened_right_one" value="1">
+                                                    <label class="form-check-label" for="balance_eyes_opened_right_one">=60 sec</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-success waves-effect" form="add-assesment-form">Save Assesment</button>
+                                    </div>
+ 
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <footer class="footer"> © 2017 Fitkits</footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
+
         </div>
+
+
+
         <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
+        <!-- End Container fluid  -->
         <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer"> © 2017 Fitkits</footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->

@@ -1,0 +1,135 @@
+{
+  "assesment": [
+    {
+      "_id": "5b087091eeeced3bf77c722e",
+      "data": {
+        "posture": {
+          "maxRange": -1,
+          "minRange": -1,
+          "posterior": {
+            "legs": 1,
+            "back": 0.9,
+            "trunk": 0.5,
+            "arm": 0.6,
+            "shoulders": 0.5,
+            "neck": 0.1
+          },
+          "lateral": {
+            "legs": 1,
+            "back": 0.9,
+            "trunk": 0.5,
+            "arm": 0.6,
+            "shoulders": 0.5,
+            "neck": 0.1
+          },
+          "anterior": {
+            "legs": 1,
+            "back": 0.9,
+            "trunk": 0.5,
+            "arm": 0.6,
+            "shoulders": 0.5,
+            "neck": 0.1
+          }
+        },
+        "cardiovascular": {
+          "maxRange": 1,
+          "minRange": 0,
+          "highIntensity": 0.1,
+          "mediumIntensity": 0.3,
+          "lowIntensity": 0.5
+        },
+        "muscleEndurance": {
+          "maxRangeForRM": -1,
+          "minRangeForRM": -1,
+          "maxRangeForKg": 200,
+          "minRangeForKg": 0,
+          "squats": {
+            "tenRmRight": 0.8,
+            "tenRmLeft": 0.5,
+            "fiveRmRight": 0.6,
+            "fiveRmLeft": 0.5,
+            "kg": 1
+          },
+          "shoulderPress": {
+            "tenRmRight": 0.8,
+            "tenRmLeft": 0.5,
+            "fiveRmRight": 0.6,
+            "fiveRmLeft": 0.5,
+            "kg": 1
+          },
+          "benchPressChest": {
+            "tenRmRight": 0.8,
+            "tenRmLeft": 0.5,
+            "fiveRmRight": 0.6,
+            "fiveRmLeft": 0.5,
+            "kg": 1
+          },
+          "singleArmTricepExtension": {
+            "tenRmRight": 0.8,
+            "tenRmLeft": 0.5,
+            "fiveRmRight": 0.6,
+            "fiveRmLeft": 0.5,
+            "kg": 0.4
+          },
+          "bicepCurl": {
+            "tenRmRight": 0.8,
+            "tenRmLeft": 0.5,
+            "fiveRmRight": 0.6,
+            "fiveRmLeft": 0.5,
+            "kg": 1
+          }
+        },
+        "oneRm": {
+          "maxRange": 200,
+          "minRange": 0,
+          "shoulderPress": {
+            "maxKgRight": 0.3,
+            "maxKgLeft": 0.4
+          },
+          "benchPressChest": {
+            "maxKgRight": 0.2,
+            "maxKgLeft": 0.8
+          },
+          "singleArmTricepExtension": {
+            "maxKgRight": 0.7,
+            "maxKgLeft": 0.9
+          },
+          "bicepCurl": {
+            "maxKgRight": 1,
+            "maxKgLeft": 0.8
+          }
+        },
+        "strength": {
+          "maxRange": 60,
+          "minRange": 0,
+          "squat": 1,
+          "chinUp": 0,
+          "pullUp": 0,
+          "pushUps": 0.5,
+          "squatHold": 1,
+          "plank": 1
+        },
+        "flexibility": {
+          "maxRange": 1,
+          "minRange": 0,
+          "quad": 1,
+          "cobra": 1,
+          "sitAndReach": 0,
+          "toeTouch": 0
+        },
+        "balance": {
+          "maxRange": 30,
+          "minRange": 0,
+          "eyesClosed": {
+            "oneLegLeft": 0.5,
+            "oneLegRight": 1
+          },
+          "eyesOpen": {
+            "oneLegLeft": 1,
+            "oneLegRight": 1
+          }
+        }
+      }
+    }
+  ]
+}
