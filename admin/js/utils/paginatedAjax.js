@@ -1,7 +1,13 @@
 const PaginatedAjax = (() => {
-  let result = [];
   return {
+
+    logout: function() {
+        localStorage.clear();
+        location.reload();
+        //  console.log("logout called")
+    },
     get: function(_url, username, password, pagenumber, params = "") {
+      let result = [];
       const context = this;
       return new Promise((resolve, reject) => {
         settings = {
@@ -26,7 +32,7 @@ const PaginatedAjax = (() => {
         };
         $.ajax(settings)
           .done(data => {
-            console.log("this is", data.currentPage, data.totalPages);
+            //  console.log("this is", data.currentPage, data.totalPages);
             result.push(data);
             for (let i = 2; i <= data.totalPages; i++) {
               settings = {
@@ -47,24 +53,27 @@ const PaginatedAjax = (() => {
               $.ajax(settings)
                 .done(data => {
                   result.push(data);
-                  console.log("this is", result.length, data.totalPages);
+                  //  console.log("this is", result.length, data.totalPages);
                   if (result.length >= data.totalPages) {
-                    console.log("resolving...", result);
                     const _result = result;
-                    result = [];
-                    resolve(_result);
+                    // result = [];
+                    //  //  console.log("resolving...", JSON.stringify(_result),result);
+                    resolve(result);
                   } else {
-                    console.log("this is else", result.length, data.totalPages);
+                    //  //  console.log("this is else", result.length, data.totalPages);
                   }
                 })
                 .fail(xhr => {
                   result.push(xhr);
                 });
             }
-            console.log("resolving...", result);
+
             const _result = result;
-            result = [];
-            resolve(_result);
+            // result = [];
+            //  //  console.log("resolving...", JSON.stringify(_result),result);
+            if (data.currentPage === data.totalPages) {
+              resolve(result);
+            }
           })
           .fail(xhr => {
             reject(xhr);

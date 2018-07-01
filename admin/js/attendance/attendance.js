@@ -5,9 +5,15 @@ $(document).ready(() => {
 
   let $noOfCustomer = $('[rel="noOfCustomers"]');
   const url = "https://139.59.80.139/api/v1/cms/attendance";
-  const username = "9366777750";
-  const password = "7454";
+  const username = localStorage.getItem("mobileNumber");
+  const password = localStorage.getItem("otp");
 
+  if (
+    localStorage.getItem("loggedIn") === undefined ||
+    localStorage.getItem("loggedIn") === null
+  ) {
+    window.location.replace("/admin/login.html");
+  }
   /**
    * Generate User Lists.
    */
@@ -28,17 +34,15 @@ $(document).ready(() => {
     //       }
     //     };
     //     $.ajax(settings).done((users, textStatus, request)=> {
-    // 	  console.log(users);
+    // 	  //  //  console.log(users);
     // 	USERS_LIST = users.User;
     // 	buildDropdown(USERS_LIST, $('#users-select-raw'));
     // });
 
-
     // $(function() {
-    //   console.log("DATE",$("#attendance_datepicker"));
+    //   //  //  console.log("DATE",$("#attendance_datepicker"));
     // $("#attendance_datepicker").datepicker();
     // });
-
 
     PaginatedAjax.get(
       "https://139.59.80.139/api/v1/cms/users/",
@@ -46,28 +50,29 @@ $(document).ready(() => {
       password,
       1
     )
-      .then(data => {
-        const user_pagination = data.map(datum => {
+      .then(user_data => {
+         console.log("USER", user_data);
+        const user_pagination = user_data.map(datum => {
           const a = [];
           datum.User.map(users => {
-            console.log(users);
+              console.log(users);
             USERS_LIST.push(users);
           });
 
           return a;
         });
-        console.log("paginated data", USERS_LIST);
+        //  //  console.log("paginated data", USERS_LIST);
         buildDropdown(USERS_LIST, $("#users-select-raw"));
       })
       .catch(err => {
-        console.log("error in paginatedAjax", err);
+        //  //  console.log("error in paginatedAjax", err);
       });
   });
 
   /**
    * Submit Handler for attendance
    */
-  console.log($("#mark-attendance-form"));
+  //  //  console.log($("#mark-attendance-form"));
   $("#mark-attendance-form").validate({
     rules: {
       userId: {
@@ -83,20 +88,36 @@ $(document).ready(() => {
     },
     submitHandler: (form, event) => {
       event.preventDefault();
-
       const formDataJSON = ConvertFormToJSON(form);
       const formData = JSON.parse(formDataJSON);
-      // alert("Form data" + JSON.stringify(formData));
+      const selectedDate = new Date($("#datepicker")[0].value);
+      const date =
+        selectedDate.getDate() < 10
+          ? "0" + selectedDate.getDate().toString()
+          : selectedDate.getDate().toString();
+      const month =
+        selectedDate.getMonth() + 1 < 10
+          ? "0" + (selectedDate.getMonth() + 1).toString()
+          : (selectedDate.getMonth() + 1).toString();
+      const dateinServerFormat =
+        selectedDate.getFullYear() +
+        "-" +
+        month +
+        "-" +
+        date +
+        "T00:00:00.000Z";
+      //  console.log(dateinServerFormat);
+      // alert("`Form data" + JSON.stringify(formData));
       const settings = {
         url: "https://139.59.80.139/api/v1/cms/attendance/create",
         data: {
           status: formData.attendance === "present" ? true : false,
           user: formData.userId,
-          // timestamp:"2018-04-04T09:09:09"
+          timestamp: dateinServerFormat
         },
         method: "POST",
 
-        beforeSend: function(xhr) {
+        beforeSend: xhr => {
           xhr.setRequestHeader(
             "Authorization",
             "Basic " + btoa(username + ":" + password)
@@ -144,53 +165,56 @@ $(document).ready(() => {
 
 fetchAttendanceData = () => {
   const url = "https://139.59.80.139/api/v1/cms/attendance";
-  const username = "9366777750";
-  const password = "7454";
+  const _username = localStorage.getItem("mobileNumber");
+  const _password = localStorage.getItem("otp");
   const settings = {
     url: "https://139.59.80.139/api/v1/cms/attendance",
     method: "GET",
 
-    beforeSend: function(xhr) {
+    beforeSend: xhr => {
       xhr.setRequestHeader(
         "Authorization",
-        "Basic " + btoa(username + ":" + password)
+        "Basic " + btoa(_username + ":" + _password)
       );
       xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
     }
   };
+
   PaginatedAjax.get(
     "https://139.59.80.139/api/v1/cms/attendance",
-    username,
-    password,
+    _username,
+    _password,
     1
   ).then(data => {
+    console.log(JSON.stringify(data));
     let attendance_pagination = [];
     data.map(datum => {
       const a = [];
+      console.log(data.length)
       datum.Attendance.map(attendance => {
-        console.log(attendance);
+          // console.log(attendance);
         attendance_pagination.push(attendance);
       });
-      return a;
     });
-    console.log("attendance_pagination", attendance_pagination);
+      console.log("attendance_pagination", attendance_pagination);
     let present = 0;
     const total = attendance_pagination.length;
-
+    // //  console.log("aaa", attendance_pagination.reverse().slice(0, 10));
     const top_ten = attendance_pagination.reverse().slice(0, 10);
+    // //  console.log("top_ten", top_ten);
     attendance_pagination.map(attendance => {
       if (attendance.status) {
         present = present + 1;
       }
       const avg = (present / total) * 100;
-      console.log(avg, present, total);
+        // console.log(avg, present, total);
       $("#attendance_avg_h1").text(
         "Average attendance: " + avg.toFixed(2) + " %"
       );
       drawGauge(avg);
     });
     // $.ajax(settings).done(function(response) {
-    //   console.log(response);
+    //   //  //  console.log(response);
     //   let present = 0;
     //   const total = response.Attendance.length;
 
@@ -201,20 +225,23 @@ fetchAttendanceData = () => {
     //     }
     //   });
     //   const avg = present / total * 100;
-    //   console.log(avg, present, total);
+    //   //  //  console.log(avg, present, total);
     //   $("#attendance_avg_h1").text(
     //     "Average attendance: " + avg.toFixed(2) + " %"
     //   );
     //   drawGauge(avg);
     top_ten.map(attendance => {
+      const _username = localStorage.getItem("mobileNumber");
+      const _password = localStorage.getItem("otp");
+      //  console.log(attendance);
       const settings = {
         url: "https://139.59.80.139/api/v1/cms/users/" + attendance.user,
         method: "GET",
 
-        beforeSend: function(xhr) {
+        beforeSend: xhr => {
           xhr.setRequestHeader(
             "Authorization",
-            "Basic " + btoa(username + ":" + password)
+            "Basic " + btoa(_username + ":" + _password)
           );
           xhr.setRequestHeader(
             "content-type",
@@ -222,28 +249,32 @@ fetchAttendanceData = () => {
           );
         }
       };
-      $.ajax(settings).done(function(user) {
-        console.log(user);
+      $.ajax(settings)
+        .done(user => {
+          //  console.log("USER", user);
 
-        let table_data_row =
-          "<tr><td>" +
-          (user.name !== undefined ? user.name : "Unnamed User") +
-          "</td><td>" +
-          (user.gender ? user.gender : "NA") +
-          "</td><td>" +
-          (attendance.status !== undefined
-            ? attendance.status
-              ? "Present"
-              : "Absent"
-            : "NA") +
-          "</td></tr>";
-        $("#attendance_table_body").append(table_data_row);
-      });
+          let table_data_row =
+            "<tr><td>" +
+            (user.name !== undefined ? user.name : "Unnamed User") +
+            "</td><td>" +
+            (user.gender ? user.gender : "NA") +
+            "</td><td>" +
+            (attendance.status !== undefined
+              ? attendance.status
+                ? "Present"
+                : "Absent"
+              : "NA") +
+            "</td></tr>";
+          $("#attendance_table_body").append(table_data_row);
+        })
+        .fail(() => {
+          //  console.log("fail");
+        });
     });
   });
 };
 
-const drawGauge = function(val) {
+const drawGauge = val => {
   "use strict";
 
   // ==============================================================
@@ -273,48 +304,3 @@ const drawGauge = function(val) {
   gauge.animationSpeed = 45; // set animation speed (32 is default value)
   gauge.set(val); // set actual value
 };
-// var settings = {
-// 	"url": "https://139.59.80.139/otp/sendOTP",
-// 	"method": "POST",
-// 	"headers": {
-// 		"content-type": "application/x-www-form-urlencoded",
-// 	//   "authorization": "Basic "+btoa(username + ":" + password)
-// 	},
-// 	data:{
-// 		mobileNumber: "9366777750"
-// 	}
-//   }
-
-//   var settings = {
-// 	"url": "https://139.59.80.139/otp/verifyOTP",
-// 	"method": "POST",
-// 	"headers": {
-// 		"content-type": "application/x-www-form-urlencoded",
-// 	//   "authorization": "Basic "+btoa(username + ":" + password)
-// 	},
-// 	data:{
-// 		mobileNumber: "9366777750",
-// 		otp:2998
-// 	}
-//   }
-
-// $.ajax({
-// 	type: 'GET',
-// 	url: url,
-// 	success: success,
-// 	beforeSend: function (xhr) {
-// 		xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
-// 	},
-//   });
-
-// .fail(xhr => {
-// 	$.toast({
-// 		heading: 'Processing Error',
-// 		text: 'Sorry, We cannot process your request now. Please try after some time',
-// 		position: 'top-left',
-// 		loaderBg: '#ff6849',
-// 		icon: 'warning',
-// 		hideAfter: 10000,
-// 		stack: 6
-// 	});
-// });

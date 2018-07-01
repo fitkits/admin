@@ -105,66 +105,9 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav my-lg-0">
                         <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item hidden-xs-down search-box">
-                            <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)">
-                                <i class="ti-search"></i>
-                            </a>
-                            <form class="app-search">
-                                <input type="text" class="form-control" placeholder="Search & enter">
-                                <a class="srh-btn">
-                                    <i class="ti-close"></i>
-                                </a>
-                            </form>
-                        </li>
-                        <!-- ============================================================== -->
                         <!-- Profile -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../assets/images/users/1.jpg" alt="user" class="profile-pic" />
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right animated flipInY">
-                                <ul class="dropdown-user">
-                                    <li>
-                                        <div class="dw-user-box">
-                                            <div class="u-img">
-                                                <img src="../assets/images/users/1.jpg" alt="user">
-                                            </div>
-                                            <div class="u-text">
-                                                <h4>Steave Jobs</h4>
-                                                <p class="text-muted">varun@gmail.com</p>
-                                                <a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-user"></i> My Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-wallet"></i> My Balance</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-email"></i> Inbox</a>
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-settings"></i> Account Setting</a>
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-power-off"></i> Logout</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                        <button onClick = "PaginatedAjax.logout()" type="button" class="btn btn-danger">Logout</button>
                     </ul>
                 </div>
             </nav>
@@ -280,19 +223,19 @@
                                     <div class="col-lg-3 col-md-4">
                                         <div class="p-20 active">
                                             <h6 class="text-white">Total Sales</h6>
-                                            <h3 id= "overallSales" class="text-white m-b-0">Rs. 1,800,345</h3>
+                                            <h3 id="overallSales" class="text-white m-b-0">Rs. 1,800,345</h3>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4">
                                         <div class="p-20">
                                             <h6 class="text-white">This Month</h6>
-                                            <h3 id = "SalesThisMonthGraph" class="text-white m-b-0">Rs. 353,589</h3>
+                                            <h3 id="SalesThisMonthGraph" class="text-white m-b-0">Rs. 353,589</h3>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-4">
                                         <div class="p-20">
                                             <h6 class="text-white">This Week</h6>
-                                            <h3 id = "SalesThisWeekGraph" class="text-white m-b-0">Rs. 53,000</h3>
+                                            <h3 id="SalesThisWeekGraph" class="text-white m-b-0">Rs. 53,000</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -302,94 +245,94 @@
                             </div> -->
                         </div>
                     </div>
-                
 
-                    
-                <!-- ============================================================== -->
-                <!-- Stats box -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex no-block">
-                                    <div class="m-r-20 align-self-center">
-                                        <span class="lstick m-r-20"></span>
-                                        <img src="../assets/images/icon/income.png" alt="Income" />
+
+
+                    <!-- ============================================================== -->
+                    <!-- Stats box -->
+                    <!-- ============================================================== -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex no-block">
+                                        <div class="m-r-20 align-self-center">
+                                            <span class="lstick m-r-20"></span>
+                                            <img src="../assets/images/icon/income.png" alt="Income" />
+                                        </div>
+                                        <div class="align-self-center">
+                                            <h6 class="text-muted m-t-10 m-b-0">Sales this week</h6>
+                                            <h2 id="SalesThisWeek" class="m-t-0">53,000</h2>
+                                        </div>
                                     </div>
-                                    <div class="align-self-center">
-                                        <h6 class="text-muted m-t-10 m-b-0">Sales this week</h6>
-                                        <h2 id= "SalesThisWeek" class="m-t-0">53,000</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex no-block">
+                                        <div class="m-r-20 align-self-center">
+                                            <span class="lstick m-r-20"></span>
+                                            <img src="../assets/images/icon/expense.png" alt="Income" />
+                                        </div>
+                                        <div class="align-self-center">
+                                            <h6 class="text-muted m-t-10 m-b-0">No. of Customers</h6>
+                                            <h2 id="usercount" class="m-t-0">280</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex no-block">
+                                        <div class="m-r-20 align-self-center">
+                                            <span class="lstick m-r-20"></span>
+                                            <img src="../assets/images/icon/assets.png" alt="Income" />
+                                        </div>
+                                        <div class="align-self-center">
+                                            <h6 class="text-muted m-t-10 m-b-0">Total Subscriptions</h6>
+                                            <h2 id="totalmembership" class="m-t-0"></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex no-block">
+                                        <div class="m-r-20 align-self-center">
+                                            <span class="lstick m-r-20"></span>
+                                            <img src="../assets/images/icon/assets.png" alt="Income" />
+                                        </div>
+                                        <div class="align-self-center">
+                                            <h6 class="text-muted m-t-10 m-b-0">Subscriptions Due</h6>
+                                            <h2 id="subscriptiondue" class="m-t-0">9</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex no-block">
+                                        <div class="m-r-20 align-self-center">
+                                            <span class="lstick m-r-20"></span>
+                                            <img src="../assets/images/icon/staff.png" alt="Income" />
+                                        </div>
+                                        <div class="align-self-center">
+                                            <h6 class="text-muted m-t-10 m-b-0">Attendance %</h6>
+                                            <h2 id="attendance" class="m-t-0">78</h2>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex no-block">
-                                    <div class="m-r-20 align-self-center">
-                                        <span class="lstick m-r-20"></span>
-                                        <img src="../assets/images/icon/expense.png" alt="Income" />
-                                    </div>
-                                    <div class="align-self-center">
-                                        <h6 class="text-muted m-t-10 m-b-0">No. of Customers</h6>
-                                        <h2 id="usercount" class="m-t-0">280</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex no-block">
-                                    <div class="m-r-20 align-self-center">
-                                        <span class="lstick m-r-20"></span>
-                                        <img src="../assets/images/icon/assets.png" alt="Income" />
-                                    </div>
-                                    <div class="align-self-center">
-                                        <h6 class="text-muted m-t-10 m-b-0">Total Subscriptions</h6>
-                                        <h2 id="totalmembership" class="m-t-0"></h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex no-block">
-                                    <div class="m-r-20 align-self-center">
-                                        <span class="lstick m-r-20"></span>
-                                        <img src="../assets/images/icon/assets.png" alt="Income" />
-                                    </div>
-                                    <div class="align-self-center">
-                                        <h6 class="text-muted m-t-10 m-b-0">Subscriptions Due</h6>
-                                        <h2 id="subscriptiondue" class="m-t-0">9</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex no-block">
-                                    <div class="m-r-20 align-self-center">
-                                        <span class="lstick m-r-20"></span>
-                                        <img src="../assets/images/icon/staff.png" alt="Income" />
-                                    </div>
-                                    <div class="align-self-center">
-                                        <h6 class="text-muted m-t-10 m-b-0">Attendance %</h6>
-                                        <h2 id="attendance" class="m-t-0">78</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                     <!-- ============================================================== -->
                     <!-- visit charts-->
                     <!-- ============================================================== -->

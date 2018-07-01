@@ -5,8 +5,8 @@ $(document).ready(() => {
   let MEMBERSHIP_LISTS =  {};
   let MEMBERSHIPS_DUE_MONTH = 0;
   let TOTAL_MEMBERSHIPS = 0;
-  let username = "9366777750";
-  let password = "7454";
+  const username = localStorage.getItem('mobileNumber');
+  const password = localStorage.getItem('otp');
   const today = new Date();
 
   let $noOfCustomer = $("#usercount");
@@ -19,6 +19,13 @@ $(document).ready(() => {
   let $overallSales = $('#overallSales');
 
 
+  if (
+    localStorage.getItem("loggedIn") === undefined ||
+    localStorage.getItem("loggedIn") === null
+  ) {
+    window.location.replace("/admin/login.html");
+  }
+  
     /**
    * ==================================
    * USER COUNT
@@ -31,19 +38,19 @@ $(document).ready(() => {
     1
   )
     .then(user_data => {
-      console.log("USER DATA", user_data);
+      //  console.log("USER DATA", user_data);
       let fetchUsers = [];
       user_data.map(user_datum => {
         const a = [];
         user_datum.User.map(user => {
-          // console.log(user);
+          // //  console.log(user);
           fetchUsers.push(user);
         });
         return a;
       });
 
       USERS_LIST = fetchUsers;
-      console.log($noOfCustomer);
+      //  console.log($noOfCustomer);
       $noOfCustomer.text(USERS_LIST.length);
     })
     .catch(xhr => {
@@ -80,7 +87,7 @@ $(document).ready(() => {
     });
     MEMBERSHIPS_DUE_MONTH =
       membershipsDueMonth.length > 0 ? membershipsDueMonth.length : 0;
-    console.log("this month due this month", MEMBERSHIPS_DUE_MONTH);
+    //  console.log("this month due this month", MEMBERSHIPS_DUE_MONTH);
     $subscriptiondue.text(MEMBERSHIPS_DUE_MONTH);
   });
 
@@ -100,12 +107,12 @@ $(document).ready(() => {
     data.map(datum => {
       const a = [];
       datum.Attendance.map(attendance => {
-        console.log(attendance);
+        //  console.log(attendance);
         attendance_pagination.push(attendance);
       });
       return a;
     });
-    console.log("attendance_pagination", attendance_pagination);
+    //  console.log("attendance_pagination", attendance_pagination);
     let present = 0;
     const total = attendance_pagination.length;
 
@@ -115,7 +122,7 @@ $(document).ready(() => {
         present = present + 1;
       }
       const avg = (present / total) * 100;
-      console.log(avg, present, total);
+      //  console.log(avg, present, total);
       $attendance.text(
         avg.toFixed(2) + " %"
       );
@@ -134,11 +141,11 @@ $(document).ready(() => {
     1
   ).then(data => {
     const memberships = [];
-    console.log("SUBSCTIPTIONS TOTAL DATA",data);
+    //  console.log("SUBSCTIPTIONS TOTAL DATA",data);
     data.map(datum => {
       const a = [];
       datum.subscriptions.map(subscription => {
-        // console.log(user);
+        // //  console.log(user);
         memberships.push(subscription);
       });
       return a;
@@ -163,16 +170,16 @@ $(document).ready(() => {
     1
   ).then(data => {
     const memberships = [];
-    // console.log("MEMBERSHIP LIST TOTAL DATA",data);
+    // //  console.log("MEMBERSHIP LIST TOTAL DATA",data);
     data.map(datum => {
       const a = [];
       datum.Membership.map(membership => {
-        // console.log(user);
+        // //  console.log(user);
         MEMBERSHIP_LISTS[membership._id] =  membership.cost;
       });
       return a;
     });
-    console.log("MEMBERSHIP LISTS",MEMBERSHIP_LISTS);
+    //  console.log("MEMBERSHIP LISTS",MEMBERSHIP_LISTS);
   });
 
  /**
@@ -203,7 +210,7 @@ $(document).ready(() => {
       });
       return a;
     });
-    console.log("SubscriptionsS",salesThisWeek);
+    //  console.log("SubscriptionsS",salesThisWeek);
     $totalSalesThisWeek.text(salesThisWeek.length !== 0 ? salesThisWeek[0].totalSales : 0);
     $totalSalesThisWeekGraph.text(salesThisWeek.length !== 0 ? salesThisWeek[0].totalSales : 0);
   });
@@ -234,7 +241,7 @@ $(document).ready(() => {
      });
      return a;
    });
-   console.log("SubscriptionsS",salesThisMonth);
+   //  console.log("SubscriptionsS",salesThisMonth);
    $totalSalesThisMonthGraph.text(salesThisMonth.length !== 0 ? salesThisMonth[0].totalSales : 0);
  });
 
@@ -266,7 +273,7 @@ $(document).ready(() => {
      });
      return a;
    });
-   console.log("SubscriptionsS",salesOverall);
+   //  console.log("SubscriptionsS",salesOverall);
    $overallSales.text(salesOverall.length !== 0 ? salesOverall[0].totalSales : 0);
  });
 

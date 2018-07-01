@@ -1,8 +1,8 @@
 let MEMBERSHIPS_LIST = [];
 let MEMBERSHIPS_HISTORY_LIST = [];
 let USERS_LIST = [];
-let username = "9366777750";
-let password = "7454";
+const username = localStorage.getItem('mobileNumber');
+const password = localStorage.getItem('otp');
 $(document).ready(() => {
   "use strict";
 
@@ -20,6 +20,14 @@ $(document).ready(() => {
   let fetchMembershipCountOnline = [];
   let fetchMembershipCountOffline = [];
 
+  if (
+    localStorage.getItem("loggedIn") === undefined ||
+    localStorage.getItem("loggedIn") === null ||
+    localStorage.getItem("role").toString() === 'Manager' 
+  ) {
+    window.location.replace("/admin/login.html");
+  }
+  
   PaginatedAjax.get(
     "https://139.59.80.139/api/v1/cms/subscriptions",
     username,
@@ -28,11 +36,11 @@ $(document).ready(() => {
     "paymentType=ONLINE"
   ).then(data => {
     const onlineMemberships = [];
-    // console.log("DATA",data);
+    // //  console.log("DATA",data);
     data.map(datum => {
       const a = [];
       datum.subscriptions.map(subscription => {
-        // console.log(user);
+        // //  console.log(user);
         onlineMemberships.push(subscription);
       });
       return a;
@@ -52,11 +60,11 @@ $(document).ready(() => {
     "paymentType=OFFLINE"
   ).then(data => {
     const offlineMemeberships = [];
-    // console.log("DATA",data);
+    // //  console.log("DATA",data);
     data.map(datum => {
       const a = [];
       datum.subscriptions.map(subscription => {
-        // console.log(user);
+        // //  console.log(user);
         offlineMemeberships.push(subscription);
       });
       return a;
@@ -77,7 +85,7 @@ $(document).ready(() => {
     1,
     `startDate=${getCurrentWeekMonday()}&endDate=${today.getTime()}`
   ).then(data => {
-    console.log("DATA", data);
+    //  console.log("DATA", data);
     let membershipsDueWeek = [];
     data.map(datum => {
       const a = [];
@@ -99,7 +107,7 @@ $(document).ready(() => {
     1,
     `startDate=${getFirstDayOfCurrentMonth()}&endDate=${today.getTime()}`
   ).then(data => {
-    console.log("this month due DATA", data);
+    //  console.log("this month due DATA", data);
     let membershipsDueMonth = [];
     data.map(datum => {
       const a = [];
@@ -121,7 +129,7 @@ $(document).ready(() => {
     1
   )
     .then(data => {
-      console.log("DATA", data);
+      //  console.log("DATA", data);
       data.map(datum => {
         const a = [];
         datum.Membership.map(membership => {
@@ -185,7 +193,7 @@ MEMBERSHIP HISTORY TABLE
     1
   )
     .then(data => {
-      console.log("MEMBERSHIP HISTORY", data);
+      //  console.log("MEMBERSHIP HISTORY", data);
       data.map(datum => {
         const a = [];
         datum.subscriptions.map(membership => {
@@ -201,11 +209,11 @@ MEMBERSHIP HISTORY TABLE
         "paymentType=ONLINE"
       ).then(data => {
         const onlineMemberships = [];
-        // console.log("DATA",data);
+        // //  console.log("DATA",data);
         data.map(datum => {
           const a = [];
           datum.User.map(user => {
-            // console.log(user);
+            // //  console.log(user);
             USERS_LIST.push(user);
           });
           return a;
@@ -217,7 +225,7 @@ MEMBERSHIP HISTORY TABLE
           MEMBERSHIPS_HISTORY_LIST.length
         );
         MEMBERSHIPS_HISTORY_LIST.forEach(membership => {
-          console.log("USERS");
+          //  console.log("USERS");
           let name = "";
           let _membership = "";
           USERS_LIST.map(user => {
@@ -299,13 +307,13 @@ MEMBERSHIP HISTORY TABLE
       event.preventDefault();
       const data = new FormData();
       const _data = JSON.parse(ConvertFormToJSON(form));
-      console.log("Converted JSON", _data, _data.name, _data.cost);
+      //  console.log("Converted JSON", _data, _data.name, _data.cost);
       data.append("name", _data.name);
       data.append("cost", _data.cost);
       data.append("expiryDays", _data.expiryTime);
       data.append("image", new FormData(form).get("membershipImage"));
       // data.append("imageFile", new FormData(form).get("membershipImage"));
-      console.log("DATA FINAL ", data);
+      //  console.log("DATA FINAL ", data);
       $.ajax({
         method: "POST",
         url: "https://139.59.80.139/api/v1/cms/memberships/create",
@@ -497,16 +505,13 @@ MEMBERSHIP HISTORY TABLE
         }
       };
       $.ajax(settings).done((response, textStatus, request) => {
-        console.log("Subscriptions ", response.subscriptions);
+        //  console.log("Subscriptions ", response.subscriptions);
         const expiredarray = response.subscriptions.map(subscription => {
           return subscription.expired;
         });
-        console.log("expiredArray", expiredarray);
+        //  console.log("expiredArray", expiredarray);
         // if (expiredarray.indexOf(false) >= 0) {
         if (false) {
-          console.log(
-            "The user has one or more unexpired subscriptions.. Ignoring the create request"
-          );
           swal({
             position: "center",
             type: "info",
@@ -517,16 +522,15 @@ MEMBERSHIP HISTORY TABLE
             timer: 1500
           });
         } else {
-          console.log(
-            "No Earlier subscriptions found or All subscriptions have been expired. Creating a new one"
-          );
+ 
 
           let amt = currentMembership.cost;
           let _data = {
             membership: formData.membershipId,
             user: formData.userId,
             paymentType: "OFFLINE",
-            amountPaid: amt
+            amountPaid: amt,
+            comments: formData.comment
           };
           settings = {
             url: `https://139.59.80.139/api/v1/cms/subscriptions/create`,
@@ -542,7 +546,7 @@ MEMBERSHIP HISTORY TABLE
             }
           };
           $.ajax(settings).done((response, textStatus, request) => {
-            console.log("create subscription", response);
+            //  console.log("create subscription", response);
           });
           settings = {
             url: `https://139.59.80.139/api/v1/cms/users/${formData.userId}`,
@@ -653,7 +657,7 @@ MEMBERSHIP HISTORY TABLE
     submitHandler: (form, event) => {
       const data = new FormData();
       const _data = JSON.parse(ConvertFormToJSON(form));
-      console.log("Converted JSON", _data, _data.name, _data.cost);
+      //  console.log("Converted JSON", _data, _data.name, _data.cost);
       data.append("name", _data.name);
       data.append("cost", _data.cost);
       data.append("expiryDays", _data.expiryTime);
@@ -747,11 +751,11 @@ MEMBERSHIP HISTORY TABLE
       "paymentType=ONLINE"
     ).then(data => {
       const onlineMemberships = [];
-      // console.log("DATA",data);
+      // //  console.log("DATA",data);
       data.map(datum => {
         const a = [];
         datum.User.map(user => {
-          // console.log(user);
+          // //  console.log(user);
           USERS_LIST.push(user);
         });
         return a;
@@ -796,7 +800,7 @@ MEMBERSHIP HISTORY TABLE
       }
     };
     $.ajax(settings).done((users, textStatus, request) => {
-      console.log(users);
+      //  console.log(users);
       USERS_LIST = users.User;
       buildDropdown(USERS_LIST, $("#users-select-raw"));
     });

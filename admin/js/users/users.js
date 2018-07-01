@@ -5,9 +5,16 @@ $(document).ready(() => {
   let MEMBERSHIPS_LIST = [];
 
   let SUBSCRIPTIONS_LIST = [];
-  let username = "9366777750";
-  let password = "7454";
+  const username = localStorage.getItem('mobileNumber');
+  const password = localStorage.getItem('otp');
 
+  if (
+    localStorage.getItem("loggedIn") === undefined ||
+    localStorage.getItem("loggedIn") === null
+  ) {
+    window.location.replace("/admin/login.html");
+  }
+  
   const $table = $("#users-table tbody");
 
   /** Basically to generate user table, we need users, memberships and subscriptions.
@@ -29,12 +36,12 @@ $(document).ready(() => {
     password,
     1
   ).then(user_data => {
-    console.log("USER DATA", user_data);
+    //  console.log("USER DATA", user_data);
     let fetchUsers = [];
     user_data.map(user_datum => {
       const a = [];
       user_datum.User.map(user => {
-        // console.log(user);
+        // //  console.log(user);
         fetchUsers.push(user);
       });
       return a;
@@ -47,7 +54,7 @@ $(document).ready(() => {
       password,
       1
     ).then(membership_data => {
-      console.log("DATA", membership_data);
+      //  console.log("DATA", membership_data);
       let fetchMemberships = [];
       membership_data.map(membership_datum => {
         const a = [];
@@ -68,7 +75,7 @@ $(document).ready(() => {
         data.map(datum => {
           const a = [];
           datum.subscriptions.map(subscription => {
-            // console.log(subscription);
+            // //  console.log(subscription);
             fetchsubscriptions.push(subscription);
           });
           return a;
@@ -79,12 +86,12 @@ $(document).ready(() => {
           let userMembership = {};
           SUBSCRIPTIONS_LIST.forEach(subscription => {
             if (subscription.user === user._id) {
-              // console.log(subscription.user, user._id);
+              // //  console.log(subscription.user, user._id);
               userMembership = subscription;
               currentMembership = MEMBERSHIPS_LIST.find(membership => {
                 return membership._id === userMembership.membership;
               });
-              // console.log(currentMembership);
+              // //  console.log(currentMembership);
             }
           });
           $table.append(

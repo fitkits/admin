@@ -108,67 +108,9 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav my-lg-0">
                         <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item hidden-xs-down search-box">
-                            <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)">
-                                <i class="ti-search"></i>
-                            </a>
-                            <form class="app-search">
-                                <input type="text" class="form-control" placeholder="Search & enter">
-                                <a class="srh-btn">
-                                    <i class="ti-close"></i>
-                                </a>
-                            </form>
-                        </li>
-                        <!-- ============================================================== -->
                         <!-- Profile -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../assets/images/users/1.jpg" alt="user" class="profile-pic" />
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right animated flipInY">
-                                <ul class="dropdown-user">
-                                    <li>
-                                        <div class="dw-user-box">
-                                            <div class="u-img">
-                                                <img src="../assets/images/users/1.jpg" alt="user">
-                                            </div>
-                                            <div class="u-text">
-                                                <h4>Steave Jobs</h4>
-                                                <p class="text-muted">varun@gmail.com</p>
-                                                <a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-user"></i> My Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-wallet"></i> My Balance</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-email"></i> Inbox</a>
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="ti-settings"></i> Account Setting</a>
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-power-off"></i> Logout</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                        <button onClick = "PaginatedAjax.logout()" type="button" class="btn btn-danger">Logout</button>
                     </ul>
                 </div>
             </nav>
@@ -427,106 +369,668 @@
                                     <div class="col-12 col-md-8">
                                         <h4 class="card-title">Balance</h4>
                                     </div>
-                                    <div class="col-12 col-md-4">
-                                        <div class="form-group mb-0">
-                                            <div class="controls">
-                                                <input id="userFilter" class="form-control" placeholder="Search Metrics" type="text" />
+
+                                </div>
+                                <div class="form-group">
+                                    <div class="controls row">
+                                        <div class="col-6">
+                                            <h5>Eyes Closed - left</h5>
+                                            <div class="col-12">
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="balance_eyes_closed_left" id="balance_eyes_closed_left_zero" value="0">
+                                                    <label class="form-check-label" for="balance_eyes_closed_left_zero"> &lt; 30s</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="balance_eyes_closed_left" id="balance_eyes_closed_left_half" value="0.5">
+                                                    <label class="form-check-label" for="balance_eyes_closed_left_half"> &gt; 30s</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="balance_eyes_closed_left" id="balance_eyes_closed_left_one" value="1">
+                                                    <label class="form-check-label" for="balance_eyes_closed_left_one"> = 60s</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <h5>Eyes Closed - right</h5>
+                                            <div class="col-6 col-md-6">
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="balance_eyes_closed_right" id="balance_eyes_closed_right_zero" value="0">
+                                                    <label class="form-check-label" for="balance_eyes_closed_right_zero">&lt; 30s</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="balance_eyes_closed_right" id="balance_eyes_closed_right_half" value="0.5">
+                                                    <label class="form-check-label" for="balance_eyes_closed_right_half"> &gt; 30s</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="balance_eyes_closed_right" id="balance_eyes_closed_right_one" value="1">
+                                                    <label class="form-check-label" for="balance_eyes_closed_right_one"> = 60s</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="control row">
+                                        <div class="col-6 ">
+                                            <h5>Eyes Opened - left</h5>
+                                            <div class="col-6">
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="balance_eyes_opened_left" id="balance_eyes_opened_left_zero" value="0">
+                                                    <label class="form-check-label" for="balance_eyes_opened_left_zero">&lt; 30 sec</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="balance_eyes_opened_left" id="balance_eyes_opened_left_half" value="0.5">
+                                                    <label class="form-check-label" for="balance_eyes_opened_left_half"> &gt; 30s</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="balance_eyes_opened_left" id="balance_eyes_opened_left_one" value="1">
+                                                    <label class="form-check-label" for="balance_eyes_opened_left_one"> = 60s</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6 col-md-6">
+                                            <h5>Eyes Opened - right</h5>
+                                            <div class="col-6 col-md-6">
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="balance_eyes_opened_right" id="balance_eyes_opened_right_zero" value="0">
+                                                    <label class="form-check-label" for="balance_eyes_opened_right_zero">&lt; 30s</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="balance_eyes_opened_right" id="balance_eyes_opened_right_half" value="0.5">
+                                                    <label class="form-check-label" for="balance_eyes_opened_right_half"> &gt; 30s</label>
+                                                </div>
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="balance_eyes_opened_right" id="balance_eyes_opened_right_one" value="1">
+                                                    <label class="form-check-label" for="balance_eyes_opened_right_one"> = 60s</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                        <!-- ============================================= -->
+                        <!-- Flexibility CARD -->
+                        <!-- ============================================= -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-material mb-0">
+                                    <div class="col-12 col-md-8">
+                                        <h4 class="card-title">Flexibility</h4>
+                                    </div>
+                                    <div class="form-check col-12">
+                                        <input class="form-check-input" type="checkbox" value="" id="toeTouch">
+                                        <label class="form-check-label" for="toeTouch">
+                                            Toe Touch
+                                        </label>
+                                    </div>
+                                    <div class="form-check  col-12">
+                                        <input class="form-check-input" type="checkbox" value="" id="sitAndReach">
+                                        <label class="form-check-label" for="sitAndReach">
+                                            Sit &amp; Reach
+                                        </label>
+                                    </div>
+                                    <div class="form-check col-12">
+                                        <input class="form-check-input" type="checkbox" value="" id="cobra">
+                                        <label class="form-check-label" for="cobra">
+                                            Cobra
+                                        </label>
+                                    </div>
+                                    <div class="form-check col-12">
+                                        <input class="form-check-input" type="checkbox" value="" id="quad">
+                                        <label class="form-check-label" for="quad">
+                                            Quad
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ============================================= -->
+                        <!-- Strength CARD -->
+                        <!-- ============================================= -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-material mb-0">
+                                    <div class="col-12 col-md-8">
+                                        <h4 class="card-title">Strength</h4>
+                                    </div>
+                                </div>
+                                <div class="controls row">
+                                    <div class="col-6 col-md-6">
+                                        <h5>Plank</h5>
+                                        <div class="col-6 col-md-6">
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="plank" id="plank_zero" value="0">
+                                                <label class="form-check-label" for="plank_zero">&lt; 30s</label>
+                                            </div>
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="plank" id="plank_half" value="0.5">
+                                                <label class="form-check-label" for="plank_half"> &gt; 30s</label>
+                                            </div>
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="plank" id="plank_one" value="1">
+                                                <label class="form-check-label" for="plank_one"> = 60s</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <h5>Squat Hold</h5>
+                                        <div class="col-6 col-md-6">
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="squat_hold" id="squat_hold_zero" value="0">
+                                                <label class="form-check-label" for="squat_hold_zero">&lt; 30s</label>
+                                            </div>
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="squat_hold" id="squat_hold_half" value="0.5">
+                                                <label class="form-check-label" for="squat_hold_half"> &gt; 30s</label>
+                                            </div>
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="squat_hold" id="squat_hold_one" value="1">
+                                                <label class="form-check-label" for="squat_hold_one"> = 60s</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <h5>Push ups</h5>
+                                        <div class="col-6 col-md-6">
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="pushups" id="pushups_zero" value="0">
+                                                <label class="form-check-label" for="pushups_zero">&lt; 30s</label>
+                                            </div>
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="pushups" id="pushups_half" value="0.5">
+                                                <label class="form-check-label" for="pushups_half"> &gt; 30s</label>
+                                            </div>
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="pushups" id="pushups_one" value="1">
+                                                <label class="form-check-label" for="pushups_one"> = 60s</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <h5>Pull Ups</h5>
+                                        <div class="col-6 col-md-6">
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="pullups" id="pullups_zero" value="0">
+                                                <label class="form-check-label" for="pullups_zero">&lt; 30s</label>
+                                            </div>
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="pullups" id="pullups_half" value="0.5">
+                                                <label class="form-check-label" for="pullups_half"> &gt; 30s</label>
+                                            </div>
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="pullups" id="pullups_one" value="1">
+                                                <label class="form-check-label" for="pullups_one"> = 60s</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <h5>Chin ups</h5>
+                                        <div class="col-6 col-md-6">
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="chin_ups" id="chin_ups_zero" value="0">
+                                                <label class="form-check-label" for="chin_ups_zero">&lt; 30s</label>
+                                            </div>
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="chin_ups" id="chin_ups_half" value="0.5">
+                                                <label class="form-check-label" for="chin_ups_half"> &gt; 30s</label>
+                                            </div>
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="chin_ups" id="chin_ups_one" value="1">
+                                                <label class="form-check-label" for="chin_ups_one"> = 60s</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <h5>Squat</h5>
+                                        <div class="col-6 col-md-6">
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="squat" id="squat_zero" value="0">
+                                                <label class="form-check-label" for="squat_zero">&lt; 30s</label>
+                                            </div>
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="squat" id="squat_half" value="0.5">
+                                                <label class="form-check-label" for="squat_half"> &gt; 30s</label>
+                                            </div>
+                                            <div class="form-check  ">
+                                                <input class="form-check-input" type="radio" name="squat" id="squat_one" value="1">
+                                                <label class="form-check-label" for="squat_one"> = 60s</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <!-- ============================================= -->
+                        <!-- 1RM CARD -->
+                        <!-- ============================================= -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-material mb-0">
+                                    <div class="col-12 col-md-8">
+                                        <h4 class="card-title">Strength</h4>
+                                    </div>
+                                </div>
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label for="bicep_curl_left">Bicep Curl Left</label>
+                                                <input type="number" class="form-control" id="bicep_curl_left" aria-describedby="bicep_curl_left" placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="bicep_curl_right">Bicep Curl Right</label>
+                                                <input type="number" class="form-control" id="bicep_curl_right" aria-describedby="bicep_curl_right" placeholder="Max Kg">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <form id="add-assesment-form" class="form-material" novalidate>
-                                    <div class="form-group">
-                                        <div class="controls">
-                                            <div class="col-6 col-md-6">
-                                                <h5>Eyes Closed - left</h5>
 
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label for="tricep_extension_left">Single Arm Tricep Exenstion Left</label>
+                                                <input type="number" class="form-control" id="tricep_extension_left" aria-describedby="tricep_extension_left" placeholder="Max Kg">
                                             </div>
-                                            <div class="col-6 col-md-6">
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" id="balance_eyes_closed_left_zero" value="0">
-                                                    <label class="form-check-label" for="balance_eyes_closed_left_zero">&lt; 30 sec></label>
-                                                </div>
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" id="balance_eyes_closed_left_half" value="0.5">
-                                                    <label class="form-check-label" for="balance_eyes_closed_left_half">&gt;/= 30 sec</label>
-                                                </div>
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" id="balance_eyes_closed_left_one" value="1">
-                                                    <label class="form-check-label" for="balance_eyes_closed_left_one">=60 sec</label>
-                                                </div>
+                                            <div class="col-6">
+                                                <label for="tricep_extension_right">Single Arm Tricep Exenstion Right</label>
+                                                <input type="number" class="form-control" id="tricep_extension_right" aria-describedby="tricep_extension_right" placeholder="Max Kg">
                                             </div>
                                         </div>
-
-                                        <div class="controls">
-                                            <div class="col-6 col-md-6">
-                                                <h5>Eyes Closed - right</h5>
-                                            </div>
-                                            <div class="col-6 col-md-6">
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" id="balance_eyes_closed_right_zero" value="0">
-                                                    <label class="form-check-label" for="balance_eyes_closed_right_zero">&lt; 30 sec></label>
-                                                </div>
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" id="balance_eyes_closed_right_half" value="0.5">
-                                                    <label class="form-check-label" for="balance_eyes_closed_right_half">&gt;/= 30 sec</label>
-                                                </div>
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" id="balance_eyes_closed_right_one" value="1">
-                                                    <label class="form-check-label" for="balance_eyes_closed_right_one">=60 sec</label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-md-6">
-                                            <h5>Eyes Opened - left</h5>
-                                        </div>
-                                        <div class="col-6 col-md-6">
-                                            <div class="controls">
-
-
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" id="balance_eyes_opened_left_zero" value="0">
-                                                    <label class="form-check-label" for="balance_eyes_opened_left_zero">&lt; 30 sec</label>
-                                                </div>
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" id="balance_eyes_opened_left_half" value="0.5">
-                                                    <label class="form-check-label" for="balance_eyes_opened_left_half">&gt;/= 30 sec</label>
-                                                </div>
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" id="balance_eyes_opened_left_one" value="1">
-                                                    <label class="form-check-label" for="balance_eyes_opened_left_one">=60 sec</label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="controls">
-                                            <div class="col-6 col-md-6">
-                                                <h5>Eyes Opened - right</h5>
-                                            </div>
-                                            <div class="col-6 col-md-6">
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" id="balance_eyes_opened_right_zero" value="0">
-                                                    <label class="form-check-label" for="balance_eyes_opened_right_zero">&lt; 30 sec></label>
-                                                </div>
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" id="balance_eyes_opened_right_half" value="0.5">
-                                                    <label class="form-check-label" for="balance_eyes_opened_right_half">&gt;/= 30 sec</label>
-                                                </div>
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" id="balance_eyes_opened_right_one" value="1">
-                                                    <label class="form-check-label" for="balance_eyes_opened_right_one">=60 sec</label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-success waves-effect" form="add-assesment-form">Save Assesment</button>
                                     </div>
- 
+                                </div>
 
+
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label for="bench_press_left">Bench Press Left</label>
+                                                <input type="number" class="form-control" id="bench_press_left" aria-describedby="bench_press_left" placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="bench_press_right">Bench Press Right</label>
+                                                <input type="number" class="form-control" id="bench_press_right" aria-describedby="bench_press_right" placeholder="Max Kg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label for="shoulder_press_left">Shoulder Press Left</label>
+                                                <input type="number" class="form-control" id="shoulder_press_left" aria-describedby="shoulder_press_left" placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="shoulder_press_right">Shoulder Press Right</label>
+                                                <input type="number" class="form-control" id="shoulder_press_right" aria-describedby="shoulder_press_right" placeholder="Max Kg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+
+                        <!-- ============================================= -->
+                        <!-- Muscle Endurance CARD -->
+                        <!-- ============================================= -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-material mb-0">
+                                    <div class="col-12 col-md-8">
+                                        <h4 class="card-title">Muscle Endurance</h4>
+                                    </div>
+                                </div>
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <h5>Bicep Curl</h5>
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label for="muscle_biceps_curl_maxkg">Max Kg</label>
+                                                <input type="number" class="form-control" id="muscle_biceps_curl_maxkgleft" aria-describedby="muscle_biceps_curl_maxkgleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_biceps_curl_5rm_rightright">5RM Right</label>
+                                                <input type="number" class="form-control" id="muscle_biceps_curl_5rm_rightright" aria-describedby="muscle_biceps_curl_5rm_rightright"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_biceps_curl_5rm_leftleft">5RM Left</label>
+                                                <input type="number" class="form-control" id="muscle_biceps_curl_5rm_leftleft" aria-describedby="muscle_biceps_curl_5rm_leftleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_biceps_curl_10rm_rightleft">10RM Right</label>
+                                                <input type="number" class="form-control" id="muscle_biceps_curl_10rm_rightleft" aria-describedby="muscle_biceps_curl_10rm_rightleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_biceps_curl_10rm_leftleft">10RM Left</label>
+                                                <input type="number" class="form-control" id="muscle_biceps_curl_10rm_leftleft" aria-describedby="muscle_biceps_curl_10rm_leftleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <h5>Single Arm Tricep Extension</h5>
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label for="muscle_triceps_extension_maxkg">Max Kg</label>
+                                                <input type="number" class="form-control" id="muscle_triceps_extension_maxkgleft" aria-describedby="muscle_triceps_extension_maxkgleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_triceps_extension_5rm_rightright">5RM Right</label>
+                                                <input type="number" class="form-control" id="muscle_triceps_extension_5rm_rightright" aria-describedby="muscle_triceps_extension_5rm_rightright"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_triceps_extension_5rm_leftleft">5RM Left</label>
+                                                <input type="number" class="form-control" id="muscle_triceps_extension_5rm_leftleft" aria-describedby="muscle_triceps_extension_5rm_leftleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_triceps_extension_10rm_rightleft">10RM Right</label>
+                                                <input type="number" class="form-control" id="muscle_triceps_extension_10rm_rightleft" aria-describedby="muscle_triceps_extension_10rm_rightleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_triceps_extension_10rm_leftleft">10RM Left</label>
+                                                <input type="number" class="form-control" id="muscle_triceps_extension_10rm_leftleft" aria-describedby="muscle_triceps_extension_10rm_leftleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <h5>Bench Press Chest</h5>
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label for="muscle_bench_press_maxkg">Max Kg</label>
+                                                <input type="number" class="form-control" id="muscle_bench_press_maxkgleft" aria-describedby="muscle_bench_press_maxkgleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_bench_press_5rm_rightright">5RM Right</label>
+                                                <input type="number" class="form-control" id="muscle_bench_press_5rm_rightright" aria-describedby="muscle_bench_press_5rm_rightright"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_bench_press_5rm_leftleft">5RM Left</label>
+                                                <input type="number" class="form-control" id="muscle_bench_press_5rm_leftleft" aria-describedby="muscle_bench_press_5rm_leftleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_bench_press_10rm_rightleft">10RM Right</label>
+                                                <input type="number" class="form-control" id="muscle_bench_press_10rm_rightleft" aria-describedby="muscle_bench_press_10rm_rightleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_bench_press_10rm_leftleft">10RM Left</label>
+                                                <input type="number" class="form-control" id="muscle_bench_press_10rm_leftleft" aria-describedby="muscle_bench_press_10rm_leftleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <h5>Shoulder Press</h5>
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label for="muscle_shoulder_press_maxkg">Max Kg</label>
+                                                <input type="number" class="form-control" id="muscle_shoulder_press_maxkgleft" aria-describedby="muscle_shoulder_press_maxkgleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_shoulder_press_5rm_rightright">5RM Right</label>
+                                                <input type="number" class="form-control" id="muscle_shoulder_press_5rm_rightright" aria-describedby="muscle_shoulder_press_5rm_rightright"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_shoulder_press_5rm_leftleft">5RM Left</label>
+                                                <input type="number" class="form-control" id="muscle_shoulder_press_5rm_leftleft" aria-describedby="muscle_shoulder_press_5rm_leftleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_shoulder_press_10rm_rightleft">10RM Right</label>
+                                                <input type="number" class="form-control" id="muscle_shoulder_press_10rm_rightleft" aria-describedby="muscle_shoulder_press_10rm_rightleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_shoulder_press_10rm_leftleft">10RM Left</label>
+                                                <input type="number" class="form-control" id="muscle_shoulder_press_10rm_leftleft" aria-describedby="muscle_shoulder_press_10rm_leftleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <h5>Squats</h5>
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label for="muscle_squats_maxkg">Max Kg</label>
+                                                <input type="number" class="form-control" id="muscle_squats_maxkgleft" aria-describedby="muscle_squats_maxkgleft" placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_squats_5rm_rightright">5RM Right</label>
+                                                <input type="number" class="form-control" id="muscle_squats_5rm_rightright" aria-describedby="muscle_squats_5rm_rightright"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_squats_5rm_leftleft">5RM Left</label>
+                                                <input type="number" class="form-control" id="muscle_squats_5rm_leftleft" aria-describedby="muscle_squats_5rm_leftleft" placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_squats_10rm_rightleft">10RM Right</label>
+                                                <input type="number" class="form-control" id="muscle_squats_10rm_rightleft" aria-describedby="muscle_squats_10rm_rightleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="muscle_squats_10rm_leftleft">10RM Left</label>
+                                                <input type="number" class="form-control" id="muscle_squats_10rm_leftleft" aria-describedby="muscle_squats_10rm_leftleft"
+                                                    placeholder="Max Kg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================= -->
+                        <!-- Cardiovascular CARD -->
+                        <!-- ============================================= -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-material mb-0">
+                                    <div class="col-12 col-md-8">
+                                        <h4 class="card-title">Cardiovascular</h4>
+                                    </div>
+                                </div>
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <h5>Low Intensity</h5>
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label for="cardio_low_intensity_jog">12 min Jog</label>
+                                                <input type="number" class="form-control" id="cardio_low_intensity_jog" aria-describedby="cardio_low_intensity_jog" placeholder="12 Min Jog or Walk">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <h5>Medium Intensity</h5>
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label for="cardio_medium_intensity_jog">12 min Jog</label>
+                                                <input type="number" class="form-control" id="cardio_medium_intensity_jog" aria-describedby="cardio_medium_intensity_jog"
+                                                    placeholder="12 Min Jog or Walk">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <h5>High Intensity</h5>
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label for="cardio_high_intensity_jog">12 min Jog</label>
+                                                <input type="number" class="form-control" id="cardio_high_intensity_jog" aria-describedby="cardio_high_intensity_jog" placeholder="12 Min Jog or Walk">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ============================================= -->
+                        <!-- Cardiovascular CARD -->
+                        <!-- ============================================= -->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row form-material mb-0">
+                                    <div class="col-12 col-md-8">
+                                        <h4 class="card-title">Posture</h4>
+                                    </div>
+                                </div>
+                                <div class="controls">
+                                    <div class="col-12">
+                                        <h5>Anterior</h5>
+                                        <div class="form-group row">
+                                            <div class="col-2">
+                                                <label for="posture_anterior_neck">Neck</label>
+                                                <input type="number" class="form-control" id="posture_anterior_neck" aria-describedby="posture_anterior_neck" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_anterior_shoulder">Shoulder</label>
+                                                <input type="number" class="form-control" id="posture_anterior_shoulder" aria-describedby="posture_anterior_shoulder" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_anterior_arm">Arm</label>
+                                                <input type="number" class="form-control" id="posture_anterior_arm" aria-describedby="posture_anterior_arm" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_anterior_trunk">Trunk</label>
+                                                <input type="number" class="form-control" id="posture_anterior_trunk" aria-describedby="posture_anterior_trunk" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_anterior_back">back</label>
+                                                <input type="number" class="form-control" id="posture_anterior_back" aria-describedby="posture_anterior_back" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_anterior_legs">Legs</label>
+                                                <input type="number" class="form-control" id="posture_anterior_legs" aria-describedby="posture_anterior_legs" placeholder="Neck">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-12">
+                                        <h5>Lateral</h5>
+                                        <div class="form-group row">
+                                            <div class="col-2">
+                                                <label for="posture_lateral_neck">Neck</label>
+                                                <input type="number" class="form-control" id="posture_lateral_neck" aria-describedby="posture_lateral_neck" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_lateral_shoulder">Shoulder</label>
+                                                <input type="number" class="form-control" id="posture_lateral_shoulder" aria-describedby="posture_lateral_shoulder" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_lateral_arm">Arm</label>
+                                                <input type="number" class="form-control" id="posture_lateral_arm" aria-describedby="posture_lateral_arm" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_lateral_trunk">Trunk</label>
+                                                <input type="number" class="form-control" id="posture_lateral_trunk" aria-describedby="posture_lateral_trunk" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_lateral_back">back</label>
+                                                <input type="number" class="form-control" id="posture_lateral_back" aria-describedby="posture_lateral_back" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_lateral_legs">Legs</label>
+                                                <input type="number" class="form-control" id="posture_lateral_legs" aria-describedby="posture_lateral_legs" placeholder="Neck">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-12">
+                                        <h5>posterior</h5>
+                                        <div class="form-group row">
+                                            <div class="col-2">
+                                                <label for="posture_posterior_neck">Neck</label>
+                                                <input type="number" class="form-control" id="posture_posterior_neck" aria-describedby="posture_posterior_neck" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_posterior_shoulder">Shoulder</label>
+                                                <input type="number" class="form-control" id="posture_posterior_shoulder" aria-describedby="posture_posterior_shoulder" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_posterior_arm">Arm</label>
+                                                <input type="number" class="form-control" id="posture_posterior_arm" aria-describedby="posture_posterior_arm" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_posterior_trunk">Trunk</label>
+                                                <input type="number" class="form-control" id="posture_posterior_trunk" aria-describedby="posture_posterior_trunk" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_posterior_back">back</label>
+                                                <input type="number" class="form-control" id="posture_posterior_back" aria-describedby="posture_posterior_back" placeholder="Neck">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="posture_posterior_legs">Legs</label>
+                                                <input type="number" class="form-control" id="posture_posterior_legs" aria-describedby="posture_posterior_legs" placeholder="Neck">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onClick="saveAssesment()" type="submit" class="btn btn-success waves-effect" form="add-assesment-form">Save Assesment</button>
+
                     </div>
+
 
                 </div>
             </div>

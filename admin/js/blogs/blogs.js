@@ -1,7 +1,7 @@
 let shuffleInstance;
 let BLOGS_LIST = [];
-let username = "9366777750";
-let password = "7454";
+const username = localStorage.getItem('mobileNumber');
+const password = localStorage.getItem('otp');
 
 $(document).ready(() => {
   "use strict";
@@ -10,6 +10,14 @@ $(document).ready(() => {
   const $loadMoreButton = document.getElementById("load-more-button");
   let currentPage = 1;
   let totalPages;
+
+  if (
+    localStorage.getItem("loggedIn") === undefined ||
+    localStorage.getItem("loggedIn") === null
+  ) {
+    window.location.replace("/admin/login.html");
+  }
+  
 
   $("input[name=postDate]").bootstrapMaterialDatePicker({
     time: true,
@@ -49,7 +57,7 @@ $(document).ready(() => {
    */
   function getMarkupFromData(dataForSingleItem) {
     const imgsrc = BASE_URL + dataForSingleItem.image;
-    console.log("image", imgsrc);
+    //  console.log("image", imgsrc);
     return [
       `<div class="col-12@xs col-12@sm col-6@md col-4@lg  blog_item" style="height: 400px;" rel="${
         dataForSingleItem._id
@@ -115,7 +123,7 @@ $(document).ready(() => {
     1
   )
     .then(feed_data => {
-      console.log("DATA", feed_data);
+      //  console.log("DATA", feed_data);
       let fetchfeed = [];
       feed_data.map(feed_datum => {
         const a = [];
@@ -224,12 +232,12 @@ $(document).ready(() => {
       event.preventDefault();
 	  const data = new FormData();
 	  const _data = JSON.parse(ConvertFormToJSON(form));
-	  console.log("_data",_data,_data["title"],_data.title);
+	  //  console.log("_data",_data,_data["title"],_data.title);
 	  data.append("title", _data.title);
 	  data.append("subTitle", _data.subTitle);
 	  data.append("description",_data.description);
 	  data.append("image", new FormData(form).get("blogImage"));
-	  console.log("POST DATA", data,ConvertFormToJSON(form), new FormData(form).get("blogImage"));
+	  //  console.log("POST DATA", data,ConvertFormToJSON(form), new FormData(form).get("blogImage"));
 	//   const data =JSON.parse(ConvertFormToJSON(form));
 	// 	data.imageFile =  new FormData(form).get("blogImage")
 	var form = new FormData();

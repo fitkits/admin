@@ -1,7 +1,6 @@
 let GOALS_LIST = [];
-let username = "9366777750";
-let password = "7454";
-
+const username = localStorage.getItem('mobileNumber');
+const password = localStorage.getItem('otp');
 $(document).ready(() => {
   "use strict";
 
@@ -17,6 +16,13 @@ $(document).ready(() => {
   const $fieldFootableBody = $("#goal-field-table tbody");
   const $fieldFooTableData = $("table").data("footable");
 
+  if (
+    localStorage.getItem("loggedIn") === undefined ||
+    localStorage.getItem("loggedIn") === null
+  ) {
+    window.location.replace("/admin/login.html");
+  }
+  
   PaginatedAjax.get(
     "https://139.59.80.139/api/v1/cms/goals/",
     username,
