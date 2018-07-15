@@ -51,11 +51,11 @@ $(document).ready(() => {
       1
     )
       .then(user_data => {
-         console.log("USER", user_data);
+        console.log("USER", user_data);
         const user_pagination = user_data.map(datum => {
           const a = [];
           datum.User.map(users => {
-              console.log(users);
+            console.log(users);
             USERS_LIST.push(users);
           });
 
@@ -90,7 +90,12 @@ $(document).ready(() => {
       event.preventDefault();
       const formDataJSON = ConvertFormToJSON(form);
       const formData = JSON.parse(formDataJSON);
-      const selectedDate = new Date($("#datepicker")[0].value);
+      console.log("SELECTED DATE", $("#datepicker")[0].value, "ss");
+      const datecheck =
+        $("#datepicker")[0].value !== ""
+          ? new Date($("#datepicker")[0].value)
+          : new Date();
+      const selectedDate = new Date(datecheck);
       const date =
         selectedDate.getDate() < 10
           ? "0" + selectedDate.getDate().toString()
@@ -190,24 +195,24 @@ fetchAttendanceData = () => {
     let attendance_pagination = [];
     data.map(datum => {
       const a = [];
-      console.log(data.length)
+      console.log(data.length);
       datum.Attendance.map(attendance => {
-          // console.log(attendance);
+        // console.log(attendance);
         attendance_pagination.push(attendance);
       });
     });
-      console.log("attendance_pagination", attendance_pagination);
+    console.log("attendance_pagination", attendance_pagination);
     let present = 0;
     const total = attendance_pagination.length;
     // //  console.log("aaa", attendance_pagination.reverse().slice(0, 10));
-    const top_ten = attendance_pagination.reverse().slice(0, 10);
+    const top_ten = attendance_pagination.reverse().slice(0, attendance_pagination.length);
     // //  console.log("top_ten", top_ten);
     attendance_pagination.map(attendance => {
       if (attendance.status) {
         present = present + 1;
       }
       const avg = (present / total) * 100;
-        // console.log(avg, present, total);
+      // console.log(avg, present, total);
       $("#attendance_avg_h1").text(
         "Average attendance: " + avg.toFixed(2) + " %"
       );
@@ -249,6 +254,7 @@ fetchAttendanceData = () => {
           );
         }
       };
+      const $table = $("#users-table tbody");
       $.ajax(settings)
         .done(user => {
           //  console.log("USER", user);
@@ -265,7 +271,13 @@ fetchAttendanceData = () => {
                 : "Absent"
               : "NA") +
             "</td></tr>";
-          $("#attendance_table_body").append(table_data_row);
+          $table.append(table_data_row);
+          // var $j = jQuery.noConflict();
+          // $j("#users-table").footable({
+          //   sorting: {
+          //     enabled: true
+          //   }
+          // });
         })
         .fail(() => {
           //  console.log("fail");

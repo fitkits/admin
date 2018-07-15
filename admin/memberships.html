@@ -96,15 +96,15 @@
                         </li>
 
                     </ul>
-                   <!-- ============================================================== -->
-					<!-- User profile and search -->
-					<!-- ============================================================== -->
-					<ul class="navbar-nav my-lg-0">
-                            <!-- ============================================================== -->
-                            <!-- Profile -->
-                            <!-- ============================================================== -->
-                            <button onClick = "PaginatedAjax.logout()" type="button" class="btn btn-danger">Logout</button>
-                        </ul>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav my-lg-0">
+                        <!-- ============================================================== -->
+                        <!-- Profile -->
+                        <!-- ============================================================== -->
+                        <button onClick="PaginatedAjax.logout()" type="button" class="btn btn-danger">Logout</button>
+                    </ul>
                 </div>
             </nav>
         </header>
@@ -327,18 +327,61 @@
                             </tfoot>
                         </table>
 
+
+                        <!-- ================================================== -->
+                        <!-- SUBSCRIPTION PENDING TABLE -->
+                        <!-- ================================================== -->
+
                         <div class="row form-material mb-0">
-                                <div class="col-12 col-md-8">
-                                    <h4 class="card-title">Subscription History</h4>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group mb-0">
-                                        <div class="controls">
-                                            <input id="filter" class="form-control" placeholder="Search plans" type="text" />
-                                        </div>
+                            <div class="col-12 col-md-8">
+                                <h4 class="card-title">Pending Subscriptions</h4>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group mb-0">
+                                    <div class="controls">
+                                        <input id="filter" class="form-control" placeholder="Search pending" type="text" />
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <table id="membership-pending-table" class="table footable table-bordered table-striped border-0" data-paging="true" data-sorting="true"
+                            data-page-size="6" data-page-navigation=".pagination" data-filter="#filter" data-filter-text-only="true">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th data-toggle="tooltip" data-placement="top" title="In Paise">Membership</th>
+                                    <!-- <th>Approve</th> -->
+                                    <!-- <th data-sort-ignore="true">Action</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="7" class="border-0">
+                                        <div class="text-right">
+                                            <ul class="pagination"> </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <!-- ================================================== -->
+                        <!-- SUBSCRIPTION HISTORY TABLE -->
+                        <!-- ================================================== -->
+                        <div class="row form-material mb-0">
+                            <div class="col-12 col-md-8">
+                                <h4 class="card-title">Subscription History</h4>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group mb-0">
+                                    <div class="controls">
+                                        <input id="filter" class="form-control" placeholder="Search plans" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <table id="membership-history-table" class="table footable table-bordered table-striped border-0" data-paging="true" data-sorting="true"
                             data-page-size="5" data-page-navigation=".pagination" data-filter="#filter" data-filter-text-only="true">
                             <thead>
@@ -535,7 +578,7 @@
                         </div>
                         <div class="form-group">
                             <div class="controls">
-                                <input type="text" class="form-control" name="comment" placeholder="comments" >
+                                <input type="text" class="form-control" name="comment" placeholder="comments">
                             </div>
                         </div>
                     </form>
@@ -596,6 +639,89 @@
             }
         });
 
+
+
+
+        function approveUser(row) {
+            const $rowToBeApproved = $(row).parents('tr');
+            const _currentMembership = MEMBERSHIPS_LIST.find(membership => {
+                console.log("IDS", membership._id, $rowToBeApproved.data('mid'))
+                return membership._id === $rowToBeApproved.data('mid');
+            });
+
+
+            let amt = _currentMembership.cost;
+            let _data = {
+                membership: _currentMembership._id,
+                user: $rowToBeApproved.data('uid'),
+                paymentType: "OFFLINE",
+                amountPaid: amt,
+                comments: ""
+            };
+            console.log(_data)
+            settings = {
+                url: `https://139.59.80.139/api/v1/cms/subscriptions/create`,
+                method: "POST",
+                data: JSON.stringify(_data),
+
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(
+                        "Authorization",
+                        "Basic " + btoa(username + ":" + password)
+                    );
+                    xhr.setRequestHeader("content-type", "application/json");
+                }
+            };
+            $.ajax(settings).done((response, textStatus, request) => {
+                console.log("create subscription", response);
+
+                settings = {
+                    url: `https://139.59.80.139/api/v1/cms/users/${$rowToBeApproved.data('uid')}`,
+                    method: "PATCH",
+
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(
+                            "Authorization",
+                            "Basic " + btoa(username + ":" + password)
+                        );
+                        xhr.setRequestHeader(
+                            "content-type",
+                            "application/x-www-form-urlencoded"
+                        );
+                    },
+                    data: {
+                        "name":"Ragzzy",
+                        "pendingMembership": {
+                            
+                            "isPending":false,
+                            "subscription":response.subscriptions._id,
+                            "membershipId": _currentMembership._id
+                        }
+                    }
+                    
+                };
+                  $.ajax(settings)
+                    .done((response, textStatus, request) => {
+                     
+                      swal({
+                        position: "top-right",
+                        type: "success",
+                        title: "Successfully Approved",
+                        showConfirmButton: false,
+                        timer: 1500
+                      });
+                      location.reload();
+                    })
+                    .fail(xhr => {
+                      swal({
+                        title: "Oops...",
+                        text: "Membership cannot be added.",
+                        type: "error",
+                        confirmButtonColor: "#DD6B55"
+                      });
+                    });
+            });
+        }
         function deleteRow(row) {
             var $rowToBeDeleted = $(row).parents('tr');
             $.ajax({

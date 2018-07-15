@@ -1,5 +1,6 @@
 let MEMBERSHIPS_LIST = [];
 let MEMBERSHIPS_HISTORY_LIST = [];
+let MEMBERSHIPS_PENDING_LIST = [];
 let USERS_LIST = [];
 const username = localStorage.getItem('mobileNumber');
 const password = localStorage.getItem('otp');
@@ -264,6 +265,112 @@ MEMBERSHIP HISTORY TABLE
           // </span>
         });
         $("#membership-history-table").footable({
+          sorting: {
+            enabled: true
+          }
+        });
+      });
+    })
+    .catch(xhr => {
+      $.toast({
+        heading: "Processing Error",
+        text: "Sorry, We cannot process your request now",
+        position: "top-left",
+        loaderBg: "#ff6849",
+        icon: "warning",
+        hideAfter: 10000,
+        stack: 6
+      });
+    });
+
+
+
+      /*
+===========================================================
+MEMBERSHIP PENDING TABLE
+===========================================================
+*/
+  PaginatedAjax.get(
+    "https://139.59.80.139/api/v1/cms/users/",
+    username,
+    password,
+    1,
+    "isPendingMembership=true"
+  )
+    .then(data => {
+       console.log("MEMBERSHIP HISTORY", data);
+      data.map(datum => {
+        const a = [];
+        datum.User.map(membership => {
+          MEMBERSHIPS_PENDING_LIST.push(membership);
+        });
+        return a;
+      });
+      console.log(MEMBERSHIPS_PENDING_LIST);
+      // PaginatedAjax.get(
+      //   "https://139.59.80.139/api/v1/cms/users/",
+      //   username,
+      //   password,
+      //   1,
+      //   "paymentType=ONLINE"
+      // ).then(data => {
+      //   const onlineMemberships = [];
+      //   // //  console.log("DATA",data);
+      //   data.map(datum => {
+      //     const a = [];
+      //     datum.User.map(user => {
+      //       // //  console.log(user);
+      //       USERS_LIST.push(user);
+      //     });
+      //     return a;
+      //   });
+        const $table = $("#membership-pending-table tbody");
+
+        MEMBERSHIPS_PENDING_LIST = MEMBERSHIPS_PENDING_LIST.reverse().slice(
+          0,
+          MEMBERSHIPS_PENDING_LIST.length
+        );
+
+        MEMBERSHIPS_PENDING_LIST.forEach(membership => {
+           console.log("USERS");
+          let name =  membership.name !== undefined ? membership.name : "Unnamed User"
+          let _userid = membership._id;
+          let _membership = "";
+          MEMBERSHIPS_LIST.map(mem => {
+            if (mem._id === membership.pendingMembership.membership) {
+              _membership = mem.name != undefined ? mem.name : "Unnamed User";
+              console.log(_membership,name)
+            }
+       
+          });
+          
+
+          $table.append(
+            `<tr data-mid = "${
+              membership.pendingMembership.membership
+            }" data-uid = "${_userid}"><td>${name}</td><td> ${_membership}</td><td>
+            <a data-toggle="tooltip" data-placement="top" title="Edit">
+            <i class="fa fa-pencil text-inverse m-r-10"></i></a></span>
+            <span onclick="approveUser(this)">
+            <a data-toggle="tooltip" data-placement="top" title="Delete">
+            <i class="fa fa-trash text-inverse m-r-10"></i></a>
+            </span>`
+            
+          );
+
+          // <a data-toggle="tooltip" data-placement="top" title="Delete">
+          // <i class="fa fa-trash text-inverse m-r-10"></i></a>
+          // </span>
+          // </td></tr>
+
+          // <a data-toggle="tooltip" data-placement="top" title="Edit">
+          // <i class="fa fa-pencil text-inverse m-r-10"></i></a></span>
+          // <span onclick="deleteRow(this)">
+          // <a data-toggle="tooltip" data-placement="top" title="Delete">
+          // <i class="fa fa-trash text-inverse m-r-10"></i></a>
+          // </span>
+        // });
+        $("#membership-pending-table").footable({
           sorting: {
             enabled: true
           }
