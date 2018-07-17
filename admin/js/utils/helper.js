@@ -29,7 +29,17 @@ function getCurrentWeekMonday() {
   const today = new Date();
   const day = today.getDay();
   const diff = today.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
-  return new Date(today.setDate(diff)).getTime();
+  const finaldate = new Date(today.setDate(diff));
+  const _day = finaldate.getDate();
+  const month = finaldate.getMonth() + 1;
+  const year = finaldate.getFullYear();
+  return (
+    year +
+    "-" +
+    (month < 10 ? "0" + month.toString() : month) +
+    "-" +
+    (_day < 10 ? "0" + _day.toString() : _day)
+  );
 }
 
 function getMonday(d) {
@@ -39,9 +49,30 @@ function getMonday(d) {
   return new Date(d.setDate(diff));
 }
 
+function getTodayInServerFormat() {
+  const today = new Date();
+  const _day = today.getDate();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+
+  return (
+    year +
+    "-" +
+    (month < 10 ? "0" + month.toString() : month) +
+    "-" +
+    (_day < 10 ? "0" + _day.toString() : _day)
+  );
+}
+
 function getFirstDayOfCurrentMonth() {
   const today = new Date();
-  return (today.getFullYear() +"-"+(today.getMonth()+1)+"-"+'1');
+  const _day = "01";
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+
+  return (
+    year + "-" + (month < 10 ? "0" + month.toString() : month) + "-" + _day
+  );
 }
 
 function getLastDayOfCurrentMonth(d) {

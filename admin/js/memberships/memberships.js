@@ -84,9 +84,9 @@ $(document).ready(() => {
     username,
     password,
     1,
-    `startDate=${getCurrentWeekMonday()}&endDate=${today.getTime()}`
+    `startDate=${getCurrentWeekMonday()}&endDate=${getTodayInServerFormat()}`
   ).then(data => {
-    //  console.log("DATA", data);
+     console.log("DATA", data);
     let membershipsDueWeek = [];
     data.map(datum => {
       const a = [];
@@ -106,7 +106,7 @@ $(document).ready(() => {
     username,
     password,
     1,
-    `startDate=${getFirstDayOfCurrentMonth()}&endDate=${today.getTime()}`
+    `startDate=${getFirstDayOfCurrentMonth()}&endDate=${getTodayInServerFormat()}`
   ).then(data => {
     //  console.log("this month due DATA", data);
     let membershipsDueMonth = [];
@@ -206,11 +206,10 @@ MEMBERSHIP HISTORY TABLE
         "https://139.59.80.139/api/v1/cms/users/",
         username,
         password,
-        1,
-        "paymentType=ONLINE"
+        1
       ).then(data => {
         const onlineMemberships = [];
-        // //  console.log("DATA",data);
+        //  console.log("DATA",data);
         data.map(datum => {
           const a = [];
           datum.User.map(user => {
@@ -298,7 +297,7 @@ MEMBERSHIP PENDING TABLE
     "isPendingMembership=true"
   )
     .then(data => {
-       console.log("MEMBERSHIP HISTORY", data);
+      //  console.log("MEMBERSHIP HISTORY", data);
       data.map(datum => {
         const a = [];
         datum.User.map(membership => {
@@ -306,7 +305,7 @@ MEMBERSHIP PENDING TABLE
         });
         return a;
       });
-      console.log(MEMBERSHIPS_PENDING_LIST);
+      // console.log(MEMBERSHIPS_PENDING_LIST);
       // PaginatedAjax.get(
       //   "https://139.59.80.139/api/v1/cms/users/",
       //   username,
@@ -332,14 +331,14 @@ MEMBERSHIP PENDING TABLE
         );
 
         MEMBERSHIPS_PENDING_LIST.forEach(membership => {
-           console.log("USERS");
+          //  console.log("USERS");
           let name =  membership.name !== undefined ? membership.name : "Unnamed User"
           let _userid = membership._id;
           let _membership = "";
           MEMBERSHIPS_LIST.map(mem => {
             if (mem._id === membership.pendingMembership.membership) {
               _membership = mem.name != undefined ? mem.name : "Unnamed User";
-              console.log(_membership,name)
+              // console.log(_membership,name)
             }
        
           });
@@ -349,11 +348,10 @@ MEMBERSHIP PENDING TABLE
             `<tr data-mid = "${
               membership.pendingMembership.membership
             }" data-uid = "${_userid}"><td>${name}</td><td> ${_membership}</td><td>
-            <a data-toggle="tooltip" data-placement="top" title="Edit">
-            <i class="fa fa-pencil text-inverse m-r-10"></i></a></span>
-            <span onclick="approveUser(this)">
-            <a data-toggle="tooltip" data-placement="top" title="Delete">
-            <i class="fa fa-trash text-inverse m-r-10"></i></a>
+            <span onclick="approveUser(this)" style = "cursor: pointer !important">
+            Click To Approve
+            <a data-toggle="tooltip" data-placement="top" title="Approve subscription">
+            <i class="fa fa-check text-inverse m-r-10"></i></a>
             </span>`
             
           );
