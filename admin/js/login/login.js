@@ -46,7 +46,7 @@ const sendOTP = () => {
     };
     //  console.log("DATA TO SEND", dataToSend);
     const settings = {
-      url: "https://139.59.80.139/otp/sendOTP",
+      url: "http://139.59.80.139/otp/sendOTP",
       data: dataToSend,
       method: "POST",
       beforeSend: function(xhr) {
@@ -94,7 +94,7 @@ const verifyOTP = () => {
   };
   //  console.log("DATA TO SEND", dataToSend);
   const settings = {
-    url: "https://139.59.80.139/otp/verifyOTP",
+    url: "http://139.59.80.139/otp/verifyOTP?frontEndClient=web-admin",
     data: dataToSend,
     method: "POST",
     beforeSend: function(xhr) {
@@ -108,26 +108,39 @@ const verifyOTP = () => {
   $.ajax(settings)
     .done((data, textStatus, request) => {
       //  console.log(data);
-      localStorage.setItem("user", data._id);
-      localStorage.setItem("otp", data.otp);
-      const ismanager = ($is_manager[0].checked ? 'Manager' : 'admin');
-      localStorage.setItem("role", ismanager);
-      localStorage.setItem("mobileNumber",data.mobileNumber)
-      localStorage.setItem("loggedIn", true);
-      swal({
-        position: "top-right",
-        type: "success",
-        title:
-        "Welcome back! "+ $text_userName.val(),
-        showConfirmButton: false,
-        timer: 1500
-      });
-      location.reload();
+      if(data.role !== "client") {
+        localStorage.setItem("user", data._id);
+        localStorage.setItem("token", data.jwt);
+        // const ismanager = ($is_manager[0].checked ? 'Manager' : 'admin');
+        localStorage.setItem("role", data.role);
+        localStorage.setItem("mobileNumber",data.mobileNumber)
+        localStorage.setItem("loggedIn", true);
+        swal({
+          position: "top-right",
+          type: "success",
+          title:
+          "Welcome back! "+ $text_userName.val(),
+          showConfirmButton: false,
+          timer: 1500
+        });
+        location.reload();
+      }
+      else {
+        swal({
+          position: "top-right",
+          type: "success",
+          title:
+          "The Credentials Don't Exist on Server. Please Contact Admin! ",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        location.reload();
+      }
     })
     .fail(xhr => {
       swal({
         title: "Oops...",
-        text: "Error Verifyin OTP. Contact the Admin or try after sometime",
+        text: "Error Verifying OTP. Contact the Admin or try after sometime",
         type: "error",
         confirmButtonColor: "#DD6B55"
       });

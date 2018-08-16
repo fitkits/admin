@@ -302,12 +302,13 @@
 				if (result.value) {
 					$.ajax({
 						method: 'DELETE',
-						url: `https://139.59.80.139/api/v1/cms/feeds/${$blogToBeDeleted.data('bid')}`,
+						url: `http://139.59.80.139/api/v1/cms/feeds/${$blogToBeDeleted.data('bid')}`,
 					
 	  beforeSend: function(xhr) {
 		xhr.setRequestHeader(
 		  "Authorization",
-		  "Basic " + btoa(username + ":" + password)
+		//   "Basic " + btoa(username + ":" + password)
+		"Bearer " + localStorage.getItem("token")
 		) }
 					})
 						.done((response, textStatus, request) => {

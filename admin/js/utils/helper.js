@@ -1,4 +1,4 @@
-const BASE_URL = "https://139.59.80.139";
+const BASE_URL = "http://139.59.80.139";
 $('[data-toggle="tooltip"]').tooltip();
 function ConvertFormToJSON(form) {
   const array = jQuery(form).serializeArray();
@@ -69,7 +69,7 @@ function getFirstDayOfCurrentMonth() {
   const _day = "01";
   const month = today.getMonth() + 1;
   const year = today.getFullYear();
-
+  // return '2018-01-01';
   return (
     year + "-" + (month < 10 ? "0" + month.toString() : month) + "-" + _day
   );

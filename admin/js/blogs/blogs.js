@@ -29,7 +29,7 @@ $(document).ready(() => {
   function fetchNextPage() {
     currentPage += 1;
 
-    // $.get('https://139.59.80.139/api/v1/cms/feeds/').done((blogs, textStatus, request) => {
+    // $.get('http://139.59.80.139/api/v1/cms/feeds/').done((blogs, textStatus, request) => {
     // Create and insert the markup.
     //	appendMarkupToGrid(getItemMarkup(blogs));
 
@@ -117,7 +117,7 @@ $(document).ready(() => {
   }
 
   PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/feeds/",
+    "http://139.59.80.139/api/v1/cms/feeds/",
     username,
     password,
     1
@@ -127,7 +127,7 @@ $(document).ready(() => {
       let fetchfeed = [];
       feed_data.map(feed_datum => {
         const a = [];
-        feed_datum.Feed.map(feed => {
+        feed_datum.Feeds.map(feed => {
           fetchfeed.push(feed);
         });
         return a;
@@ -162,7 +162,7 @@ $(document).ready(() => {
       // 	stack: 6
       // });
     });
-  // $.get('https://139.59.80.139/api/v1/cms/feeds/')
+  // $.get('http://139.59.80.139/api/v1/cms/feeds/')
   // 	.done((blogs, textStatus, request) => {
   // 		BLOGS_LIST = blogs;
 
@@ -248,13 +248,14 @@ $(document).ready(() => {
 	var settings = {
 	  "async": true,
 	  "crossDomain": true,
-	  "url": "https://139.59.80.139/api/v1/cms/feeds/create",
+	  "url": "http://139.59.80.139/api/v1/cms/feeds/create",
 	  "method": "POST",
 
 	  beforeSend: function(xhr) {
 		xhr.setRequestHeader(
 		  "Authorization",
-		  "Basic " + btoa(username + ":" + password)
+      // "Basic " + btoa(username + ":" + password)
+      "Bearer " + localStorage.getItem("token")
 		);
 	},
 	  processData: false,
@@ -340,11 +341,12 @@ $(document).ready(() => {
 		data.append("image", new FormData(form).get("blogImage"));
       $.ajax({
         method: "PATCH",
-        url: `https://139.59.80.139/api/v1/cms/feeds/${blogId}`,
+        url: `http://139.59.80.139/api/v1/cms/feeds/${blogId}`,
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader(
 			  "Authorization",
-			  "Basic " + btoa(username + ":" + password)
+        // "Basic " + btoa(username + ":" + password)
+        "Bearer " + localStorage.getItem("token")
 			);
 		},
         data: data,

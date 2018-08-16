@@ -24,7 +24,7 @@ $(document).ready(() => {
   }
   
   PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/goals/",
+    "http://139.59.80.139/api/v1/cms/goals/",
     username,
     password,
     1
@@ -145,7 +145,7 @@ $(document).ready(() => {
       console.log(data.getAll("data"));
       $.ajax({
         method: "POST",
-        url: "https://139.59.80.139/api/v1/cms/goals/create",
+        url: "http://139.59.80.139/api/v1/cms/goals/create",
         beforeSend: function(xhr) {
           xhr.setRequestHeader(
             "Authorization",

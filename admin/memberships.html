@@ -205,7 +205,7 @@
                 <!-- Stats box -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex no-block">
@@ -228,7 +228,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <!-- <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex no-block">
@@ -243,8 +243,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4">
+                    </div> -->
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex no-block">
@@ -253,7 +253,7 @@
                                         <img src="../assets/images/icon/assets.png" alt="Income" />
                                     </div>
                                     <div class="align-self-center">
-                                        <h6 class="text-muted m-t-10 m-b-0">Memberships Due Renewal This Month</h6>
+                                        <h6 class="text-muted m-t-10 m-b-0">Subscription Renewals</h6>
                                         <h2 class="m-t-0" rel="membershipsDueThisMonth"></h2>
                                     </div>
                                 </div>
@@ -660,14 +660,15 @@
             };
             console.log(_data)
             settings = {
-                url: `https://139.59.80.139/api/v1/cms/subscriptions/create`,
+                url: `http://139.59.80.139/api/v1/cms/subscriptions/create`,
                 method: "POST",
                 data: JSON.stringify(_data),
 
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader(
                         "Authorization",
-                        "Basic " + btoa(username + ":" + password)
+                        // "Basic " + btoa(username + ":" + password)
+                        "Bearer " + localStorage.getItem("token")
                     );
                     xhr.setRequestHeader("content-type", "application/json");
                 }
@@ -676,13 +677,14 @@
                 console.log("create subscription", response);
 
                 settings = {
-                    url: `https://139.59.80.139/api/v1/cms/users/${$rowToBeApproved.data('uid')}`,
+                    url: `http://139.59.80.139/api/v1/cms/users/${$rowToBeApproved.data('uid')}`,
                     method: "PATCH",
 
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader(
                             "Authorization",
-                            "Basic " + btoa(username + ":" + password)
+                            // "Basic " + btoa(username + ":" + password)
+                            "Bearer " + localStorage.getItem("token")
                         );
                         xhr.setRequestHeader(
                             "content-type",
@@ -726,11 +728,12 @@
             var $rowToBeDeleted = $(row).parents('tr');
             $.ajax({
                 method: 'DELETE',
-                url: `https://139.59.80.139/api/v1/cms/memberships/${$rowToBeDeleted.data('mid')}`,
+                url: `http://139.59.80.139/api/v1/cms/memberships/${$rowToBeDeleted.data('mid')}`,
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader(
                         "Authorization",
-                        "Basic " + btoa(username + ":" + password)
+                        // "Basic " + btoa(username + ":" + password)
+                        "Bearer " + localStorage.getItem("token")
                     )
                 }
             })

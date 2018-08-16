@@ -5,8 +5,8 @@ $(document).ready(() => {
   let MEMBERSHIPS_LIST = [];
 
   let SUBSCRIPTIONS_LIST = [];
-  const username = localStorage.getItem('mobileNumber');
-  const password = localStorage.getItem('otp');
+  const username = localStorage.getItem("mobileNumber");
+  const password = localStorage.getItem("otp");
 
   if (
     localStorage.getItem("loggedIn") === undefined ||
@@ -14,7 +14,11 @@ $(document).ready(() => {
   ) {
     window.location.replace("/admin/login.html");
   }
-  
+ if(
+   localStorage.getItem("role") === 'manager'
+ ) {
+   $('#add-manager-button').hide();
+ }
   const $table = $("#users-table tbody");
 
   /** Basically to generate user table, we need users, memberships and subscriptions.
@@ -31,16 +35,16 @@ $(document).ready(() => {
    */
 
   PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/users",
+    "http://139.59.80.139/api/v1/cms/users",
     username,
     password,
     1
   ).then(user_data => {
-    //  console.log("USER DATA", user_data);
     let fetchUsers = [];
     user_data.map(user_datum => {
+      console.log("USER DATA", user_datum);
       const a = [];
-      user_datum.User.map(user => {
+      user_datum.Users.map(user => {
         // //  console.log(user);
         fetchUsers.push(user);
       });
@@ -49,7 +53,7 @@ $(document).ready(() => {
 
     USERS_LIST = fetchUsers;
     PaginatedAjax.get(
-      "https://139.59.80.139/api/v1/cms/memberships/",
+      "http://139.59.80.139/api/v1/cms/memberships/",
       username,
       password,
       1
@@ -58,7 +62,7 @@ $(document).ready(() => {
       let fetchMemberships = [];
       membership_data.map(membership_datum => {
         const a = [];
-        membership_datum.Membership.map(membership => {
+        membership_datum.Memberships.map(membership => {
           fetchMemberships.push(membership);
         });
         return a;
@@ -66,7 +70,7 @@ $(document).ready(() => {
 
       MEMBERSHIPS_LIST = fetchMemberships;
       PaginatedAjax.get(
-        "https://139.59.80.139/api/v1/cms/subscriptions",
+        "http://139.59.80.139/api/v1/cms/subscriptions",
         username,
         password,
         1
@@ -74,7 +78,7 @@ $(document).ready(() => {
         let fetchsubscriptions = [];
         data.map(datum => {
           const a = [];
-          datum.subscriptions.map(subscription => {
+          datum.Subscriptions.map(subscription => {
             // //  console.log(subscription);
             fetchsubscriptions.push(subscription);
           });
@@ -83,17 +87,41 @@ $(document).ready(() => {
         SUBSCRIPTIONS_LIST = fetchsubscriptions;
         USERS_LIST.forEach(user => {
           let currentMembership = "";
+          let userMembershipArray = [];
           let userMembership = {};
-          SUBSCRIPTIONS_LIST.forEach(subscription => {
+  
+          const SUBSCRIPTIONS_LIST_SORTED = SUBSCRIPTIONS_LIST.sort((a,b)=> {
+            const date_a = moment(a.startDate);
+            const date_b = moment(b.startDate);
+            // console.log(date_a,date_b,date_a.isBefore(date_b));
+              if(date_a.isBefore(date_b)) {
+                return 1;
+              }
+              else {
+                return -1;
+              }
+          })
+          // console.log(SUBSCRIPTIONS_LIST_END_DATE_SORTED);
+          SUBSCRIPTIONS_LIST_SORTED.forEach(subscription => {
+            // console.log("SUBSCRIPTION LIST", moment(subscription.endDate));
+          });
+          SUBSCRIPTIONS_LIST_SORTED.forEach(subscription => {
+            // console.log("SUBSCRIPTION LIST", new Date(subscription.endDate));
             if (subscription.user === user._id) {
               // //  console.log(subscription.user, user._id);
-              userMembership = subscription;
-              currentMembership = MEMBERSHIPS_LIST.find(membership => {
-                return membership._id === userMembership.membership;
-              });
-              // //  console.log(currentMembership);
+              userMembershipArray.push(subscription);
             }
           });
+          userMembership = userMembershipArray[0];
+          // userMembershipArray = [];
+          // console.log(userMembership,user);
+          if(userMembership) {
+            currentMembership = MEMBERSHIPS_LIST.find(membership => {
+              return membership._id === userMembership.membership;
+            });
+          }
+
+          
           $table.append(
             `<tr onclick="redirectToUser(this)" data-uid = "${user._id}"><td>${
               user.name !== undefined ? user.name : "Unnamed User"
@@ -104,15 +132,132 @@ $(document).ready(() => {
             }</td>
           
               <td>${user.gender}</td><td>${
-              userMembership.startDate
+              userMembership
                 ? moment(userMembership.startDate).fromNow()
                 : "N/A"
-            }</td><td>N/A
+            }</td><td>
+             ${userMembership? moment(userMembership.endDate).fromNow() : "N/A"}
               </td></tr>`
           );
         });
         $("#users-table").footable();
       });
     });
+  });
+
+  // $("#add-managers-modal").on("show.bs.modal", function(e) {
+  //   PaginatedAjax.get(
+  //     "http://139.59.80.139/api/v1/cms/users/",
+  //     username,
+  //     password,
+  //     1
+  //   )
+  //     .then(user_data => {
+  //       console.log("USER", user_data);
+  //       const user_pagination = user_data.map(datum => {
+  //         const a = [];
+  //         datum.Users.map(users => {
+  //           console.log(users);
+  //           USERS_LIST.push(users);
+  //         });
+
+  //         return a;
+  //       });
+  //       //  //  console.log("paginated data", USERS_LIST);
+  //       buildDropdown(USERS_LIST, $("#users-select-raw"));
+  //     })
+  //     .catch(err => {
+  //       //  //  console.log("error in paginatedAjax", err);
+  //     });
+  // });
+
+  /**
+   * Submit Handler for attendance
+   */
+  //  //  console.log($("#mark-attendance-form"));
+  $("#add-managers-form").validate({
+    rules: {
+      managername: {
+        required: true
+      },
+      managermobile: {
+        required: true
+      }
+    },
+    messages: {
+      managername: "Name is required",
+      managermobile: "mobile Number is required"
+    },
+    submitHandler: (form, event) => {
+      event.preventDefault();
+      console.log("SUBMIT");
+      const formDataJSON = ConvertFormToJSON(form);
+      const formData = JSON.parse(formDataJSON);
+      const _data = {
+        gender: formData.gender,
+        name: formData.managername,
+        mobileNumber: formData.managermobile,
+        role:"manager"
+      };
+      // var settings = {
+      //   async: true,
+      //   crossDomain: true,
+      //   url: "http://139.59.80.139/api/v1/cms/users/create",
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: "Bearer " + localStorage.getItem("token"),
+
+      //   },
+      //   processData: false,
+      //   data: JSON.stringify(_data)
+      // };
+      const settings = {
+        url: "http://139.59.80.139/api/v1/cms/users/create",
+        data: JSON.stringify(_data),
+        method: "POST",
+        processData: false,
+
+        beforeSend: xhr => {
+          xhr.setRequestHeader(
+            "Authorization",
+            // "Basic " + btoa(username + ":" + password)
+            "Bearer " + localStorage.getItem("token")
+          );
+          xhr.setRequestHeader("Content-Type", "application/json");
+        }
+      };
+      $.ajax(settings)
+        .done((users, textStatus, request) => {
+          console.log(users, textStatus);
+          swal({
+            position: "top-right",
+            type: "success",
+            title: "Manager successfully Created",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          $("#add-manager-modal").modal("toggle");
+          $(".modal-backdrop").remove();
+          // fetchAttendanceData();
+          /**
+           * doing this as a workaround for image backdrop issue.
+           * should find a fix soon
+           */
+          // location.reload();
+        })
+        .fail(xhr => {
+          swal({
+            title: "Oops...",
+            text: "Manager cannot be created.",
+            type: "error",
+            confirmButtonColor: "#DD6B55"
+          });
+          $("#mark-attendance-modal").modal("toggle");
+          $(".modal-backdrop").remove();
+          // fetchAttendanceData();
+          // location.reload();
+        });
+    }
   });
 });

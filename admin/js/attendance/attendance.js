@@ -4,7 +4,7 @@ $(document).ready(() => {
   let USERS_LIST = [];
 
   let $noOfCustomer = $('[rel="noOfCustomers"]');
-  const url = "https://139.59.80.139/api/v1/cms/attendance";
+  const url = "http://139.59.80.139/api/v1/cms/attendance";
   const username = localStorage.getItem("mobileNumber");
   const password = localStorage.getItem("otp");
 
@@ -19,7 +19,7 @@ $(document).ready(() => {
    */
   $("#mark-attendance-modal").on("show.bs.modal", function(e) {
     // const settings = {
-    //       url: "https://139.59.80.139/api/v1/cms/users/",
+    //       url: "http://139.59.80.139/api/v1/cms/users/",
     //       method: "GET",
 
     //       beforeSend: function(xhr) {
@@ -45,7 +45,7 @@ $(document).ready(() => {
     // });
 
     PaginatedAjax.get(
-      "https://139.59.80.139/api/v1/cms/users/",
+      "http://139.59.80.139/api/v1/cms/users/",
       username,
       password,
       1
@@ -54,7 +54,7 @@ $(document).ready(() => {
         console.log("USER", user_data);
         const user_pagination = user_data.map(datum => {
           const a = [];
-          datum.User.map(users => {
+          datum.Users.map(users => {
             console.log(users);
             USERS_LIST.push(users);
           });
@@ -114,7 +114,7 @@ $(document).ready(() => {
       //  console.log(dateinServerFormat);
       // alert("`Form data" + JSON.stringify(formData));
       const settings = {
-        url: "https://139.59.80.139/api/v1/cms/attendance/create",
+        url: "http://139.59.80.139/api/v1/cms/attendance/create",
         data: {
           status: formData.attendance === "present" ? true : false,
           user: formData.userId,
@@ -125,7 +125,8 @@ $(document).ready(() => {
         beforeSend: xhr => {
           xhr.setRequestHeader(
             "Authorization",
-            "Basic " + btoa(username + ":" + password)
+            // "Basic " + btoa(username + ":" + password)
+            "Bearer " + localStorage.getItem("token")
           );
           xhr.setRequestHeader(
             "content-type",
@@ -169,24 +170,25 @@ $(document).ready(() => {
 });
 
 fetchAttendanceData = () => {
-  const url = "https://139.59.80.139/api/v1/cms/attendance";
+  const url = "http://139.59.80.139/api/v1/cms/attendance";
   const _username = localStorage.getItem("mobileNumber");
   const _password = localStorage.getItem("otp");
   const settings = {
-    url: "https://139.59.80.139/api/v1/cms/attendance",
+    url: "http://139.59.80.139/api/v1/cms/attendance",
     method: "GET",
 
     beforeSend: xhr => {
       xhr.setRequestHeader(
         "Authorization",
-        "Basic " + btoa(_username + ":" + _password)
+        // "Basic " + btoa(_username + ":" + _password)
+        "Bearer " + localStorage.getItem("token")
       );
       xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
     }
   };
 
   PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/attendance",
+    "http://139.59.80.139/api/v1/cms/attendance",
     _username,
     _password,
     1
@@ -240,13 +242,14 @@ fetchAttendanceData = () => {
       const _password = localStorage.getItem("otp");
       //  console.log(attendance);
       const settings = {
-        url: "https://139.59.80.139/api/v1/cms/users/" + attendance.user,
+        url: "http://139.59.80.139/api/v1/cms/users/" + attendance.user,
         method: "GET",
 
         beforeSend: xhr => {
           xhr.setRequestHeader(
             "Authorization",
-            "Basic " + btoa(_username + ":" + _password)
+            // "Basic " + btoa(_username + ":" + _password)
+            "Bearer " + localStorage.getItem("token")
           );
           xhr.setRequestHeader(
             "content-type",

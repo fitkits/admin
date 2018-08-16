@@ -2,8 +2,8 @@ let MEMBERSHIPS_LIST = [];
 let MEMBERSHIPS_HISTORY_LIST = [];
 let MEMBERSHIPS_PENDING_LIST = [];
 let USERS_LIST = [];
-const username = localStorage.getItem('mobileNumber');
-const password = localStorage.getItem('otp');
+const username = localStorage.getItem("mobileNumber");
+const password = localStorage.getItem("otp");
 $(document).ready(() => {
   "use strict";
 
@@ -24,73 +24,72 @@ $(document).ready(() => {
   if (
     localStorage.getItem("loggedIn") === undefined ||
     localStorage.getItem("loggedIn") === null ||
-    localStorage.getItem("role").toString() === 'Manager' 
+    localStorage.getItem("role").toString() === "manager"
   ) {
     window.location.replace("/admin/login.html");
   }
-  
-  PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/subscriptions",
-    username,
-    password,
-    1,
-    "paymentType=ONLINE"
-  ).then(data => {
-    const onlineMemberships = [];
-    // //  console.log("DATA",data);
-    data.map(datum => {
-      const a = [];
-      datum.subscriptions.map(subscription => {
-        // //  console.log(user);
-        onlineMemberships.push(subscription);
-      });
-      return a;
-    });
 
-    NEW_MEMBERSHIPSCOUNT_ONLINE_THIS_WEEK =
-      onlineMemberships.length > 0 ? onlineMemberships.length : 0;
+  var settings = {
+    async: true,
+    crossDomain: true,
+    url:
+      "http://139.59.80.139/api/v1/analytics/subscriptions?type=subscriptions&start=2016-03-03&end=2019-03-10",
+    method: "GET",
 
-    $newMembershipCountOnline.text(NEW_MEMBERSHIPSCOUNT_ONLINE_THIS_WEEK);
-  });
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader(
+        "Authorization",
+        // "Basic " + btoa(username + ":" + password)
+        "Bearer " + localStorage.getItem("token")
+      );
+    }
+  };
 
-  PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/subscriptions",
-    username,
-    password,
-    1,
-    "paymentType=OFFLINE"
-  ).then(data => {
-    const offlineMemeberships = [];
-    // //  console.log("DATA",data);
-    data.map(datum => {
-      const a = [];
-      datum.subscriptions.map(subscription => {
-        // //  console.log(user);
-        offlineMemeberships.push(subscription);
-      });
-      return a;
-    });
+  $.ajax(settings).done(function(response) {
+    console.log("ANALYTICS", response);
+    if (response.aggregate.value["0"].newSubscriptions.ONLINE["0"]) {
+      NEW_MEMBERSHIPSCOUNT_ONLINE_THIS_WEEK =
+        response.aggregate.value["0"].newSubscriptions.ONLINE["0"]
+          .numberOfNewUsers;
+      $newMembershipCountOnline.text(NEW_MEMBERSHIPSCOUNT_ONLINE_THIS_WEEK);
+    } else {
+      $newMembershipCountOnline.text("0");
+    }
 
-    NEW_MEMBERSHIPSCOUNT_OFFLINE_THIS_WEEK =
-      offlineMemeberships.length > 0 ? offlineMemeberships.length : 0;
+    if (response.aggregate.value["0"].newSubscriptions.OFFLINE["0"]) {
+      NEW_MEMBERSHIPSCOUNT_OFFLINE_THIS_WEEK =
+        response.aggregate.value["0"].newSubscriptions.OFFLINE["0"]
+          .numberOfNewUsers;
 
-    $newMembershipCountOffline.text(NEW_MEMBERSHIPSCOUNT_OFFLINE_THIS_WEEK);
+      $newMembershipCountOffline.text(NEW_MEMBERSHIPSCOUNT_OFFLINE_THIS_WEEK);
+    } else {
+      $newMembershipCountOffline.text("0");
+    }
+
+    if (response.aggregate.value["0"].subscriptionRenewals["0"]) {
+      MEMBERSHIPS_DUE_MONTH =
+        response.aggregate.value["0"].subscriptionRenewals["0"]
+          .numberOfSubscriptionRenewals;
+      $membershipsDueThisMonth.text(MEMBERSHIPS_DUE_MONTH);
+    } else {
+      MEMBERSHIPS_DUE_MONTH = $membershipsDueThisMonth.text("0");
+    }
   });
 
   const today = new Date();
   let fetchMembershipsDueThisWeek;
   PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/subscriptions",
+    "http://139.59.80.139/api/v1/cms/subscriptions",
     username,
     password,
     1,
-    `startDate=${getCurrentWeekMonday()}&endDate=${getTodayInServerFormat()}`
+    `start=${getCurrentWeekMonday()}&end=${getTodayInServerFormat()}`
   ).then(data => {
-     console.log("DATA", data);
+    console.log("DATA", data);
     let membershipsDueWeek = [];
     data.map(datum => {
       const a = [];
-      datum.subscriptions.map(subscription => {
+      datum.Subscriptions.map(subscription => {
         membershipsDueWeek.push(subscription);
       });
       return a;
@@ -102,17 +101,17 @@ $(document).ready(() => {
 
   let fetchMembershipsDueThisMonth;
   PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/subscriptions",
+    "http://139.59.80.139/api/v1/cms/subscriptions",
     username,
     password,
     1,
-    `startDate=${getFirstDayOfCurrentMonth()}&endDate=${getTodayInServerFormat()}`
+    `start=${getFirstDayOfCurrentMonth()}&end=${getTodayInServerFormat()}`
   ).then(data => {
     //  console.log("this month due DATA", data);
     let membershipsDueMonth = [];
     data.map(datum => {
       const a = [];
-      datum.subscriptions.map(subscription => {
+      datum.Subscriptions.map(subscription => {
         membershipsDueMonth.push(subscription);
       });
       return a;
@@ -124,7 +123,7 @@ $(document).ready(() => {
 
   //
   PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/memberships/",
+    "http://139.59.80.139/api/v1/cms/memberships/",
     username,
     password,
     1
@@ -133,7 +132,7 @@ $(document).ready(() => {
       //  console.log("DATA", data);
       data.map(datum => {
         const a = [];
-        datum.Membership.map(membership => {
+        datum.Memberships.map(membership => {
           MEMBERSHIPS_LIST.push(membership);
         });
         return a;
@@ -188,7 +187,7 @@ MEMBERSHIP HISTORY TABLE
 ===========================================================
 */
   PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/subscriptions/",
+    "http://139.59.80.139/api/v1/cms/subscriptions/",
     username,
     password,
     1
@@ -197,13 +196,13 @@ MEMBERSHIP HISTORY TABLE
       //  console.log("MEMBERSHIP HISTORY", data);
       data.map(datum => {
         const a = [];
-        datum.subscriptions.map(membership => {
+        datum.Subscriptions.map(membership => {
           MEMBERSHIPS_HISTORY_LIST.push(membership);
         });
         return a;
       });
       PaginatedAjax.get(
-        "https://139.59.80.139/api/v1/cms/users/",
+        "http://139.59.80.139/api/v1/cms/users/",
         username,
         password,
         1
@@ -212,7 +211,7 @@ MEMBERSHIP HISTORY TABLE
         //  console.log("DATA",data);
         data.map(datum => {
           const a = [];
-          datum.User.map(user => {
+          datum.Users.map(user => {
             // //  console.log(user);
             USERS_LIST.push(user);
           });
@@ -282,15 +281,13 @@ MEMBERSHIP HISTORY TABLE
       });
     });
 
-
-
-      /*
+  /*
 ===========================================================
 MEMBERSHIP PENDING TABLE
 ===========================================================
 */
   PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/users/",
+    "http://139.59.80.139/api/v1/cms/users/",
     username,
     password,
     1,
@@ -300,14 +297,14 @@ MEMBERSHIP PENDING TABLE
       //  console.log("MEMBERSHIP HISTORY", data);
       data.map(datum => {
         const a = [];
-        datum.User.map(membership => {
+        datum.Users.map(membership => {
           MEMBERSHIPS_PENDING_LIST.push(membership);
         });
         return a;
       });
       // console.log(MEMBERSHIPS_PENDING_LIST);
       // PaginatedAjax.get(
-      //   "https://139.59.80.139/api/v1/cms/users/",
+      //   "http://139.59.80.139/api/v1/cms/users/",
       //   username,
       //   password,
       //   1,
@@ -323,50 +320,48 @@ MEMBERSHIP PENDING TABLE
       //     });
       //     return a;
       //   });
-        const $table = $("#membership-pending-table tbody");
+      const $table = $("#membership-pending-table tbody");
 
-        MEMBERSHIPS_PENDING_LIST = MEMBERSHIPS_PENDING_LIST.reverse().slice(
-          0,
-          MEMBERSHIPS_PENDING_LIST.length
-        );
+      MEMBERSHIPS_PENDING_LIST = MEMBERSHIPS_PENDING_LIST.reverse().slice(
+        0,
+        MEMBERSHIPS_PENDING_LIST.length
+      );
 
-        MEMBERSHIPS_PENDING_LIST.forEach(membership => {
-          //  console.log("USERS");
-          let name =  membership.name !== undefined ? membership.name : "Unnamed User"
-          let _userid = membership._id;
-          let _membership = "";
-          MEMBERSHIPS_LIST.map(mem => {
-            if (mem._id === membership.pendingMembership.membership) {
-              _membership = mem.name != undefined ? mem.name : "Unnamed User";
-              // console.log(_membership,name)
-            }
-       
-          });
-          
+      MEMBERSHIPS_PENDING_LIST.forEach(membership => {
+        //  console.log("USERS");
+        let name =
+          membership.name !== undefined ? membership.name : "Unnamed User";
+        let _userid = membership._id;
+        let _membership = "";
+        MEMBERSHIPS_LIST.map(mem => {
+          if (mem._id === membership.pendingMembership.membership) {
+            _membership = mem.name != undefined ? mem.name : "Unnamed User";
+            // console.log(_membership,name)
+          }
+        });
 
-          $table.append(
-            `<tr data-mid = "${
-              membership.pendingMembership.membership
-            }" data-uid = "${_userid}"><td>${name}</td><td> ${_membership}</td><td>
+        $table.append(
+          `<tr data-mid = "${
+            membership.pendingMembership.membership
+          }" data-uid = "${_userid}"><td>${name}</td><td> ${_membership}</td><td>
             <span onclick="approveUser(this)" style = "cursor: pointer !important">
             Click To Approve
             <a data-toggle="tooltip" data-placement="top" title="Approve subscription">
             <i class="fa fa-check text-inverse m-r-10"></i></a>
             </span>`
-            
-          );
+        );
 
-          // <a data-toggle="tooltip" data-placement="top" title="Delete">
-          // <i class="fa fa-trash text-inverse m-r-10"></i></a>
-          // </span>
-          // </td></tr>
+        // <a data-toggle="tooltip" data-placement="top" title="Delete">
+        // <i class="fa fa-trash text-inverse m-r-10"></i></a>
+        // </span>
+        // </td></tr>
 
-          // <a data-toggle="tooltip" data-placement="top" title="Edit">
-          // <i class="fa fa-pencil text-inverse m-r-10"></i></a></span>
-          // <span onclick="deleteRow(this)">
-          // <a data-toggle="tooltip" data-placement="top" title="Delete">
-          // <i class="fa fa-trash text-inverse m-r-10"></i></a>
-          // </span>
+        // <a data-toggle="tooltip" data-placement="top" title="Edit">
+        // <i class="fa fa-pencil text-inverse m-r-10"></i></a></span>
+        // <span onclick="deleteRow(this)">
+        // <a data-toggle="tooltip" data-placement="top" title="Delete">
+        // <i class="fa fa-trash text-inverse m-r-10"></i></a>
+        // </span>
         // });
         $("#membership-pending-table").footable({
           sorting: {
@@ -421,11 +416,12 @@ MEMBERSHIP PENDING TABLE
       //  console.log("DATA FINAL ", data);
       $.ajax({
         method: "POST",
-        url: "https://139.59.80.139/api/v1/cms/memberships/create",
+        url: "http://139.59.80.139/api/v1/cms/memberships/create",
         beforeSend: function(xhr) {
           xhr.setRequestHeader(
             "Authorization",
-            "Basic " + btoa(username + ":" + password)
+            // "Basic " + btoa(username + ":" + password)
+            "Bearer " + localStorage.getItem("token")
           );
         },
         data: data,
@@ -435,8 +431,9 @@ MEMBERSHIP PENDING TABLE
       })
         .done((response, textStatus, request) => {
           const $table = $("#membership-plan-table tbody");
-          const newMembership = response.Membership;
+          const newMembership = response.Memberships;
           MEMBERSHIPS_LIST.push(newMembership);
+          console.log(response);
           $table.prepend(
             `<tr data-mid = "${newMembership._id}"><td>${
               newMembership.name
@@ -504,7 +501,7 @@ MEMBERSHIP PENDING TABLE
           .done((response, textStatus, request) => {
             $.ajax({
               method: "PATCH",
-              url: `https://139.59.80.139/api/v1/cms/users/${formData.userId}`,
+              url: `http://139.59.80.139/api/v1/cms/users/${formData.userId}`,
               // headers: {
               // 	Authorization:
               // 		'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YTRiNmFhZDVlZTJiMjZjMjA4Y2UyZmEiLCJpYXQiOjE1MTQ4OTE5ODgsImV4cCI6MTUxNzQ4Mzk4OH0._mjNmw4lVfD1vaboBK3svB5BY5YOn29MiPtLPzFjohw'
@@ -592,7 +589,7 @@ MEMBERSHIP PENDING TABLE
       });
 
       settings = {
-        url: `https://139.59.80.139/api/v1/cms/subscriptions`,
+        url: `http://139.59.80.139/api/v1/cms/subscriptions`,
         method: "GET",
         data: {
           user: formData.userId
@@ -601,7 +598,8 @@ MEMBERSHIP PENDING TABLE
         beforeSend: function(xhr) {
           xhr.setRequestHeader(
             "Authorization",
-            "Basic " + btoa(username + ":" + password)
+            // "Basic " + btoa(username + ":" + password)
+            "Bearer " + localStorage.getItem("token")
           );
           xhr.setRequestHeader(
             "content-type",
@@ -611,7 +609,7 @@ MEMBERSHIP PENDING TABLE
       };
       $.ajax(settings).done((response, textStatus, request) => {
         //  console.log("Subscriptions ", response.subscriptions);
-        const expiredarray = response.subscriptions.map(subscription => {
+        const expiredarray = response.Subscriptions.map(subscription => {
           return subscription.expired;
         });
         //  console.log("expiredArray", expiredarray);
@@ -627,8 +625,6 @@ MEMBERSHIP PENDING TABLE
             timer: 1500
           });
         } else {
- 
-
           let amt = currentMembership.cost;
           let _data = {
             membership: formData.membershipId,
@@ -638,14 +634,15 @@ MEMBERSHIP PENDING TABLE
             comments: formData.comment
           };
           settings = {
-            url: `https://139.59.80.139/api/v1/cms/subscriptions/create`,
+            url: `http://139.59.80.139/api/v1/cms/subscriptions/create`,
             method: "POST",
             data: JSON.stringify(_data),
 
             beforeSend: function(xhr) {
               xhr.setRequestHeader(
                 "Authorization",
-                "Basic " + btoa(username + ":" + password)
+                // "Basic " + btoa(username + ":" + password)
+                "Bearer " + localStorage.getItem("token")
               );
               xhr.setRequestHeader("content-type", "application/json");
             }
@@ -654,13 +651,14 @@ MEMBERSHIP PENDING TABLE
             //  console.log("create subscription", response);
           });
           settings = {
-            url: `https://139.59.80.139/api/v1/cms/users/${formData.userId}`,
+            url: `http://139.59.80.139/api/v1/cms/users/${formData.userId}`,
             method: "PATCH",
 
             beforeSend: function(xhr) {
               xhr.setRequestHeader(
                 "Authorization",
-                "Basic " + btoa(username + ":" + password)
+                // "Basic " + btoa(username + ":" + password)
+                "Bearer " + localStorage.getItem("token")
               );
               xhr.setRequestHeader(
                 "content-type",
@@ -683,7 +681,7 @@ MEMBERSHIP PENDING TABLE
 
             //   $.ajax({
             //     method: "PATCH",
-            //     url: `https://139.59.80.139/api/v1/cms/users/${formData.userId}`,
+            //     url: `http://139.59.80.139/api/v1/cms/users/${formData.userId}`,
             //     // headers: {
             //     // 	Authorization:
             //     // 		'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YTRiNmFhZDVlZTJiMjZjMjA4Y2UyZmEiLCJpYXQiOjE1MTQ4OTE5ODgsImV4cCI6MTUxNzQ4Mzk4OH0._mjNmw4lVfD1vaboBK3svB5BY5YOn29MiPtLPzFjohw'
@@ -773,13 +771,14 @@ MEMBERSHIP PENDING TABLE
 
       $.ajax({
         method: "PATCH", // TODO: Server side fix
-        url: `https://139.59.80.139/api/v1/cms/memberships/${$(form)
+        url: `http://139.59.80.139/api/v1/cms/memberships/${$(form)
           .find("input[name=membership_id]")
           .val()}`,
         beforeSend: function(xhr) {
           xhr.setRequestHeader(
             "Authorization",
-            "Basic " + btoa(username + ":" + password)
+            // "Basic " + btoa(username + ":" + password)
+            "Bearer " + localStorage.getItem("token")
           );
         },
         data: data,
@@ -849,7 +848,7 @@ MEMBERSHIP PENDING TABLE
   $("#user-payment-razorpay-modal").on("show.bs.modal", function(e) {
     buildDropdown(MEMBERSHIPS_LIST, $("#memberships-select"));
     PaginatedAjax.get(
-      "https://139.59.80.139/api/v1/cms/users/",
+      "http://139.59.80.139/api/v1/cms/users/",
       username,
       password,
       1,
@@ -859,7 +858,7 @@ MEMBERSHIP PENDING TABLE
       // //  console.log("DATA",data);
       data.map(datum => {
         const a = [];
-        datum.User.map(user => {
+        datum.Users.map(user => {
           // //  console.log(user);
           USERS_LIST.push(user);
         });
@@ -868,7 +867,7 @@ MEMBERSHIP PENDING TABLE
       buildDropdown(USERS_LIST, $("#users-select"));
     });
     // settings = {
-    //   url: "https://139.59.80.139/api/v1/cms/users/",
+    //   url: "http://139.59.80.139/api/v1/cms/users/",
     //   method: "GET",
 
     //   beforeSend: function(xhr) {
@@ -890,13 +889,14 @@ MEMBERSHIP PENDING TABLE
   $("#user-payment-raw-modal").on("show.bs.modal", function(e) {
     buildDropdown(MEMBERSHIPS_LIST, $("#memberships-select-raw"));
     settings = {
-      url: "https://139.59.80.139/api/v1/cms/users/",
+      url: "http://139.59.80.139/api/v1/cms/users/",
       method: "GET",
 
       beforeSend: function(xhr) {
         xhr.setRequestHeader(
           "Authorization",
-          "Basic " + btoa(username + ":" + password)
+          // "Basic " + btoa(username + ":" + password)
+          "Bearer " + localStorage.getItem("token")
         );
         xhr.setRequestHeader(
           "content-type",
@@ -906,7 +906,7 @@ MEMBERSHIP PENDING TABLE
     };
     $.ajax(settings).done((users, textStatus, request) => {
       //  console.log(users);
-      USERS_LIST = users.User;
+      USERS_LIST = users.Users;
       buildDropdown(USERS_LIST, $("#users-select-raw"));
     });
   });

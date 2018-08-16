@@ -110,7 +110,7 @@
 						<!-- ============================================================== -->
 						<!-- Profile -->
 						<!-- ============================================================== -->
-						<button onClick = "PaginatedAjax.logout()"type="button" class="btn btn-danger">Logout</button>
+						<button onClick="PaginatedAjax.logout()" type="button" class="btn btn-danger">Logout</button>
 					</ul>
 				</div>
 			</nav>
@@ -214,10 +214,18 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="row form-material mb-0">
-							<div class="col-12 col-md-8">
+							<div class="col-12 mb-3">
+								<button id = "add-manager-button" class="btn btn-outline-success waves-effect waves-light" type="button" data-toggle="modal" data-target="#add-managers-modal">
+									<span class="btn-label">
+										<i class="fa fa-money"></i>
+									</span>Add new managers
+								</button>
+							</div>
+							<div class="col-6 col-md-8">
 								<h4 class="card-title">Active Users</h4>
 							</div>
-							<div class="col-12 col-md-4">
+
+							<div class="col-6 col-md-4">
 								<div class="form-group mb-0">
 									<div class="controls">
 										<input id="userFilter" class="form-control" placeholder="Search Users" type="text" />
@@ -236,7 +244,7 @@
 
 										<th>Gender</th>
 										<th>Start date</th>
-										<th>Attendance</th>
+										<th>End Date</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -254,6 +262,63 @@
 								</tfoot>
 							</table>
 						</div>
+					</div>
+
+					<!-- ============================================= -->
+					<!-- ADD MANAGERS MODAL -->
+					<!-- ============================================= -->
+					<div id="add-managers-modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="add-managers-modal" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Add New Manager</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								</div>
+								<div class="modal-body">
+									<form id="add-managers-form" class="form-material" novalidate>
+										<div class="form-group">
+											<div class="controls">
+												<h5>Name</h5>
+												<input type="text" id="manager-name" name="managername" class="form-control" style="width: 100%; height:36px;">
+												</input>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="controls">
+												<h5>Mobile Number</h5>
+												<input type="phone" id="manager-mobile" name="managermobile" class="form-control" style="width: 100%; height:36px;">
+												</input>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="controls">
+
+												<h5>Gender</h5>
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="gender" id="male_radio" value="MALE" checked>
+													<label class="form-check-label" for="male_radio">
+														Male
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="gender" id="female_radio" value="FEMALE">
+													<label class="form-check-label" for="female_radio">
+														Female
+													</label>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-success waves-effect" form="add-managers-form">Create</button>
+									<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+								</div>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
 					</div>
 				</div>
 			</div>

@@ -537,13 +537,14 @@ $(document).ready(() => {
    * ============================================
    */
   settings = {
-    url: "https://139.59.80.139/api/v1/cms/users/" + CURRENT_USER,
+    url: "http://139.59.80.139/api/v1/cms/users/" + CURRENT_USER,
     method: "GET",
 
     beforeSend: function(xhr) {
       xhr.setRequestHeader(
         "Authorization",
-        "Basic " + btoa(username + ":" + password)
+        // "Basic " + btoa(username + ":" + password)
+        "Bearer " + localStorage.getItem("token")
       );
       xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
     }
@@ -563,7 +564,7 @@ $(document).ready(() => {
    * ============================================
    */
   PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/attendance/",
+    "http://139.59.80.139/api/v1/cms/attendance/",
     username,
     password,
     1,
@@ -605,7 +606,7 @@ $(document).ready(() => {
    * ============================================
    */
   PaginatedAjax.get(
-    "https://139.59.80.139/api/v1/cms/answers/",
+    "http://139.59.80.139/api/v1/cms/answers/",
     username,
     password,
     1,
@@ -966,7 +967,7 @@ $(document).ready(() => {
     //POST EVERYTHING TO SERVER
 
     const settings = {
-      url: "https://139.59.80.139/api/v1/cms/studentAssessments/create",
+      url: "http://139.59.80.139/api/v1/cms/studentAssessments/create",
       data: {
         data: asessmentTemplate.data,
         user: CURRENT_USER
@@ -977,7 +978,8 @@ $(document).ready(() => {
       beforeSend: function(xhr) {
         xhr.setRequestHeader(
           "Authorization",
-          "Basic " + btoa(username + ":" + password)
+          // "Basic " + btoa(username + ":" + password)
+          "Bearer " + localStorage.getItem("token")
         );
         xhr.setRequestHeader(
           "content-type",

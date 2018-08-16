@@ -22,7 +22,8 @@ const PaginatedAjax = (() => {
           beforeSend: function(xhr) {
             xhr.setRequestHeader(
               "Authorization",
-              "Basic " + btoa(username + ":" + password)
+              // "Basic " + btoa(username + ":" + password)
+              "Bearer " + localStorage.getItem("token")
             );
             xhr.setRequestHeader(
               "content-type",
@@ -42,7 +43,8 @@ const PaginatedAjax = (() => {
                 beforeSend: function(xhr) {
                   xhr.setRequestHeader(
                     "Authorization",
-                    "Basic " + btoa(username + ":" + password)
+                    // "Basic " + btoa(username + ":" + password)
+                    "Bearer " + localStorage.getItem("token")
                   );
                   xhr.setRequestHeader(
                     "content-type",
