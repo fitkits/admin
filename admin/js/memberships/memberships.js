@@ -33,7 +33,8 @@ $(document).ready(() => {
     async: true,
     crossDomain: true,
     url:
-      "http://139.59.80.139/api/v1/analytics/subscriptions?type=subscriptions&start=2016-03-03&end=2019-03-10",
+      "http://139.59.80.139/api/v1/analytics/subscriptions?type=subscriptions&"+
+      `start=${getCurrentWeekMonday()}&end=${getTodayInServerFormat()}`,
     method: "GET",
 
     beforeSend: function(xhr) {
