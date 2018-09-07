@@ -5,7 +5,7 @@ module.exports = {
       user: 'fitkits-rpt',
       host: '142.93.208.162',
       ref: 'github_origin/master',
-      repo: 'https://gitlab.com/ragzzyr/fitkits-admin.git',
+      repo: 'https://github.com/fitkits/admin.git',
       path: '/home/fitkits-rpt/admin'
     }
   }
