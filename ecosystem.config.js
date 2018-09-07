@@ -4,7 +4,7 @@ module.exports = {
     production: {
       user: 'fitkits-rpt',
       host: '142.93.208.162',
-      ref: 'github_origin/master',
+      ref: 'origin/master',
       repo: 'https://github.com/fitkits/admin.git',
       path: '/home/fitkits-rpt/admin'
     }
