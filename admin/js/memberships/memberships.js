@@ -33,7 +33,7 @@ $(document).ready(() => {
     async: true,
     crossDomain: true,
     url:
-      "http://139.59.80.139/api/v1/analytics/subscriptions?type=subscriptions&"+
+      BASE_URL + "/api/v1/analytics/subscriptions?type=subscriptions&"+
       `start=${getCurrentWeekMonday()}&end=${getTodayInServerFormat()}`,
     method: "GET",
 
@@ -80,7 +80,7 @@ $(document).ready(() => {
   const today = new Date();
   let fetchMembershipsDueThisWeek;
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/subscriptions",
+    BASE_URL + "/api/v1/cms/subscriptions",
     username,
     password,
     1,
@@ -102,7 +102,7 @@ $(document).ready(() => {
 
   let fetchMembershipsDueThisMonth;
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/subscriptions",
+    BASE_URL + "/api/v1/cms/subscriptions",
     username,
     password,
     1,
@@ -124,7 +124,7 @@ $(document).ready(() => {
 
   //
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/memberships/",
+    BASE_URL + "/api/v1/cms/memberships/",
     username,
     password,
     1
@@ -188,7 +188,7 @@ MEMBERSHIP HISTORY TABLE
 ===========================================================
 */
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/subscriptions/",
+    BASE_URL + "/api/v1/cms/subscriptions/",
     username,
     password,
     1
@@ -203,7 +203,7 @@ MEMBERSHIP HISTORY TABLE
         return a;
       });
       PaginatedAjax.get(
-        "http://139.59.80.139/api/v1/cms/users/",
+        BASE_URL + "/api/v1/cms/users/",
         username,
         password,
         1
@@ -288,7 +288,7 @@ MEMBERSHIP PENDING TABLE
 ===========================================================
 */
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/users/",
+    BASE_URL + "/api/v1/cms/users/",
     username,
     password,
     1,
@@ -305,7 +305,7 @@ MEMBERSHIP PENDING TABLE
       });
       // console.log(MEMBERSHIPS_PENDING_LIST);
       // PaginatedAjax.get(
-      //   "http://139.59.80.139/api/v1/cms/users/",
+      //   BASE_URL + "/api/v1/cms/users/",
       //   username,
       //   password,
       //   1,
@@ -417,7 +417,7 @@ MEMBERSHIP PENDING TABLE
       //  console.log("DATA FINAL ", data);
       $.ajax({
         method: "POST",
-        url: "http://139.59.80.139/api/v1/cms/memberships/create",
+        url: BASE_URL + "/api/v1/cms/memberships/create",
         beforeSend: function(xhr) {
           xhr.setRequestHeader(
             "Authorization",
@@ -502,7 +502,7 @@ MEMBERSHIP PENDING TABLE
           .done((response, textStatus, request) => {
             $.ajax({
               method: "PATCH",
-              url: `http://139.59.80.139/api/v1/cms/users/${formData.userId}`,
+              url: BASE_URL + `/api/v1/cms/users/${formData.userId}`,
               // headers: {
               // 	Authorization:
               // 		'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YTRiNmFhZDVlZTJiMjZjMjA4Y2UyZmEiLCJpYXQiOjE1MTQ4OTE5ODgsImV4cCI6MTUxNzQ4Mzk4OH0._mjNmw4lVfD1vaboBK3svB5BY5YOn29MiPtLPzFjohw'
@@ -590,7 +590,7 @@ MEMBERSHIP PENDING TABLE
       });
 
       settings = {
-        url: `http://139.59.80.139/api/v1/cms/subscriptions`,
+        url: BASE_URL + `/api/v1/cms/subscriptions`,
         method: "GET",
         data: {
           user: formData.userId
@@ -635,7 +635,7 @@ MEMBERSHIP PENDING TABLE
             comments: formData.comment
           };
           settings = {
-            url: `http://139.59.80.139/api/v1/cms/subscriptions/create`,
+            url: BASE_URL + `/api/v1/cms/subscriptions/create`,
             method: "POST",
             data: JSON.stringify(_data),
 
@@ -652,7 +652,7 @@ MEMBERSHIP PENDING TABLE
             //  console.log("create subscription", response);
           });
           settings = {
-            url: `http://139.59.80.139/api/v1/cms/users/${formData.userId}`,
+            url: BASE_URL + `/api/v1/cms/users/${formData.userId}`,
             method: "PATCH",
 
             beforeSend: function(xhr) {
@@ -682,7 +682,7 @@ MEMBERSHIP PENDING TABLE
 
             //   $.ajax({
             //     method: "PATCH",
-            //     url: `http://139.59.80.139/api/v1/cms/users/${formData.userId}`,
+            //     url: BASE_URL + `/api/v1/cms/users/${formData.userId}`,
             //     // headers: {
             //     // 	Authorization:
             //     // 		'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YTRiNmFhZDVlZTJiMjZjMjA4Y2UyZmEiLCJpYXQiOjE1MTQ4OTE5ODgsImV4cCI6MTUxNzQ4Mzk4OH0._mjNmw4lVfD1vaboBK3svB5BY5YOn29MiPtLPzFjohw'
@@ -772,7 +772,7 @@ MEMBERSHIP PENDING TABLE
 
       $.ajax({
         method: "PATCH", // TODO: Server side fix
-        url: `http://139.59.80.139/api/v1/cms/memberships/${$(form)
+        url: BASE_URL + `/api/v1/cms/memberships/${$(form)
           .find("input[name=membership_id]")
           .val()}`,
         beforeSend: function(xhr) {
@@ -849,7 +849,7 @@ MEMBERSHIP PENDING TABLE
   $("#user-payment-razorpay-modal").on("show.bs.modal", function(e) {
     buildDropdown(MEMBERSHIPS_LIST, $("#memberships-select"));
     PaginatedAjax.get(
-      "http://139.59.80.139/api/v1/cms/users/",
+      BASE_URL + "/api/v1/cms/users/",
       username,
       password,
       1,
@@ -868,7 +868,7 @@ MEMBERSHIP PENDING TABLE
       buildDropdown(USERS_LIST, $("#users-select"));
     });
     // settings = {
-    //   url: "http://139.59.80.139/api/v1/cms/users/",
+    //   url: BASE_URL + "/api/v1/cms/users/",
     //   method: "GET",
 
     //   beforeSend: function(xhr) {
@@ -890,7 +890,7 @@ MEMBERSHIP PENDING TABLE
   $("#user-payment-raw-modal").on("show.bs.modal", function(e) {
     buildDropdown(MEMBERSHIPS_LIST, $("#memberships-select-raw"));
     settings = {
-      url: "http://139.59.80.139/api/v1/cms/users/",
+      url: BASE_URL + "/api/v1/cms/users/",
       method: "GET",
 
       beforeSend: function(xhr) {

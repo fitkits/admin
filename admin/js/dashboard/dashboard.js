@@ -31,7 +31,7 @@ $(document).ready(() => {
    * ==================================
    */
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/users",
+    BASE_URL + "/api/v1/cms/users",
     username,
     password,
     1
@@ -70,7 +70,7 @@ $(document).ready(() => {
    * ==================================
    */
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/subscriptions",
+    BASE_URL + "/api/v1/cms/subscriptions",
     username,
     password,
     1,
@@ -96,7 +96,7 @@ $(document).ready(() => {
    * ==================================
    */
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/attendance",
+    BASE_URL + "/api/v1/cms/attendance",
     username,
     password,
     1
@@ -131,7 +131,7 @@ $(document).ready(() => {
    * ==================================
    */
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/subscriptions",
+    BASE_URL + "/api/v1/cms/subscriptions",
     username,
     password,
     1
@@ -158,7 +158,7 @@ $(document).ready(() => {
    * ==================================
    */
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/memberships",
+    BASE_URL + "/api/v1/cms/memberships",
     username,
     password,
     1
@@ -188,33 +188,58 @@ $(document).ready(() => {
   let firstDayOnWeek =
     firstDayOfWeekObj.getUTCFullYear() +
     "-" +
-    (firstDayOfWeekObj.getUTCMonth() + 1) +
+    (((firstDayOfWeekObj.getUTCMonth() + 1) < 10)
+      ?
+      ("0" + (firstDayOfWeekObj.getUTCMonth() + 1))
+      :
+      (firstDayOfWeekObj.getUTCMonth() + 1)) +
     "-" +
-    firstDayOfWeekObj.getUTCDate();
+    ((firstDayOfWeekObj.getUTCDate() < 10)
+      ?
+      ("0" + firstDayOfWeekObj.getUTCDate())
+      :
+      (firstDayOfWeekObj.getUTCDate()));
   let endToday =
     todayObj.getUTCFullYear() +
     "-" +
-    (todayObj.getUTCMonth() + 1) +
+    (((todayObj.getUTCMonth() + 1) < 10)
+      ?
+      ("0" + (todayObj.getUTCMonth() + 1))
+      :
+      (todayObj.getUTCMonth() + 1)) +
     "-" +
-    todayObj.getUTCDate();
-  PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/analytics/subscriptions",
-    username,
-    password,
-    1,
-    "type=sales&start=" + firstDayOnWeek + "&end=" + endToday
-  ).then(data => {
-    let salesThisWeek = [];
+    (((todayObj.getUTCDate() + 1) < 10)
+      ?
+      ("0" + (todayObj.getUTCDate() + 1))
+      :
+      (todayObj.getUTCDate() + 1));
 
-    data.map(sales => {
-      salesThisWeek.push(sales);
-    });
-     console.log("This Week ",salesThisWeek[0].aggregate.value[0].totalSales);
+  var settings = {
+    async: true,
+    crossDomain: true,
+    url:
+      BASE_URL + "/api/v1/analytics/subscriptions?type=sales&start=" + firstDayOnWeek + "&end=" + endToday,
+    method: "GET",
+
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(
+        "Authorization",
+        // "Basic " + btoa(username + ":" + password)
+        "Bearer " + localStorage.getItem("token")
+      );
+    }
+  };
+
+  $.ajax(settings).done(data => {
+    let salesThisWeek = data.aggregate.value ? data.aggregate.value : [];
+
+
+    console.log("This Week ", salesThisWeek );
     $totalSalesThisWeek.text(
-      salesThisWeek.length !== 0 ? salesThisWeek[0].aggregate.value[0].totalSales : 0
+      salesThisWeek.length !== 0 ? salesThisWeek[0].totalSales : 0
     );
     $totalSalesThisWeekGraph.text(
-      salesThisWeek.length !== 0 ? salesThisWeek[0].aggregate.value[0].totalSales : 0
+      salesThisWeek.length !== 0 ? salesThisWeek[0].totalSales : 0
     );
   });
 
@@ -228,15 +253,19 @@ $(document).ready(() => {
   endToday =
     todayObj.getUTCFullYear() +
     "-" +
-    (todayObj.getUTCMonth() + 1 < 10
-      ? "0" + (todayObj.getUTCMonth() + 1)
-      : todayObj.getUTCMonth() + 1) +
+    (((todayObj.getUTCMonth() + 1) < 10)
+      ?
+      ("0" + (todayObj.getUTCMonth() + 1))
+      :
+      (todayObj.getUTCMonth() + 1)) +
     "-" +
-    (todayObj.getUTCDate() < 10
-      ? "0" + todayObj.getUTCDate()
-      : todayObj.getUTCDate());
+    (((todayObj.getUTCDate() + 1) < 10)
+      ?
+      ("0" + (todayObj.getUTCDate() + 1))
+      :
+      (todayObj.getUTCDate() + 1));
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/analytics/subscriptions",
+    BASE_URL + "/api/v1/analytics/subscriptions",
     username,
     password,
     1,
@@ -264,16 +293,25 @@ $(document).ready(() => {
    */
 
   todayObj = new Date();
-  let firstDayOnLifetime = "1980-1-1";
+  let firstDayOnLifetime = "1980-01-01";
   //  let firstDayOnLifetime = firstDayOfWeekObj.getUTCFullYear() +"-" + (firstDayOfWeekObj.getUTCMonth() + 1) + "-" + firstDayOfWeekObj.getUTCDate();
   endToday =
+
     todayObj.getUTCFullYear() +
     "-" +
-    (todayObj.getUTCMonth() + 1) +
+    (((todayObj.getUTCMonth() + 1) < 10)
+      ?
+      ("0" + (todayObj.getUTCMonth() + 1))
+      :
+      (todayObj.getUTCMonth() + 1)) +
     "-" +
-    todayObj.getUTCDate();
+    (((todayObj.getUTCDate() + 1) < 10)
+      ?
+      ("0" + (todayObj.getUTCDate() + 1))
+      :
+      (todayObj.getUTCDate() + 1));
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/analytics/subscriptions",
+    BASE_URL + "/api/v1/analytics/subscriptions",
     username,
     password,
     1,

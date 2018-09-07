@@ -2,9 +2,8 @@ $(document).ready(() => {
   "use strict";
 
   let USERS_LIST = [];
-
   let $noOfCustomer = $('[rel="noOfCustomers"]');
-  const url = "http://139.59.80.139/api/v1/cms/attendance";
+  const url = BASE_URL + "/api/v1/cms/attendance";
   const username = localStorage.getItem("mobileNumber");
   const password = localStorage.getItem("otp");
 
@@ -19,7 +18,7 @@ $(document).ready(() => {
    */
   $("#mark-attendance-modal").on("show.bs.modal", function(e) {
     // const settings = {
-    //       url: "http://139.59.80.139/api/v1/cms/users/",
+    //       url: BASE_URL + "/api/v1/cms/users/",
     //       method: "GET",
 
     //       beforeSend: function(xhr) {
@@ -45,7 +44,7 @@ $(document).ready(() => {
     // });
 
     PaginatedAjax.get(
-      "http://139.59.80.139/api/v1/cms/users/",
+      BASE_URL + "/api/v1/cms/users/",
       username,
       password,
       1
@@ -114,7 +113,7 @@ $(document).ready(() => {
       //  console.log(dateinServerFormat);
       // alert("`Form data" + JSON.stringify(formData));
       const settings = {
-        url: "http://139.59.80.139/api/v1/cms/attendance/create",
+        url: BASE_URL + "/api/v1/cms/attendance/create",
         data: {
           status: formData.attendance === "present" ? true : false,
           user: formData.userId,
@@ -170,11 +169,11 @@ $(document).ready(() => {
 });
 
 fetchAttendanceData = () => {
-  const url = "http://139.59.80.139/api/v1/cms/attendance";
+  const url = BASE_URL + "/api/v1/cms/attendance";
   const _username = localStorage.getItem("mobileNumber");
   const _password = localStorage.getItem("otp");
   const settings = {
-    url: "http://139.59.80.139/api/v1/cms/attendance",
+    url: BASE_URL + "/api/v1/cms/attendance",
     method: "GET",
 
     beforeSend: xhr => {
@@ -188,7 +187,7 @@ fetchAttendanceData = () => {
   };
 
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/attendance",
+    BASE_URL + "/api/v1/cms/attendance",
     _username,
     _password,
     1
@@ -242,7 +241,7 @@ fetchAttendanceData = () => {
       const _password = localStorage.getItem("otp");
       //  console.log(attendance);
       const settings = {
-        url: "http://139.59.80.139/api/v1/cms/users/" + attendance.user,
+        url: BASE_URL + "/api/v1/cms/users/" + attendance.user,
         method: "GET",
 
         beforeSend: xhr => {

@@ -46,7 +46,7 @@ const sendOTP = () => {
     };
     //  console.log("DATA TO SEND", dataToSend);
     const settings = {
-      url: "http://139.59.80.139/otp/sendOTP",
+      url: BASE_URL + "/otp/sendOTP",
       data: dataToSend,
       method: "POST",
       beforeSend: function(xhr) {
@@ -94,7 +94,7 @@ const verifyOTP = () => {
   };
   //  console.log("DATA TO SEND", dataToSend);
   const settings = {
-    url: "http://139.59.80.139/otp/verifyOTP?frontEndClient=web-admin",
+    url: BASE_URL + "/otp/verifyOTP?frontEndClient=web-admin",
     data: dataToSend,
     method: "POST",
     beforeSend: function(xhr) {

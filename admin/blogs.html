@@ -33,6 +33,7 @@
 	<![endif]-->
 	<style>
 	</style>
+	<script src="./js/Globals.js"></script>
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -302,7 +303,7 @@
 				if (result.value) {
 					$.ajax({
 						method: 'DELETE',
-						url: `http://139.59.80.139/api/v1/cms/feeds/${$blogToBeDeleted.data('bid')}`,
+						url: BASE_URL + `/api/v1/cms/feeds/${$blogToBeDeleted.data('bid')}`,
 					
 	  beforeSend: function(xhr) {
 		xhr.setRequestHeader(

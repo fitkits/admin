@@ -5943,3 +5943,7 @@ textarea {
 .blog_item {
   cursor: pointer;
 }
+
+#users-table tr {
+  cursor: pointer;
+}

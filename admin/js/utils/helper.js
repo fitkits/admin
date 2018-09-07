@@ -1,4 +1,4 @@
-const BASE_URL = "http://139.59.80.139";
+
 $('[data-toggle="tooltip"]').tooltip();
 function ConvertFormToJSON(form) {
   const array = jQuery(form).serializeArray();

@@ -29,7 +29,7 @@ $(document).ready(() => {
   function fetchNextPage() {
     currentPage += 1;
 
-    // $.get('http://139.59.80.139/api/v1/cms/feeds/').done((blogs, textStatus, request) => {
+    // $.get('BASE_URL + `/api/v1/cms/feeds/').done((blogs, textStatus, request) => {
     // Create and insert the markup.
     //	appendMarkupToGrid(getItemMarkup(blogs));
 
@@ -117,7 +117,7 @@ $(document).ready(() => {
   }
 
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/feeds/",
+    BASE_URL + "/api/v1/cms/feeds/",
     username,
     password,
     1
@@ -162,7 +162,7 @@ $(document).ready(() => {
       // 	stack: 6
       // });
     });
-  // $.get('http://139.59.80.139/api/v1/cms/feeds/')
+  // $.get('BASE_URL + `/api/v1/cms/feeds/')
   // 	.done((blogs, textStatus, request) => {
   // 		BLOGS_LIST = blogs;
 
@@ -248,7 +248,7 @@ $(document).ready(() => {
 	var settings = {
 	  "async": true,
 	  "crossDomain": true,
-	  "url": "http://139.59.80.139/api/v1/cms/feeds/create",
+	  "url": BASE_URL + "/api/v1/cms/feeds/create",
 	  "method": "POST",
 
 	  beforeSend: function(xhr) {
@@ -341,7 +341,7 @@ $(document).ready(() => {
 		data.append("image", new FormData(form).get("blogImage"));
       $.ajax({
         method: "PATCH",
-        url: `http://139.59.80.139/api/v1/cms/feeds/${blogId}`,
+        url: BASE_URL + `/api/v1/cms/feeds/${blogId}`,
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader(
 			  "Authorization",

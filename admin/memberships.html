@@ -28,6 +28,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="./js/Globals.js"></script>
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -660,7 +661,7 @@
             };
             console.log(_data)
             settings = {
-                url: `http://139.59.80.139/api/v1/cms/subscriptions/create`,
+                url: BASE_URL + `/api/v1/cms/subscriptions/create`,
                 method: "POST",
                 data: JSON.stringify(_data),
 
@@ -677,7 +678,7 @@
                 console.log("create subscription", response);
 
                 settings = {
-                    url: `http://139.59.80.139/api/v1/cms/users/${$rowToBeApproved.data('uid')}`,
+                    url: BASE_URL + `/api/v1/cms/users/${$rowToBeApproved.data('uid')}`,
                     method: "PATCH",
 
                     beforeSend: function (xhr) {
@@ -728,7 +729,7 @@
             var $rowToBeDeleted = $(row).parents('tr');
             $.ajax({
                 method: 'DELETE',
-                url: `http://139.59.80.139/api/v1/cms/memberships/${$rowToBeDeleted.data('mid')}`,
+                url: BASE_URL + `/api/v1/cms/memberships/${$rowToBeDeleted.data('mid')}`,
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader(
                         "Authorization",

@@ -537,7 +537,7 @@ $(document).ready(() => {
    * ============================================
    */
   settings = {
-    url: "http://139.59.80.139/api/v1/cms/users/" + CURRENT_USER,
+    url: BASE_URL + "/api/v1/cms/users/" + CURRENT_USER,
     method: "GET",
 
     beforeSend: function(xhr) {
@@ -564,7 +564,7 @@ $(document).ready(() => {
    * ============================================
    */
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/attendance/",
+    BASE_URL + "/api/v1/cms/attendance/",
     username,
     password,
     1,
@@ -606,7 +606,7 @@ $(document).ready(() => {
    * ============================================
    */
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/answers/",
+    BASE_URL + "/api/v1/cms/answers/",
     username,
     password,
     1,
@@ -967,7 +967,7 @@ $(document).ready(() => {
     //POST EVERYTHING TO SERVER
 
     const settings = {
-      url: "http://139.59.80.139/api/v1/cms/studentAssessments/create",
+      url: BASE_URL + "/api/v1/cms/studentAssessments/create",
       data: {
         data: asessmentTemplate.data,
         user: CURRENT_USER

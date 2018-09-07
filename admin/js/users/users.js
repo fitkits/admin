@@ -35,7 +35,7 @@ $(document).ready(() => {
    */
 
   PaginatedAjax.get(
-    "http://139.59.80.139/api/v1/cms/users",
+    BASE_URL + "/api/v1/cms/users",
     username,
     password,
     1
@@ -53,7 +53,7 @@ $(document).ready(() => {
 
     USERS_LIST = fetchUsers;
     PaginatedAjax.get(
-      "http://139.59.80.139/api/v1/cms/memberships/",
+      BASE_URL + "/api/v1/cms/memberships/",
       username,
       password,
       1
@@ -70,7 +70,7 @@ $(document).ready(() => {
 
       MEMBERSHIPS_LIST = fetchMemberships;
       PaginatedAjax.get(
-        "http://139.59.80.139/api/v1/cms/subscriptions",
+        BASE_URL + "/api/v1/cms/subscriptions",
         username,
         password,
         1
@@ -147,7 +147,7 @@ $(document).ready(() => {
 
   // $("#add-managers-modal").on("show.bs.modal", function(e) {
   //   PaginatedAjax.get(
-  //     "http://139.59.80.139/api/v1/cms/users/",
+  //     BASE_URL + "/api/v1/cms/users/",
   //     username,
   //     password,
   //     1
@@ -202,7 +202,7 @@ $(document).ready(() => {
       // var settings = {
       //   async: true,
       //   crossDomain: true,
-      //   url: "http://139.59.80.139/api/v1/cms/users/create",
+      //   url: BASE_URL + "/api/v1/cms/users/create",
       //   method: "POST",
       //   headers: {
       //     "Content-Type": "application/json",
@@ -213,7 +213,7 @@ $(document).ready(() => {
       //   data: JSON.stringify(_data)
       // };
       const settings = {
-        url: "http://139.59.80.139/api/v1/cms/users/create",
+        url: BASE_URL + "/api/v1/cms/users/create",
         data: JSON.stringify(_data),
         method: "POST",
         processData: false,
@@ -244,7 +244,7 @@ $(document).ready(() => {
            * doing this as a workaround for image backdrop issue.
            * should find a fix soon
            */
-          // location.reload();
+          location.reload();
         })
         .fail(xhr => {
           swal({
@@ -256,7 +256,7 @@ $(document).ready(() => {
           $("#mark-attendance-modal").modal("toggle");
           $(".modal-backdrop").remove();
           // fetchAttendanceData();
-          // location.reload();
+          location.reload();
         });
     }
   });
