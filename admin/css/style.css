@@ -5947,3 +5947,11 @@ textarea {
 #users-table tr {
   cursor: pointer;
 }
+
+.input-group-addon {
+  width: 20px;
+  padding: 1rem;
+  background-image: url('../../assets/images/icon/calendar.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}

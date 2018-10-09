@@ -33,7 +33,8 @@ $(document).ready(() => {
     async: true,
     crossDomain: true,
     url:
-      BASE_URL + "/api/v1/analytics/subscriptions?type=subscriptions&"+
+      BASE_URL +
+      "/api/v1/analytics/subscriptions?type=subscriptions&" +
       `start=${getCurrentWeekMonday()}&end=${getTodayInServerFormat()}`,
     method: "GET",
 
@@ -228,6 +229,7 @@ MEMBERSHIP HISTORY TABLE
           //  console.log("USERS");
           let name = "";
           let _membership = "";
+          let cost = 0;
           USERS_LIST.map(user => {
             if (user._id === membership.user) {
               name = user.name != undefined ? user.name : "Unnamed USer";
@@ -235,14 +237,17 @@ MEMBERSHIP HISTORY TABLE
           });
           MEMBERSHIPS_LIST.map(mem => {
             if (mem._id === membership.membership) {
-              _membership = mem.name != undefined ? mem.name : "Unnamed USer";
+              _membership = mem.name != undefined ? mem.name : "Unnamed User";
+              cost = mem.cost;
             }
           });
 
           $table.append(
             `<tr data-mid = "${
               membership._id
-            }"><td>${name}</td><td> ${_membership}</td><td>
+            }"><td>${name}</td><td> ${_membership}</td>
+            <td>Rs. ${cost/100}</td>
+            <td>
             ${membership.startDate.split("T")[0]}</td><td>
             <span data-toggle="modal" data-target="#edit-membership-modal" data-mid="${
               membership._id
@@ -772,9 +777,11 @@ MEMBERSHIP PENDING TABLE
 
       $.ajax({
         method: "PATCH", // TODO: Server side fix
-        url: BASE_URL + `/api/v1/cms/memberships/${$(form)
-          .find("input[name=membership_id]")
-          .val()}`,
+        url:
+          BASE_URL +
+          `/api/v1/cms/memberships/${$(form)
+            .find("input[name=membership_id]")
+            .val()}`,
         beforeSend: function(xhr) {
           xhr.setRequestHeader(
             "Authorization",

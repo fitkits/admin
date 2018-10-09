@@ -43,12 +43,7 @@ $(document).ready(() => {
     // $("#attendance_datepicker").datepicker();
     // });
 
-    PaginatedAjax.get(
-      BASE_URL + "/api/v1/cms/users/",
-      username,
-      password,
-      1
-    )
+    PaginatedAjax.get(BASE_URL + "/api/v1/cms/users/", username, password, 1)
       .then(user_data => {
         console.log("USER", user_data);
         const user_pagination = user_data.map(datum => {
@@ -206,7 +201,9 @@ fetchAttendanceData = () => {
     let present = 0;
     const total = attendance_pagination.length;
     // //  console.log("aaa", attendance_pagination.reverse().slice(0, 10));
-    const top_ten = attendance_pagination.reverse().slice(0, attendance_pagination.length);
+    const top_ten = attendance_pagination
+      .reverse()
+      .slice(0, attendance_pagination.length);
     // //  console.log("top_ten", top_ten);
     attendance_pagination.map(attendance => {
       if (attendance.status) {
@@ -215,7 +212,7 @@ fetchAttendanceData = () => {
       const avg = (present / total) * 100;
       // console.log(avg, present, total);
       $("#attendance_avg_h1").text(
-        "Average attendance: " + avg.toFixed(2) + " %"
+        "Average Attendance % (All time) : " + avg.toFixed(2) + " %"
       );
       drawGauge(avg);
     });
@@ -272,7 +269,11 @@ fetchAttendanceData = () => {
                 ? "Present"
                 : "Absent"
               : "NA") +
-            "</td></tr>";
+            "</td>" +
+            "<td>" +
+            attendance.timestamp.split("T")[0] +
+            "</td>" +
+            "</tr>";
           $table.append(table_data_row);
           // var $j = jQuery.noConflict();
           // $j("#users-table").footable({

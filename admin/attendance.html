@@ -53,6 +53,12 @@
         $("#datepicker")
             .datepicker();
 
+        const today = new Date();
+        const date = today.getDate();
+        const month = today.getMonth() + 1;
+        const year = today.getFullYear();
+            $("#datepicker").val(`${month}/${date}/${year}`)
+
         $("#datepicker").on('changeDate', function (e) {
             console.log(e);
         });
@@ -148,6 +154,7 @@
                                                 <th>Name</th>
                                                 <th>Gender</th>
                                                 <th>Status</th>
+                                                <th>Date</th>
                                             </tr>
                                         </thead>
                                         <tbody id="attendance_table_body">
@@ -173,7 +180,7 @@
                             <div class="card-body">
                                 <div class="row form-material mb-0">
                                     <div class="col-12 col-md-12">
-                                        <h4 id="attendance_avg_h1" class="card-title">Average Attendance %</h4>
+                                        <h4 id="attendance_avg_h1" class="card-title">Average Attendance % (All time) </h4>
                                         <div class="attendance-gauge">
                                             <canvas style="width:100%" id="attendance-gauge"></canvas>
                                         </div>
@@ -205,7 +212,7 @@
                                         <div class="controls">
                                             <h5>Select Date</h5>
                                             <div class="input-group date" data-provide="datepicker">
-                                                <input id="datepicker" type="text" class="form-control">
+                                                <input id="datepicker" type="text"  class="form-control">
                                                 <div class="input-group-addon">
                                                     <span class="glyphicon glyphicon-th"></span>
                                                 </div>
