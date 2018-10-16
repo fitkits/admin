@@ -151,12 +151,12 @@ $(document).ready(() => {
             type: "error",
             confirmButtonColor: "#DD6B55"
           });
-          location.reload(); 
+          // location.reload(); 
         });
 
       $("#add-banner-modal").modal("toggle");
       $(".modal-backdrop").remove();
-      location.reload();
+      // location.reload();
     }
   });
 
@@ -259,12 +259,12 @@ $(document).ready(() => {
             confirmButtonColor: "#DD6B55"
           });
 
-              location.reload(); 
+              // location.reload(); 
         });
       event.preventDefault();
       $("#edit-banner-modal").modal("toggle");
       $(".modal-backdrop").remove();
-      location.reload();
+      // location.reload();
     }
   });
   $("#add-banner-modal").on("hidden.bs.modal", function(e) {
