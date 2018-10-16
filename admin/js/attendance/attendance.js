@@ -260,7 +260,7 @@ fetchAttendanceData = () => {
 
           let table_data_row =
             "<tr><td>" +
-            (user.name !== undefined ? user.name : "Unnamed User") +
+            (user.name !== undefined ? user.name : user.mobileNumber) +
             "</td><td>" +
             (user.gender ? user.gender : "NA") +
             "</td><td>" +

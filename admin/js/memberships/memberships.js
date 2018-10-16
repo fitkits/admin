@@ -232,12 +232,12 @@ MEMBERSHIP HISTORY TABLE
           let cost = 0;
           USERS_LIST.map(user => {
             if (user._id === membership.user) {
-              name = user.name != undefined ? user.name : "Unnamed USer";
+              name = user.name != undefined ? user.name : user.mobileNumber;
             }
           });
           MEMBERSHIPS_LIST.map(mem => {
             if (mem._id === membership.membership) {
-              _membership = mem.name != undefined ? mem.name : "Unnamed User";
+              _membership = mem.name != undefined ? mem.name : user.mobileNumber;
               cost = mem.cost;
             }
           });
@@ -336,12 +336,12 @@ MEMBERSHIP PENDING TABLE
       MEMBERSHIPS_PENDING_LIST.forEach(membership => {
         //  console.log("USERS");
         let name =
-          membership.name !== undefined ? membership.name : "Unnamed User";
+          membership.name !== undefined ? membership.name : user.mobileNumber;
         let _userid = membership._id;
         let _membership = "";
         MEMBERSHIPS_LIST.map(mem => {
           if (mem._id === membership.pendingMembership.membership) {
-            _membership = mem.name != undefined ? mem.name : "Unnamed User";
+            _membership = mem.name != undefined ? mem.name : user.mobileNumber;
             // console.log(_membership,name)
           }
         });
