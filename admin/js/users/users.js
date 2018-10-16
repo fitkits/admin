@@ -124,7 +124,7 @@ $(document).ready(() => {
           
           $table.append(
             `<tr onclick="redirectToUser(this)" data-uid = "${user._id}"><td>${
-              user.name !== undefined ? user.name : "Unnamed User"
+              user.name !== undefined ? user.name : user.mobileNumber
             }</td><td>${
               currentMembership && currentMembership.length !== 0
                 ? currentMembership.name
