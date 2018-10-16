@@ -115,12 +115,14 @@ $(document).ready(() => {
           const parsed_data  = JSON.parse(response);
           const newbanner = parsed_data.Banners;
           BANNERS_LIST.push(newbanner);
-          console.log(response);
+          console.log(newbanner, "new banner");
           $table.prepend(
             `<tr data-mid = "${newbanner._id}"><td>${
-              newbanner.name
-            }</td><td> ${newbanner.cost / 100}</td><td>
-						${newbanner.expiryDays}</td><td>
+              newbanner.title
+            }</td><td  style = " width: 128px;
+            height: 128px;">
+            <img   style = " width: 128px;
+            height: 128px;" src= ${BASE_URL + newbanner.image} /></td><td>
 							<span data-toggle="modal" data-target="#edit-banner-modal" data-mid="${
                 newbanner._id
               }">
@@ -151,12 +153,12 @@ $(document).ready(() => {
             type: "error",
             confirmButtonColor: "#DD6B55"
           });
-          // location.reload(); 
+          location.reload(); 
         });
 
       $("#add-banner-modal").modal("toggle");
       $(".modal-backdrop").remove();
-      // location.reload();
+      location.reload();
     }
   });
 
@@ -187,7 +189,17 @@ $(document).ready(() => {
       //  console.log("Converted JSON", _data, _data.name, _data.cost);
       data.append("title", _data.title);
       const tempData = new FormData(form);
-      if (tempData.has("bannerImage")) {
+      const currentBanner = BANNERS_LIST.find(banner => {
+        banner._id = ($(form)
+        .find("input[name=banner_id]")
+        .val());
+        
+        console.log("SUCCESS", banner._id);
+        return 1; 
+      })
+      const previousImage = currentBanner.image;
+      console.log(previousImage, tempData.get("bannerImage"));
+      if ( tempData.get("bannerImage").size !== 0 ) {
         data.append("image", tempData.get("bannerImage"));
       }
 
@@ -211,33 +223,37 @@ $(document).ready(() => {
         mimeType: "multipart/form-data"
       })
         .done((response, textStatus, request) => {
-          // const $table = $("#banner-plan-table tbody");
-          // const parsed_data = JSON.parse(response)
-          // const updatedbanner = parsed_data.Banners;
+          const $table = $("#banner-plan-table tbody");
+          const parsed_data = JSON.parse(response)
+          const updatedbanner = parsed_data.Banners;
         
-          // const updatebannerIndex = BANNERS_LIST.findIndex(banner => {
-          //   console.log("Banner",updatedbanner)
-          //   return banner._id === updatedbanner._id;
-          // });
-          // BANNERS_LIST[updatebannerIndex] = updatedbanner;
-          // const $bannerRow = $(
-          //   'tbody tr[data-mid="' + updatedbanner._id + '"]'
-          // );
-          // $bannerRow.replaceWith(
-          //   `<tr data-mid = "${updatedbanner._id}"><td>${
-          //     updatedbanner.title
-          //   }</td><td>
-					// 	<span data-toggle="modal" data-target="#edit-banner-modal" data-mid="${
-          //     updatedbanner._id
-          //   }">
-          //   <a data-toggle="tooltip" data-placement="top" title="Edit">
-					// 	<i class="fa fa-pencil text-inverse m-r-10"></i></a></span>
-					// 	<span onclick="deleteRow(this)">
-					// 	<a data-toggle="tooltip" data-placement="top" title="Delete">
-					// 	<i class="fa fa-trash text-inverse m-r-10"></i></a>
-					// 	</span>
-					// 	</td></tr>`
-          // );
+          const updatebannerIndex = BANNERS_LIST.findIndex(banner => {
+            console.log("Banner",updatedbanner)
+            return banner._id === updatedbanner._id;
+          });
+          BANNERS_LIST[updatebannerIndex] = updatedbanner;
+          const $bannerRow = $(
+            'tbody tr[data-mid="' + updatedbanner._id + '"]'
+          );
+          $bannerRow.replaceWith(
+            `<tr data-mid = "${updatedbanner._id}"><td>${
+              updatedbanner.title
+            }</td>
+            <td  style = " width: 128px;
+            height: 128px;">
+            <img   style = " width: 128px;
+            height: 128px;" src= ${BASE_URL + updatedbanner.image} /></td><td>
+						<span data-toggle="modal" data-target="#edit-banner-modal" data-mid="${
+              updatedbanner._id
+            }">
+            <a data-toggle="tooltip" data-placement="top" title="Edit">
+						<i class="fa fa-pencil text-inverse m-r-10"></i></a></span>
+						<span onclick="deleteRow(this)">
+						<a data-toggle="tooltip" data-placement="top" title="Delete">
+						<i class="fa fa-trash text-inverse m-r-10"></i></a>
+						</span>
+						</td></tr>`
+          );
           // <a data-toggle="tooltip" data-placement="top" title="Edit">
           // 			<i class="fa fa-pencil text-inverse m-r-10"></i></a></span>
           // 			<span onclick="deleteRow(this)">
@@ -259,12 +275,12 @@ $(document).ready(() => {
             confirmButtonColor: "#DD6B55"
           });
 
-              // location.reload(); 
+              location.reload(); 
         });
       event.preventDefault();
       $("#edit-banner-modal").modal("toggle");
       $(".modal-backdrop").remove();
-      // location.reload();
+      location.reload();
     }
   });
   $("#add-banner-modal").on("hidden.bs.modal", function(e) {
