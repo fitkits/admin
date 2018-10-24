@@ -139,14 +139,25 @@ $(document).ready(() => {
         });
         return a;
       });
-      const $table = $("#membership-plan-table tbody");
+      const $mem_plan_table = $("#membership-plan-table tbody");
 
       MEMBERSHIPS_LIST.forEach(membership => {
-        $table.append(
+        $mem_plan_table.append(
           `<tr data-mid = "${membership._id}"><td>${
             membership.name
           }</td><td> Rs. ${membership.cost / 100}</td><td>
-          ${membership.expiryDays}</td><td>
+          ${membership.expiryDays}</td>
+          <td>
+          <div class="form-check  ">
+              <input class="form-check-input" type="checkbox" name="membership_status" id="membership_status" disabled ${
+                membership.enabled ? "checked" : ""
+              }>
+              <label class="form-check-label" for="membership_status"> ${
+                membership.enabled ? "Enabled" : "Disabled"
+              } </label>
+          </div>
+          </td>
+          <td>
           <span data-toggle="modal" data-target="#edit-membership-modal" data-mid="${
             membership._id
           }">
@@ -219,7 +230,7 @@ MEMBERSHIP HISTORY TABLE
           });
           return a;
         });
-        const $table = $("#membership-history-table tbody");
+        const $mem_history_table = $("#membership-history-table tbody");
 
         MEMBERSHIPS_HISTORY_LIST = MEMBERSHIPS_HISTORY_LIST.reverse().slice(
           0,
@@ -237,16 +248,17 @@ MEMBERSHIP HISTORY TABLE
           });
           MEMBERSHIPS_LIST.map(mem => {
             if (mem._id === membership.membership) {
-              _membership = mem.name != undefined ? mem.name : user.mobileNumber;
+              _membership =
+                mem.name != undefined ? mem.name : user.mobileNumber;
               cost = mem.cost;
             }
           });
 
-          $table.append(
+          $mem_history_table.append(
             `<tr data-mid = "${
               membership._id
             }"><td>${name}</td><td> ${_membership}</td>
-            <td>Rs. ${cost/100}</td>
+            <td>Rs. ${cost / 100}</td>
             <td>
             ${membership.startDate.split("T")[0]}</td><td>
             <span data-toggle="modal" data-target="#edit-membership-modal" data-mid="${
@@ -298,55 +310,57 @@ MEMBERSHIP PENDING TABLE
     password,
     1,
     "isPendingMembership=true"
-  )
-    .then(data => {
-      //  console.log("MEMBERSHIP HISTORY", data);
-      data.map(datum => {
-        const a = [];
-        datum.Users.map(membership => {
-          MEMBERSHIPS_PENDING_LIST.push(membership);
-        });
-        return a;
+  ).then(data => {
+     console.log("MEMBERSHIP PENDING", data);
+    data.map(datum => {
+      const a = [];
+      datum.Users.map(membership => {
+        MEMBERSHIPS_PENDING_LIST.push(membership);
       });
-      // console.log(MEMBERSHIPS_PENDING_LIST);
-      // PaginatedAjax.get(
-      //   BASE_URL + "/api/v1/cms/users/",
-      //   username,
-      //   password,
-      //   1,
-      //   "paymentType=ONLINE"
-      // ).then(data => {
-      //   const onlineMemberships = [];
-      //   // //  console.log("DATA",data);
-      //   data.map(datum => {
-      //     const a = [];
-      //     datum.User.map(user => {
-      //       // //  console.log(user);
-      //       USERS_LIST.push(user);
-      //     });
-      //     return a;
-      //   });
-      const $table = $("#membership-pending-table tbody");
+      return a;
+    });
+    // console.log(MEMBERSHIPS_PENDING_LIST);
+    // PaginatedAjax.get(
+    //   BASE_URL + "/api/v1/cms/users/",
+    //   username,
+    //   password,
+    //   1,
+    //   "paymentType=ONLINE"
+    // ).then(data => {
+    //   const onlineMemberships = [];
+    //   // //  console.log("DATA",data);
+    //   data.map(datum => {
+    //     const a = [];
+    //     datum.User.map(user => {
+    //       // //  console.log(user);
+    //       USERS_LIST.push(user);
+    //     });
+    //     return a;
+    //   });
+    const $pending_table = $("#membership-pending-table tbody");
 
-      MEMBERSHIPS_PENDING_LIST = MEMBERSHIPS_PENDING_LIST.reverse().slice(
-        0,
-        MEMBERSHIPS_PENDING_LIST.length
-      );
+    MEMBERSHIPS_PENDING_LIST = MEMBERSHIPS_PENDING_LIST.reverse().slice(
+      0,
+      MEMBERSHIPS_PENDING_LIST.length
+    );
 
-      MEMBERSHIPS_PENDING_LIST.forEach(membership => {
-        //  console.log("USERS");
-        let name =
-          membership.name !== undefined ? membership.name : user.mobileNumber;
-        let _userid = membership._id;
-        let _membership = "";
-        MEMBERSHIPS_LIST.map(mem => {
-          if (mem._id === membership.pendingMembership.membership) {
-            _membership = mem.name != undefined ? mem.name : user.mobileNumber;
-            // console.log(_membership,name)
-          }
-        });
+    MEMBERSHIPS_PENDING_LIST.forEach(membership => {
+      //  console.log("USERS");
+      let name =
+        membership.name !== undefined
+          ? membership.name
+          : membership.mobileNumber;
+      let _userid = membership._id;
+      let _membership = "";
+      MEMBERSHIPS_LIST.map(mem => {
+        if (mem._id === membership.pendingMembership.membership) {
+          _membership =
+            mem.name != undefined ? mem.name : "NA";
+          // console.log(_membership,name)
+        }
+      });
 
-        $table.append(
+      $pending_table.append(
           `<tr data-mid = "${
             membership.pendingMembership.membership
           }" data-uid = "${_userid}"><td>${name}</td><td> ${_membership}</td><td>
@@ -357,36 +371,37 @@ MEMBERSHIP PENDING TABLE
             </span>`
         );
 
-        // <a data-toggle="tooltip" data-placement="top" title="Delete">
-        // <i class="fa fa-trash text-inverse m-r-10"></i></a>
-        // </span>
-        // </td></tr>
+      // <a data-toggle="tooltip" data-placement="top" title="Delete">
+      // <i class="fa fa-trash text-inverse m-r-10"></i></a>
+      // </span>
+      // </td></tr>
 
-        // <a data-toggle="tooltip" data-placement="top" title="Edit">
-        // <i class="fa fa-pencil text-inverse m-r-10"></i></a></span>
-        // <span onclick="deleteRow(this)">
-        // <a data-toggle="tooltip" data-placement="top" title="Delete">
-        // <i class="fa fa-trash text-inverse m-r-10"></i></a>
-        // </span>
-        // });
-        $("#membership-pending-table").footable({
-          sorting: {
-            enabled: true
-          }
-        });
-      });
-    })
-    .catch(xhr => {
-      $.toast({
-        heading: "Processing Error",
-        text: "Sorry, We cannot process your request now",
-        position: "top-left",
-        loaderBg: "#ff6849",
-        icon: "warning",
-        hideAfter: 10000,
-        stack: 6
+      // <a data-toggle="tooltip" data-placement="top" title="Edit">
+      // <i class="fa fa-pencil text-inverse m-r-10"></i></a></span>
+      // <span onclick="deleteRow(this)">
+      // <a data-toggle="tooltip" data-placement="top" title="Delete">
+      // <i class="fa fa-trash text-inverse m-r-10"></i></a>
+      // </span>
+      // });
+      $("#membership-pending-table").footable({
+        sorting: {
+          enabled: true
+        }
       });
     });
+  });
+  // .catch(xhr => {
+
+  //   $.toast({
+  //     heading: "Processing Error",
+  //     text: "Sorry, We cannot process your GG request now",
+  //     position: "top-left",
+  //     loaderBg: "#ff6849",
+  //     icon: "warning",
+  //     hideAfter: 10000,
+  //     stack: 6
+  //   });
+  // });
 
   $("#add-membership-form").validate({
     rules: {
@@ -436,19 +451,36 @@ MEMBERSHIP PENDING TABLE
         mimeType: "multipart/form-data"
       })
         .done((response, textStatus, request) => {
-          const $table = $("#membership-plan-table tbody");
+          const $mem_plan_table = $("#membership-plan-table tbody");
           const newMembership = response.Memberships;
           MEMBERSHIPS_LIST.push(newMembership);
           console.log(response);
-          $table.prepend(
+          $mem_plan_table.prepend(
             `<tr data-mid = "${newMembership._id}"><td>${
               newMembership.name
             }</td><td> ${newMembership.cost / 100}</td><td>
-						${newMembership.expiryDays}</td><td>
-							<span data-toggle="modal" data-target="#edit-membership-modal" data-mid="${
-                newMembership._id
-              }">
-							</td></tr>`
+            ${newMembership.expiryDays}</td>
+            <td>
+          <div class="form-check  ">
+          <input class="form-check-input" type="checkbox" name="membership_status" id="membership_status" disabled ${
+            newMembership.enabled ? "checked" : ""
+          }>
+          <label class="form-check-label" for="membership_status"> ${
+            newMembership.enabled ? "Enabled" : "Disabled"
+          } </label>
+      </div>
+          </td>
+          <td>
+          <span data-toggle="modal" data-target="#edit-membership-modal" data-mid="${
+            newMembership._id
+          }">
+          <a data-toggle="tooltip" data-placement="top" title="Edit">
+          <i class="fa fa-pencil text-inverse m-r-10"></i></a></span>
+          <span onclick="deleteRow(this)">
+          <a data-toggle="tooltip" data-placement="top" title="Delete">
+          <i class="fa fa-trash text-inverse m-r-10"></i></a>
+          </span>
+          </td></tr>`
           );
 
           /**
@@ -741,6 +773,14 @@ MEMBERSHIP PENDING TABLE
     modal.find("input[name=name]").val(currentMembership.name);
     modal.find("input[name=cost]").val(currentMembership.cost);
     modal.find("input[name=expiryDays]").val(currentMembership.expiryDays);
+    // modal.find("input[name=membership_status]").val(currentMembership.enabled ? "1" : "0");
+    if (currentMembership.enabled) {
+      console.log("CHEKED");
+      $("#membership_status_enabled").prop("checked", true);
+    } else {
+      console.log("CHEKED NOT", $("#memberhsip_status_disabled"));
+      $("#membership_status_disable").prop("checked", true);
+    }
     modal
       .find("#edit_membership_image")
       .text(currentMembership.image.split("/").pop());
@@ -769,7 +809,12 @@ MEMBERSHIP PENDING TABLE
       //  console.log("Converted JSON", _data, _data.name, _data.cost);
       data.append("name", _data.name);
       data.append("cost", _data.cost);
-      data.append("expiryDays", _data.expiryTime);
+      data.append("expiryDays", _data.expiryDays);
+      data.append(
+        "enabled",
+        _data.membership_status === "1" ? "true" : "false"
+      );
+      console.log("EDIT PATCH", JSON.stringify(_data));
       const tempData = new FormData(form);
       if (tempData.has("membershipImage")) {
         data.append("image", tempData.get("membershipImage"));
@@ -795,8 +840,8 @@ MEMBERSHIP PENDING TABLE
         mimeType: "multipart/form-data"
       })
         .done((response, textStatus, request) => {
-          const $table = $("#membership-plan-table tbody");
-          const updatedMembership = response.Membership;
+          const $mem_plan_table = $("#membership-plan-table tbody");
+          const updatedMembership = response.Memberships;
           const updateMembershipIndex = MEMBERSHIPS_LIST.findIndex(
             membership => {
               return membership._id === updatedMembership._id;
@@ -810,7 +855,18 @@ MEMBERSHIP PENDING TABLE
             `<tr data-mid = "${updatedMembership._id}"><td>${
               updatedMembership.name
             }</td><td> Rs. ${updatedMembership.cost / 100}</td><td>
-					${updatedMembership.expiryDays}</td><td>
+          ${updatedMembership.expiryDays}</td>
+          <td>
+          <div class="form-check  ">
+          <input class="form-check-input" type="checkbox" name="membership_status" id="membership_status" disabled ${
+            updatedMembership.enabled ? "checked" : ""
+          }>
+          <label class="form-check-label" for="membership_status"> ${
+            updatedMembership.enabled ? "Enabled" : "Disabled"
+          } </label>
+      </div>
+          </td>
+          <td>
 						<span data-toggle="modal" data-target="#edit-membership-modal" data-mid="${
               updatedMembership._id
             }">
@@ -895,7 +951,14 @@ MEMBERSHIP PENDING TABLE
     // });
   });
   $("#user-payment-raw-modal").on("show.bs.modal", function(e) {
-    buildDropdown(MEMBERSHIPS_LIST, $("#memberships-select-raw"));
+    const ACTIVE_MEMBERSHIPS_LIST = [];
+    MEMBERSHIPS_LIST.map(membership => {
+      if (membership.enabled) {
+        ACTIVE_MEMBERSHIPS_LIST.push(membership);
+      }
+    });
+
+    buildDropdown(ACTIVE_MEMBERSHIPS_LIST, $("#memberships-select-raw"));
     settings = {
       url: BASE_URL + "/api/v1/cms/users/",
       method: "GET",
