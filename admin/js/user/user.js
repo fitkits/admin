@@ -23,6 +23,12 @@ $(document).ready(() => {
   const $pageheading = $("#pageheading");
   const $gender = $("#gender");
   const $mobileNumber = $("#mobileNumber");
+  const $dob = $("#dob");
+  const $height = $("#height");
+  const weight = $("#weight");
+  const foodPref = $("#food-pref");
+  const bloodGroup = $("#blood-group");
+
   const $totalPresent = $("#totalPresent");
   const $totalAbsent = $("#totalAbsent");
   const $percentPresent = $("#percent_present");
@@ -556,6 +562,11 @@ $(document).ready(() => {
     $pageheading.text(data.name + "'s Profile");
     $gender.text(data.gender);
     $mobileNumber.text(data.mobileNumber);
+    $dob.text(data.dob ? moment(data.dob).format("Do-MMM-YYYY") : "NA");
+    $height.text(data.height ? `${data.height.toFixed(2)} cm` : "NA");
+    weight.text(data.weight ? `${data.weight.toFixed(1)} kg` : "NA");
+    foodPref.text(data.foodPreference ? data.foodPreference : "NA");
+    bloodGroup.text(data.bloodGroup ? data.bloodGroup : "NA");
   });
 
   /**
