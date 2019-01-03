@@ -1,24 +1,21 @@
 $(document).ready(() => {
-  
   if (
     localStorage.getItem("loggedIn") === undefined ||
     localStorage.getItem("loggedIn") === null
   ) {
     window.location.replace("/admin/login.html");
   }
-  
+
   getcurrentUserFromLocalStorage = () => {
     return localStorage.getItem("currentUser");
   };
-
-
 
   CURRENT_USER = getcurrentUserFromLocalStorage();
   ATTENDANCE_LIST = [];
   ANSWERS_LIST = [];
   WHOLE_USER_DATA = {};
-  const username = localStorage.getItem('mobileNumber');
-  const password = localStorage.getItem('otp');
+  const username = localStorage.getItem("mobileNumber");
+  const password = localStorage.getItem("otp");
   const $userName = $("#userName");
   const $pageheading = $("#pageheading");
   const $gender = $("#gender");
@@ -28,7 +25,6 @@ $(document).ready(() => {
   const weight = $("#weight");
   const foodPref = $("#food-pref");
   const bloodGroup = $("#blood-group");
-
   const $totalPresent = $("#totalPresent");
   const $totalAbsent = $("#totalAbsent");
   const $percentPresent = $("#percent_present");
@@ -37,6 +33,15 @@ $(document).ready(() => {
   /**
    * Assesment Related Variables
    */
+
+  // SCORES
+
+  const $balance_score = $("#balance_score");
+  const $flexibility_score = $("#flexibility_score");
+  const $strength_score = $("#strength_score");
+  const $muscle_score = $("#muscle_score");
+  const $cardio_score = $("#cardio_score");
+  const $posture_score = $("#posture_score");
 
   // BALANCE
   const $balance_eyes_closed_left = $('[name="balance_eyes_closed_left"]');
@@ -518,7 +523,13 @@ $(document).ready(() => {
             value: 0
           }
         }
-      }
+      },
+      balanceScore: 0,
+      flexibilityScore: 0,
+      cardioScore: 0,
+      muscleScore: 0,
+      postureScore: 0,
+      strengthScore: 0
     }
   };
 
@@ -661,7 +672,6 @@ $(document).ready(() => {
       //  console.log("error in paginatedAjax", err);
     });
 
-
   getCheckedRadio = (radiogroup, valueToUpdate) => {
     $.each(radiogroup, (index, value) => {
       let i = 0;
@@ -692,7 +702,20 @@ $(document).ready(() => {
   getTextBoxValAndUpdate = (textbox, valueToUpdate) => {
     valueToUpdate.value = textbox.val();
   };
+
+  getTextBoxValAndUpdateForScore = (textbox, valueToUpdate) => {
+    valueToUpdate = textbox.val();
+  };
+
   saveAssesment = function() {
+    //SCORE
+    asessmentTemplate.data.balanceScore = $balance_score.val();
+    asessmentTemplate.data.flexibilityScore = $flexibility_score.val();
+    asessmentTemplate.data.strengthScore = $strength_score.val();
+    asessmentTemplate.data.muscleScore = $muscle_score.val();
+    asessmentTemplate.data.cardioScore = $cardio_score.val();
+    asessmentTemplate.data.postureScore = $posture_score.val();
+
     //BALANCE
     //EYES CLOSED LEFT
     getCheckedRadio(
@@ -973,7 +996,7 @@ $(document).ready(() => {
       $posture_posterior_legs,
       asessmentTemplate.data.posture.posterior.legs
     );
-    //  console.log(asessmentTemplate);
+    console.log("ASSESMENT TEMPLATE", asessmentTemplate);
 
     //POST EVERYTHING TO SERVER
 
