@@ -105,8 +105,8 @@ $(document).ready(() => {
         "-" +
         date +
         "T00:00:00.000Z";
-      //  console.log(dateinServerFormat);
-      // alert("`Form data" + JSON.stringify(formData));
+       console.log(dateinServerFormat);
+      alert("`Form data" + JSON.stringify(formData));
       const settings = {
         url: BASE_URL + "/api/v1/cms/attendance/create",
         data: {
