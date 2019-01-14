@@ -112,8 +112,8 @@ $(document).ready(() => {
       })
         .done((response, textStatus, request) => {
           const $table = $("#banner-plan-table tbody");
-          const parsed_data  = JSON.parse(response);
-          const newbanner = parsed_data.Banners;
+          // const parsed_data  = JSON.parse(response);
+          const newbanner = response.Banners;
           BANNERS_LIST.push(newbanner);
           console.log(newbanner, "new banner");
           $table.prepend(
@@ -145,6 +145,9 @@ $(document).ready(() => {
             showConfirmButton: false,
             timer: 1500
           });
+          $("#add-banner-modal").modal("toggle");
+          $(".modal-backdrop").remove();
+          location.reload();
         })
         .fail(xhr => {
           swal({
@@ -153,12 +156,13 @@ $(document).ready(() => {
             type: "error",
             confirmButtonColor: "#DD6B55"
           });
+          $("#add-banner-modal").modal("toggle");
+          $(".modal-backdrop").remove();
           location.reload(); 
         });
 
-      $("#add-banner-modal").modal("toggle");
-      $(".modal-backdrop").remove();
-      location.reload();
+
+    
     }
   });
 
@@ -224,8 +228,8 @@ $(document).ready(() => {
       })
         .done((response, textStatus, request) => {
           const $table = $("#banner-plan-table tbody");
-          const parsed_data = JSON.parse(response)
-          const updatedbanner = parsed_data.Banners;
+          // const parsed_data = JSON.parse(response)
+          const updatedbanner = response.Banners;
         
           const updatebannerIndex = BANNERS_LIST.findIndex(banner => {
             console.log("Banner",updatedbanner)
@@ -266,6 +270,9 @@ $(document).ready(() => {
             showConfirmButton: false,
             timer: 1500
           });
+          $("#edit-banner-modal").modal("toggle");
+          $(".modal-backdrop").remove();
+          location.reload();
         })
         .fail(xhr => {
           swal({
@@ -275,12 +282,12 @@ $(document).ready(() => {
             confirmButtonColor: "#DD6B55"
           });
 
-              location.reload(); 
+          $("#edit-banner-modal").modal("toggle");
+          $(".modal-backdrop").remove();
+          location.reload();
         });
       event.preventDefault();
-      $("#edit-banner-modal").modal("toggle");
-      $(".modal-backdrop").remove();
-      location.reload();
+
     }
   });
   $("#add-banner-modal").on("hidden.bs.modal", function(e) {
