@@ -13,7 +13,10 @@ $(document).ready(() => {
   CURRENT_USER = getcurrentUserFromLocalStorage();
   ATTENDANCE_LIST = [];
   ANSWERS_LIST = [];
+  STUDENT_ASSESSMENT_LIST = [];
   WHOLE_USER_DATA = {};
+  currentAssessment = {};
+  assessmentReadOnly = true;
   const username = localStorage.getItem("mobileNumber");
   const password = localStorage.getItem("otp");
   const $userName = $("#userName");
@@ -29,7 +32,7 @@ $(document).ready(() => {
   const $totalAbsent = $("#totalAbsent");
   const $percentPresent = $("#percent_present");
   const $table = $("#user-metric-table");
-
+  const $assessmentTable = $("#user-assessment-table");
   /**
    * Assesment Related Variables
    */
@@ -170,7 +173,7 @@ $(document).ready(() => {
   const $posture_posterior_trunk = $("#posture_posterior_trunk");
   const $posture_posterior_back = $("#posture_posterior_back");
   const $posture_posterior_legs = $("#posture_posterior_legs");
-  const asessmentTemplate = {
+  asessmentTemplate = {
     data: {
       balance: {
         eyesOpened: {
@@ -672,6 +675,53 @@ $(document).ready(() => {
       //  console.log("error in paginatedAjax", err);
     });
 
+  /**
+   * ============================================
+   * GET ASSESSMENT DETAILS
+   * ============================================
+   */
+  PaginatedAjax.get(
+    BASE_URL + "/api/v1/cms/studentAssessments/",
+    username,
+    password,
+    1,
+    "user=" + CURRENT_USER
+  )
+    .then(data => {
+      const user_pagination = data.map(datum => {
+        const a = [];
+        datum.StudentAssessments.map(assessment => {
+          //  console.log("ASSESSMENT",assessment);
+          STUDENT_ASSESSMENT_LIST.push(assessment);
+        });
+
+        return a;
+      });
+      STUDENT_ASSESSMENT_LIST.map(assessment => {
+        console.log("ASSESSMENT", assessment.modifiedAt.split("T")[0]);
+        $assessmentTable.append(
+          `<tr onclick=redirectToAssessment(this) data-mid = "${
+            assessment._id
+          }"><td>
+            ${assessment.modifiedAt.split("T")[0]}</td><tr>`
+        );
+        // <a data-toggle="tooltip" data-placement="top" title="Edit">
+        // <i class="fa fa-pencil text-inverse m-r-10"></i></a></span>
+        // <span onclick="deleteRow(this)">
+        // <a data-toggle="tooltip" data-placement="top" title="Delete">
+        // <i class="fa fa-trash text-inverse m-r-10"></i></a>
+        // </span>
+      });
+      $("#user-assessment-table").footable({
+        sorting: {
+          enabled: true
+        }
+      });
+    })
+    .catch(err => {
+      //  console.log("error in paginatedAjax", err);
+    });
+
   getCheckedRadio = (radiogroup, valueToUpdate) => {
     $.each(radiogroup, (index, value) => {
       let i = 0;
@@ -691,6 +741,30 @@ $(document).ready(() => {
       }
     });
   };
+
+  setCheckedRadio = (radiogroup, valueToUpdate) => {
+    // console.log("RADIO GROUP", radiogroup);
+    if (valueToUpdate.lessThan30.value === "1") {
+      // console.log("Checked 0");
+      radiogroup[0].checked = true;
+    }
+
+    if (valueToUpdate.greaterThanEqualTo30.value === "1") {
+      // console.log("Checked 1");
+      radiogroup[1].checked = true;
+    }
+    if (valueToUpdate.equalTo60.value === "1") {
+      // console.log("Checked 2");
+      radiogroup[2].checked = true;
+    }
+    console.log(
+      "RADIO GROUP",
+      radiogroup[0].checked,
+      radiogroup[1].checked,
+      radiogroup[2].checked
+    );
+  };
+
   enableCheckBoxValue = (checkbox, valueToUpdate) => {
     //  console.log(checkbox[0].checked);
     if (checkbox[0].checked) {
@@ -699,14 +773,318 @@ $(document).ready(() => {
       valueToUpdate.no.value = 1;
     }
   };
+
+  setCheckBoxValue = (checkbox, valueToUpdate) => {
+    console.log(valueToUpdate);
+    if (valueToUpdate.yes.value === "1") {
+      console.log("VALUE IS YES FOR ", checkbox);
+      checkbox[0].checked = true;
+    } else {
+      checkbox[0].checked = false;
+    }
+  };
   getTextBoxValAndUpdate = (textbox, valueToUpdate) => {
     valueToUpdate.value = textbox.val();
+  };
+
+  setTextBoxValAndUpdate = (textbox, valueToUpdate) => {
+    // console.log("Setting value", textbox);
+    textbox.val(valueToUpdate.value);
   };
 
   getTextBoxValAndUpdateForScore = (textbox, valueToUpdate) => {
     valueToUpdate = textbox.val();
   };
 
+  setTextBoxValAndUpdateForScore = (textbox, valueToUpdate) => {
+    textbox.val(valueToUpdate);
+  };
+
+  // set initialvalues
+
+  setInitialValues = () => {
+    //BALANCE
+    //EYES CLOSED LEFT
+    setCheckedRadio(
+      $balance_eyes_closed_left,
+      asessmentTemplate.data.balance.eyesClosed.left
+    );
+    //EYES CLOSED RIGHT
+    setCheckedRadio(
+      $balance_eyes_closed_right,
+      asessmentTemplate.data.balance.eyesClosed.right
+    );
+    //EYES OPENED LEFT
+    setCheckedRadio(
+      $balance_eyes_opened_left,
+      asessmentTemplate.data.balance.eyesOpened.left
+    );
+    //EYES OPENED LEFT
+    setCheckedRadio(
+      $balance_eyes_opened_right,
+      asessmentTemplate.data.balance.eyesOpened.right
+    );
+
+    //STRENGTH
+    setCheckedRadio($strength_plank, asessmentTemplate.data.strength.plank);
+    setCheckedRadio(
+      $strength_squat_hold,
+      asessmentTemplate.data.strength.squatHold
+    );
+    setCheckedRadio($strength_pushups, asessmentTemplate.data.strength.pushUps);
+    setCheckedRadio($strength_pullups, asessmentTemplate.data.strength.pullUps);
+    setCheckedRadio(
+      $strength_chin_ups,
+      asessmentTemplate.data.strength.chinUps
+    );
+    setCheckedRadio($strength_squat, asessmentTemplate.data.strength.squat);
+
+    //FLEXIBILITY
+    //TOETOUCH
+    setCheckBoxValue($toeTouch, asessmentTemplate.data.flexibility.toeTouch);
+    //SITANDREACH
+    setCheckBoxValue(
+      $sitAndReach,
+      asessmentTemplate.data.flexibility.sitAndReach
+    );
+    //COBRA
+    setCheckBoxValue($cobra, asessmentTemplate.data.flexibility.cobra);
+    //SQUAD
+    setCheckBoxValue($quad, asessmentTemplate.data.flexibility.quad);
+
+    setTextBoxValAndUpdate(
+      $bicep_curl_left,
+      asessmentTemplate.data.oneRm.bicepCurl.maxKgLeft
+    );
+    setTextBoxValAndUpdate(
+      $bicep_curl_right,
+      asessmentTemplate.data.oneRm.bicepCurl.maxKgRight
+    );
+    setTextBoxValAndUpdate(
+      $tricep_extension_left,
+      asessmentTemplate.data.oneRm.singleArmTricepExtension.maxKgLeft
+    );
+    setTextBoxValAndUpdate(
+      $tricep_extension_right,
+      asessmentTemplate.data.oneRm.singleArmTricepExtension.maxKgRight
+    );
+    setTextBoxValAndUpdate(
+      $bench_press_right,
+      asessmentTemplate.data.oneRm.benchPressChest.maxKgLeft
+    );
+    setTextBoxValAndUpdate(
+      $bench_press_left,
+      asessmentTemplate.data.oneRm.benchPressChest.maxKgRight
+    );
+    setTextBoxValAndUpdate(
+      $shoulder_press_left,
+      asessmentTemplate.data.oneRm.shoulderPress.maxKgLeft
+    );
+    setTextBoxValAndUpdate(
+      $shoulder_press_right,
+      asessmentTemplate.data.oneRm.shoulderPress.maxKgRight
+    );
+
+    //MUSCLE ENDURANCE
+
+    setTextBoxValAndUpdate(
+      $muscle_biceps_curl_maxkgleft,
+      asessmentTemplate.data.muscleEndurance.bicepCurl.kg
+    );
+    setTextBoxValAndUpdate(
+      $muscle_biceps_curl_5rm_leftleft,
+      asessmentTemplate.data.muscleEndurance.bicepCurl.fiveRmLeft
+    );
+    setTextBoxValAndUpdate(
+      $muscle_biceps_curl_5rm_rightright,
+      asessmentTemplate.data.muscleEndurance.bicepCurl.fiveRmRight
+    );
+    setTextBoxValAndUpdate(
+      $muscle_biceps_curl_10rm_leftleft,
+      asessmentTemplate.data.muscleEndurance.bicepCurl.tenRmLeft
+    );
+    setTextBoxValAndUpdate(
+      $muscle_biceps_curl_10rm_rightleft,
+      asessmentTemplate.data.muscleEndurance.bicepCurl.tenRmRight
+    );
+
+    setTextBoxValAndUpdate(
+      $muscle_triceps_extension_maxkgleft,
+      asessmentTemplate.data.muscleEndurance.singleArmTricepExtension.kg
+    );
+    setTextBoxValAndUpdate(
+      $muscle_triceps_extension_5rm_leftleft,
+      asessmentTemplate.data.muscleEndurance.singleArmTricepExtension.fiveRmLeft
+    );
+    setTextBoxValAndUpdate(
+      $muscle_triceps_extension_5rm_rightright,
+      asessmentTemplate.data.muscleEndurance.singleArmTricepExtension
+        .fiveRmRight
+    );
+    setTextBoxValAndUpdate(
+      $muscle_triceps_extension_10rm_leftleft,
+      asessmentTemplate.data.muscleEndurance.singleArmTricepExtension.tenRmLeft
+    );
+    setTextBoxValAndUpdate(
+      $muscle_triceps_extension_10rm_rightleft,
+      asessmentTemplate.data.muscleEndurance.singleArmTricepExtension.tenRmRight
+    );
+
+    setTextBoxValAndUpdate(
+      $muscle_bench_press_maxkgleft,
+      asessmentTemplate.data.muscleEndurance.benchPressChest.kg
+    );
+    setTextBoxValAndUpdate(
+      $muscle_bench_press_5rm_leftleft,
+      asessmentTemplate.data.muscleEndurance.benchPressChest.fiveRmLeft
+    );
+    setTextBoxValAndUpdate(
+      $muscle_bench_press_5rm_rightright,
+      asessmentTemplate.data.muscleEndurance.benchPressChest.fiveRmRight
+    );
+    setTextBoxValAndUpdate(
+      $muscle_bench_press_10rm_leftleft,
+      asessmentTemplate.data.muscleEndurance.benchPressChest.tenRmLeft
+    );
+    setTextBoxValAndUpdate(
+      $muscle_bench_press_10rm_rightleft,
+      asessmentTemplate.data.muscleEndurance.benchPressChest.tenRmRight
+    );
+
+    setTextBoxValAndUpdate(
+      $muscle_shoulder_press_maxkgleft,
+      asessmentTemplate.data.muscleEndurance.shoulderPress.kg
+    );
+    setTextBoxValAndUpdate(
+      $muscle_shoulder_press_5rm_leftleft,
+      asessmentTemplate.data.muscleEndurance.shoulderPress.fiveRmLeft
+    );
+    setTextBoxValAndUpdate(
+      $muscle_shoulder_press_5rm_rightright,
+      asessmentTemplate.data.muscleEndurance.shoulderPress.fiveRmRight
+    );
+    setTextBoxValAndUpdate(
+      $muscle_shoulder_press_10rm_leftleft,
+      asessmentTemplate.data.muscleEndurance.shoulderPress.tenRmLeft
+    );
+    setTextBoxValAndUpdate(
+      $muscle_shoulder_press_10rm_rightleft,
+      asessmentTemplate.data.muscleEndurance.shoulderPress.tenRmRight
+    );
+
+    setTextBoxValAndUpdate(
+      $muscle_squats_maxkgleft,
+      asessmentTemplate.data.muscleEndurance.squat.kg
+    );
+    setTextBoxValAndUpdate(
+      $muscle_squats_5rm_leftleft,
+      asessmentTemplate.data.muscleEndurance.squat.fiveRmLeft
+    );
+    setTextBoxValAndUpdate(
+      $muscle_squats_5rm_rightright,
+      asessmentTemplate.data.muscleEndurance.squat.fiveRmRight
+    );
+    setTextBoxValAndUpdate(
+      $muscle_squats_10rm_leftleft,
+      asessmentTemplate.data.muscleEndurance.squat.tenRmLeft
+    );
+    setTextBoxValAndUpdate(
+      $muscle_squats_10rm_rightleft,
+      asessmentTemplate.data.muscleEndurance.squat.tenRmRight
+    );
+
+    //CARDIOVASCULAR
+    setTextBoxValAndUpdate(
+      $cardio_low_intensity_jog,
+      asessmentTemplate.data.cardiovascular.lowIntensity.twelveMinJogOrWalk
+    );
+    setTextBoxValAndUpdate(
+      $cardio_medium_intensity_jog,
+      asessmentTemplate.data.cardiovascular.mediumIntensity.twelveMinJogOrWalk
+    );
+    setTextBoxValAndUpdate(
+      $cardio_high_intensity_jog,
+      asessmentTemplate.data.cardiovascular.highIntensity.twelveMinJogOrWalk
+    );
+
+    //POSTURE
+    setTextBoxValAndUpdate(
+      $posture_anterior_neck,
+      asessmentTemplate.data.posture.anterior.neck
+    );
+    setTextBoxValAndUpdate(
+      $posture_anterior_shoulder,
+      asessmentTemplate.data.posture.anterior.shoulders
+    );
+    setTextBoxValAndUpdate(
+      $posture_anterior_arm,
+      asessmentTemplate.data.posture.anterior.arm
+    );
+    setTextBoxValAndUpdate(
+      $posture_anterior_trunk,
+      asessmentTemplate.data.posture.anterior.trunk
+    );
+    setTextBoxValAndUpdate(
+      $posture_anterior_back,
+      asessmentTemplate.data.posture.anterior.back
+    );
+    setTextBoxValAndUpdate(
+      $posture_anterior_legs,
+      asessmentTemplate.data.posture.anterior.legs
+    );
+
+    setTextBoxValAndUpdate(
+      $posture_lateral_neck,
+      asessmentTemplate.data.posture.lateral.neck
+    );
+    setTextBoxValAndUpdate(
+      $posture_lateral_shoulder,
+      asessmentTemplate.data.posture.lateral.shoulders
+    );
+    setTextBoxValAndUpdate(
+      $posture_lateral_arm,
+      asessmentTemplate.data.posture.lateral.arm
+    );
+    setTextBoxValAndUpdate(
+      $posture_lateral_trunk,
+      asessmentTemplate.data.posture.lateral.trunk
+    );
+    setTextBoxValAndUpdate(
+      $posture_lateral_back,
+      asessmentTemplate.data.posture.lateral.back
+    );
+    setTextBoxValAndUpdate(
+      $posture_lateral_legs,
+      asessmentTemplate.data.posture.lateral.legs
+    );
+
+    setTextBoxValAndUpdate(
+      $posture_posterior_neck,
+      asessmentTemplate.data.posture.posterior.neck
+    );
+    setTextBoxValAndUpdate(
+      $posture_posterior_shoulder,
+      asessmentTemplate.data.posture.posterior.shoulders
+    );
+    setTextBoxValAndUpdate(
+      $posture_posterior_arm,
+      asessmentTemplate.data.posture.posterior.arm
+    );
+    setTextBoxValAndUpdate(
+      $posture_posterior_trunk,
+      asessmentTemplate.data.posture.posterior.trunk
+    );
+    setTextBoxValAndUpdate(
+      $posture_posterior_back,
+      asessmentTemplate.data.posture.posterior.back
+    );
+    setTextBoxValAndUpdate(
+      $posture_posterior_legs,
+      asessmentTemplate.data.posture.posterior.legs
+    );
+  };
+
+  setInitialValues();
   saveAssesment = function() {
     //SCORE
     asessmentTemplate.data.balanceScore = $balance_score.val();

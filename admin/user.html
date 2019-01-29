@@ -394,7 +394,51 @@
                                 </div>
                             </div>
                         </div>
+                    <!-- ======================================= -->
+                    <!-- USER  STATS TABLE                       -->
+                    <!-- ======================================= -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row form-material mb-0">
+                                <div class="col-12 col-md-8">
+                                    <h4 class="card-title">User Assessment</h4>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group mb-0">
+                                        <div class="controls">
+                                            <input id="userassessmentFilter" class="form-control" placeholder="Search Stats" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive m-t-40">
+                                <table id="user-assessment-table" class="table footable table-bordered table-striped border-0" class="table footable table-bordered table-striped border-0"
+                                    data-paging="true" data-sorting="true" data-page-size="12" data-page-navigation=".pagination"
+                                    data-filter="#userFilter" data-filter-text-only="true">
+                                    <thead>
+                                        <tr>
+                                            <th>Assessment Logged Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2" class="border-0">
+                                            </td>
+                                            <td colspan="7" class="border-0">
+                                                <div class="text-right" id="paging-ui-container">
+                                                    <ul class="pagination"> </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
                     </div>
+                    
+                </div>
                     <div class="tab-pane fade" id="assesment" role="tabpanel" aria-labelledby="profile-tab">
                         <!-- ============================================= -->
                         <!-- ASSESMENT FORM -->
@@ -417,8 +461,8 @@
                                         <div class="col-6">
                                             <h5>Eyes Closed - left</h5>
                                             <div class="col-12">
-                                                <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" name="balance_eyes_closed_left" id="balance_eyes_closed_left_zero" value="0">
+                                                <div class="form-check">
+                                                    <input class="form-check-input"  type="radio" name="balance_eyes_closed_left" id="balance_eyes_closed_left_zero" value="0">
                                                     <label class="form-check-label" for="balance_eyes_closed_left_zero"> &lt; 30s</label>
                                                 </div>
                                                 <div class="form-check  ">
@@ -1172,10 +1216,16 @@
         })
 
 
-        const redirectToUser = function (target) {
-            console.log();
-            localStorage.setItem("currentUser", target.getAttribute('data-uid'))
-            window.location.replace("/user.html");
+        const redirectToAssessment = function (target) {
+            console.log(target.dataset.mid, asessmentTemplate);
+            currentAssessment = STUDENT_ASSESSMENT_LIST.filter(assessment => {
+                console.log(assessment._id, target.dataset.mid);
+                return assessment._id === target.dataset.mid;
+            });
+            console.log(currentAssessment,asessmentTemplate);
+            asessmentTemplate = currentAssessment[0];
+            setInitialValues(currentAssessment.data);              
+             $('#userTab a[href="#assesment"]').tab("show");
         }
     </script>
 </body>
