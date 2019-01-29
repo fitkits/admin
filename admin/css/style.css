@@ -5944,7 +5944,7 @@ textarea {
   cursor: pointer;
 }
 
-#users-table tr {
+#users-table tr , #user-assessment-table tr {
   cursor: pointer;
 }
 
